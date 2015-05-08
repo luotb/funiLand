@@ -13,22 +13,29 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
     @IBOutlet var myTableView: UITableView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabel: UILabel!
-    @IBOutlet var dottedlineImageView: UIImageView!
     
-    var landInfoObj: LandInfoDomain = LandInfoDomain()
     var landDomain: LandDomain!
+    
+    var landInfoObj: LandInfoDomain = LandInfoDomain() {
+        willSet{
+            self.titleLabel.text = newValue.title
+            var str = ""
+            if let area = newValue.area {
+                str += area
+            }
+            
+            if let date = newValue.date {
+                str += date
+            }
+            
+            self.subTitleLabel.text = str
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
-        self.drawDottedLine()
-        if landDomain == nil {
-            landDomain = LandDomain()
-            landDomain.id = "888"
-        }
-        
         self.queryData()
-//        print("title:\(landDomain.title)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,8 +60,6 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
         HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
             if landInfo != nil {
                 self.landInfoObj = landInfo!
-                self.titleLabel.text = landInfo!.title
-                self.subTitleLabel.text = landInfo!.area! + "  " + landInfo!.date!
             } else {
                 self.landInfoObj = LandInfoDomain()
             }
@@ -69,22 +74,33 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
     // MARK: - Table view data source and delegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 71
+        return 25
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return (self.landInfoObj.fieldList?.count)!
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if self.landInfoObj.fieldList?.count > 0 {
-            return self.landInfoObj.fieldList![section].group
-        }
-        return ""
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 25
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if self.landInfoObj.fieldList?.count > 0 {
+            
+            let view = UIView(frame: CGRectMake(0, 0, APPWIDTH, 30))
+            
+            let dashedLineView = DashedLineView(frame: CGRectMake(10, 0, APPWIDTH-20, 1))
+            view.addSubview(dashedLineView)
+            
+            let label = UILabel(frame: CGRectMake(20, 13, APPWIDTH-40, 16))
+            label.textColor = UIColor.colorFromHexString("#ED6715")
+            label.text = self.landInfoObj.fieldList![section].group
+            view.addSubview(label)
+            
+            return view
+        }
+        return nil
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,10 +132,29 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
         
     }
     
+    // 周边按钮点击
+    @IBAction func rimBtnClicked(sender: UIButton) {
+//        (85.247007395705, 112.499987678415)
+//        (50.7819511942915, 55.5469078074573)
+//        (0.0999999866806469, 0.101237958245349)
+//        (0.0999999866365897, 0.101237958245406)
+        self.landInfoObj.lat = 30.6709490000
+        self.landInfoObj.lng = 104.0984620000
+        if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
+            let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
+            
+            let rimInfoReqDomain = RimInfoReqDomain()
+            rimInfoReqDomain.lat = self.landInfoObj.lat
+            rimInfoReqDomain.lng = self.landInfoObj.lng
+            mapVC.rimInfoReqDomain = rimInfoReqDomain
+            self.navigationController?.pushViewController(mapVC, animated: true)
+        }
+    }
+    
     // 画虚线
-    func drawDottedLine() {
-        UIGraphicsBeginImageContext(dottedlineImageView.size)
-        dottedlineImageView.image?.drawInRect(CGRectMake(0, 0, dottedlineImageView.width, dottedlineImageView.height))
+    func drawDottedLine(imageView: UIImageView) {
+        UIGraphicsBeginImageContext(imageView.size)
+        imageView.image?.drawInRect(CGRectMake(0, 0, imageView.width, imageView.height))
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), CGLineCap.Round)
         let lengths:[CGFloat] = [10,5]
         let line = UIGraphicsGetCurrentContext();
@@ -129,7 +164,17 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
         CGContextMoveToPoint(line, 0.0, 20.0);    //开始画线
         CGContextAddLineToPoint(line, 310.0, 20.0);
         CGContextStrokePath(line);
-        dottedlineImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    func drawInContext(view: UIView) {
+        let context: CGContextRef = UIGraphicsGetCurrentContext()!
+        
+        let lengths: [CGFloat] = [CGFloat(APPWIDTH-20)]
+        CGContextSetLineDash(context, 0, lengths, 2)
+        
+        CGContextMoveToPoint(context, view.x, view.y)
+        CGContextAddLineToPoint(context, CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame))
     }
 
 }

@@ -41,25 +41,15 @@ class TabBarViewController: UITabBarController {
         //.设置底部工具栏文字颜色（默认状态和选中状态）
         UITabBarItem.appearance().setTitleTextAttributes(NSDictionary(object:UIColor.whiteColor(), forKey:NSForegroundColorAttributeName) as? [String : AnyObject], forState:UIControlState.Normal);
         UITabBarItem.appearance().setTitleTextAttributes(NSDictionary(object:UIColor.colorFromHexString("#FFF000"), forKey:NSForegroundColorAttributeName) as? [String : AnyObject], forState:UIControlState.Selected)
-        //self.tabBar.tintColorDidChange()=UIColor.greenColor();
-        //    let viewBar=UIView(frame:CGRectMake(,,UIScreen.mainScreen().bounds.width, ));
-        //    viewBar.backgroundColor=UIColor(patternImage:UIImage(named:"TabbarBg.png")!);
-        //    self.tabBar.insertSubview(viewBar, atIndex:)
-        //    self.tabBar.opaque=true
-        //    self.tabBar.tintColor=UIColor.appMainColor();
     }
     
     private func addChildViewController(childController: UIViewController, title: String, imageName: String, selectedImageName: String, navController: UINavigationController) {
         
         // 设置子控制器的图片
-//        childController.tabBarItem.image = UIImage(named: imageName)!
-//        childController.tabBarItem.selectedImage = UIImage(named: selectedImageName)!
-        
         childController.tabBarItem.image = UIImage(named: imageName)!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         childController.tabBarItem.selectedImage = UIImage(named: selectedImageName)!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
         childController.title = title
-        
         
         addChildViewController(navController)
         

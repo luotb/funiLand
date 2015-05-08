@@ -10,7 +10,7 @@ import UIKit
 
 class BaseRespDomain: Mappable {
     
-    var code: Int?
+    var code: String?
     var remark: String?
     var total: Int?
     var data: AnyObject?

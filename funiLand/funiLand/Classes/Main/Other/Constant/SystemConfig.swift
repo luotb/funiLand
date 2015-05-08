@@ -9,8 +9,10 @@
 import Foundation
 
 
-let APPWIDTH = UIScreen.mainScreen().bounds.width
-let APPHEIGHT = UIScreen.mainScreen().bounds.height
+//let APPWIDTH = UIScreen.mainScreen().bounds.width
+//let APPHEIGHT = UIScreen.mainScreen().bounds.height
+let APPWIDTH = ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.frame.size.width
+let APPHEIGHT = ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.frame.size.height
 
 
 // String

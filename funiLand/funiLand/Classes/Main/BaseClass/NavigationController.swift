@@ -30,6 +30,17 @@ class NavigationController: UINavigationController {
         }
         
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
+        
+        let leftBarItem = viewController.navigationItem.leftBarButtonItem
+        if leftBarItem != nil {
+            
+        }
+        
+        let rightBarItem = viewController.navigationItem.rightBarButtonItem
+        if rightBarItem != nil {
+            rightBarItem?.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        }
+        
         super.pushViewController(viewController, animated: animated)
     }
     

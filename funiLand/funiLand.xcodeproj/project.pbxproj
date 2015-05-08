@@ -133,6 +133,8 @@
 		F458E6041C1166920097AFB0 /* keychain-access-groups.plist in Resources */ = {isa = PBXBuildFile; fileRef = F458E6031C1166920097AFB0 /* keychain-access-groups.plist */; };
 		F458E6061C117DE40097AFB0 /* FuniMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */; };
 		F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */; };
+		F46776FE1AFC80DE002996B6 /* DashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46776FD1AFC80DE002996B6 /* DashedLineView.swift */; };
+		F46777011AFCC38F002996B6 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = F46777001AFCC38F002996B6 /* MKMapView+ZoomLevel.m */; };
 		F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA21C07FDA500244201 /* NSDateExtension.swift */; };
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
@@ -369,6 +371,9 @@
 		F458E6031C1166920097AFB0 /* keychain-access-groups.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keychain-access-groups.plist"; sourceTree = "<group>"; };
 		F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniMapAnnotationView.swift; sourceTree = "<group>"; };
 		F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniPointAnnotation.swift; sourceTree = "<group>"; };
+		F46776FD1AFC80DE002996B6 /* DashedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashedLineView.swift; sourceTree = "<group>"; };
+		F46776FF1AFCC38F002996B6 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		F46777001AFCC38F002996B6 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		F4977DA21C07FDA500244201 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		F4977DA41C0827D100244201 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -806,6 +811,8 @@
 				F4977DA21C07FDA500244201 /* NSDateExtension.swift */,
 				F4977DA41C0827D100244201 /* StringExtension.swift */,
 				247DD0B51C0DE01800A1BDB1 /* UIAlertViewExtension.swift */,
+				F46776FF1AFCC38F002996B6 /* MKMapView+ZoomLevel.h */,
+				F46777001AFCC38F002996B6 /* MKMapView+ZoomLevel.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -885,6 +892,7 @@
 			isa = PBXGroup;
 			children = (
 				F45700601C02CAB9005FEB26 /* BaseView */,
+				F46776FD1AFC80DE002996B6 /* DashedLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1212,6 +1220,7 @@
 					};
 					F457FFEC1C02B360005FEB26 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = T9FW97NDZK;
 					};
 				};
 			};
@@ -1377,6 +1386,7 @@
 				F419E9531C030B9B006A5815 /* IQTextView.m in Sources */,
 				F419E8E01C02FB09006A5815 /* AFHTTPRequestOperation.m in Sources */,
 				F419E8AF1C02F1C3006A5815 /* NavigationController.swift in Sources */,
+				F46776FE1AFC80DE002996B6 /* DashedLineView.swift in Sources */,
 				F42CF13D1C0D9456008F0CCE /* RimInfoReqpDomain.swift in Sources */,
 				F45474D31C0BEC9D00ED344B /* DateTransform.swift in Sources */,
 				F457009D1C02CAB9005FEB26 /* FuniHUD.m in Sources */,
@@ -1429,6 +1439,7 @@
 				F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */,
 				F42CF13B1C0D8DB1008F0CCE /* RimLandInfoDomain.swift in Sources */,
 				247DD0B61C0DE01800A1BDB1 /* UIAlertViewExtension.swift in Sources */,
+				F46777011AFCC38F002996B6 /* MKMapView+ZoomLevel.m in Sources */,
 				24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */,
 				F45474CF1C0BEC9D00ED344B /* ToJSON.swift in Sources */,
 				F419E8B01C02F1C3006A5815 /* TabBarController.swift in Sources */,
@@ -1570,6 +1581,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1586,6 +1598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

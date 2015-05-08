@@ -11,6 +11,7 @@ import UIKit
 let Color_Zhao = "#1548ED"
 let Color_Gua = "#09B736"
 let Color_Pai = "#ED6715"
+let Color_Def = "#FFFFFF"
 
 extension UIColor {
      class func colorFromHexString (hex:String) -> UIColor {
@@ -34,13 +35,13 @@ extension UIColor {
     }
 
     // 根据土地类型返回对应颜色
-    static func getLandTypeColor(type: Int?) -> UIColor {
-        var str = Color_Zhao
+    static func getLandTypeColor(type: String?) -> UIColor {
+        var str = Color_Def
         if type != nil {
             switch type! {
-            case 0 : str = Color_Zhao; break
-            case 1 : str = Color_Gua; break
-            case 2 : str = Color_Pai; break
+            case "招" : str = Color_Zhao; break
+            case "挂" : str = Color_Gua; break
+            case "拍" : str = Color_Pai; break
             default: break;
             }
         }

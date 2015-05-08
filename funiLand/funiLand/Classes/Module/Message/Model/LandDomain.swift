@@ -14,7 +14,7 @@ class LandDomain: Mappable {
     var title: String?
     var description1: String?
     var description2: String?
-    var type:Int?
+    var type:String?
     
     init(){}
     

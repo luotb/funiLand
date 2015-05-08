@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
     
     
     @IBOutlet var myMapView: MKMapView!
@@ -25,7 +25,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     // 搜索条件内容View
     var searchConditionContentView: MapSearchConditionTableViewController!
     // 搜索条件封装VO
-    var rimInfoReqDomain = RimInfoReqDomain()
+    var rimInfoReqDomain: RimInfoReqDomain!
     // 搜索按钮动画是否执行
     var timerRunning: Bool = false
     // 土地详情view动画是否执行
@@ -42,13 +42,33 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     @IBOutlet var landInfoView: UIView!
     // 标注点的土地详情
     var annoatationDetailsView:MapAnnotationDetailsViewController!
+    // 土地分类View
+    @IBOutlet var landTypeView: UIView!
+    // 土地类型按钮
+    @IBOutlet var landType_LandBtn: UIButton!
+    // 项目类型按钮
+    @IBOutlet var landType_ProBtn: UIButton!
+    // 查看周边数据类型  1=土地, 2=项目
+    var showRimLandType: Int = 1
+    // 是否是关键词搜索
+    var isKeyword: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.loadSearchBar()
         self.initSteup()
-        startLocation()
         self.loadAnnoatationLandDetailsView()
+        
+        if self.rimInfoReqDomain != nil {
+            // 查看周边
+            self.userLocationBtn.hidden = true
+            self.landType_LandBtn.selected = true
+            self.queryData()
+        } else {
+            // 搜地
+            self.rimInfoReqDomain = RimInfoReqDomain()
+            startLocation()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,7 +77,9 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.locationManager.stopUpdatingLocation()
+        if self.locationManager != nil {
+            self.locationManager.stopUpdatingLocation()
+        }
     }
     
     //基础设置
@@ -79,18 +101,42 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.annoatationDetailsView = self.storyboard?.instantiateViewControllerWithIdentifier("MapAnnotationDetailsViewController") as! MapAnnotationDetailsViewController
         self.annoatationDetailsView.view.frame = CGRectMake(0, 0, self.landInfoView.width, self.landInfoView.height)
         self.landInfoView.addSubview(self.annoatationDetailsView.view)
+        
+        self.landInfoView.frame = CGRectMake(0, APPHEIGHT, APPWIDTH, CGRectGetHeight(self.landInfoView.frame))
+        print(self.landInfoView.frame)
+        
+        print(self.view.frame)
+        print(((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.frame)
+    }
+    
+    // 加载搜索输入框
+    func loadSearchBar() {
+        //导航条的搜索条
+        let searchBar = UISearchBar(frame: CGRectMake(0, 6, 250, 30))
+        searchBar.backgroundColor = UIColor.clearColor()
+        searchBar.placeholder = "输入土地位置关键字"
+        searchBar.delegate = self
+        
+        let searchView = UIView(frame: CGRectMake(50, 0, 250, 44))
+        searchView.backgroundColor = UIColor.clearColor()
+//        searchView.backgroundColor = UIColor.redColor()
+        searchView.addSubview(searchBar)
+        
+        self.navigationItem.titleView = searchView
     }
     
     //请求数据
     func queryData() {
-        
+        FuniHUD.sharedHud().show(self.view)
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             
                 self.rimLandArray = rimInfoArray
                 self.packagePointAnnatotion()
                 self.myMapView.addAnnotations(self.pointAnnotationArray)
-            
+                self.keywordSearchDefFirstDataCenter()
+                FuniHUD.sharedHud().hide(self.view)
             }) { (error:String) -> Void in
+//                FuniHUD.sharedHud().hide(self.view)
                 FuniHUD.sharedHud().show(self.view, onlyMsg: error)
         }
     }
@@ -99,11 +145,34 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     func packagePointAnnatotion() {
         
         for rimInfoDomain: RimLandInfoDomain in self.rimLandArray {
-            let pointAnnatotion = FuniPointAnnotation()
-            pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
-            pointAnnatotion.rimLandInfoDomain = rimInfoDomain
-            pointAnnatotion.title = rimInfoDomain.title!
-            self.pointAnnotationArray.append(pointAnnatotion)
+            
+            if rimInfoDomain.lat > 0 && rimInfoDomain.lng > 0 && rimInfoDomain.dataType == self.showRimLandType {
+                
+                let pointAnnatotion = FuniPointAnnotation()
+                pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
+                pointAnnatotion.rimLandInfoDomain = rimInfoDomain
+                pointAnnatotion.title = rimInfoDomain.title!
+                self.pointAnnotationArray.append(pointAnnatotion)
+            }
+        }
+    }
+    
+    // 关键词搜索 第一条数据居中
+    func keywordSearchDefFirstDataCenter() {
+        
+        if self.pointAnnotationArray.count > 0 {
+            
+            let pointAnnatotion: FuniPointAnnotation = self.pointAnnotationArray[0]
+            
+            let time: NSTimeInterval = 2.0
+            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            
+            dispatch_after(delay, dispatch_get_main_queue()) {
+                
+                self.myMapView.setCenterCoordinate(pointAnnatotion.coordinate, animated: true)
+            }
+            
+            self.myMapView.setCenterCoordinate(pointAnnatotion.coordinate, zoomLevel: 13, animated: true)
         }
     }
     
@@ -345,6 +414,26 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
             }, completion: nil)
     }
     
+    // 土地类型按钮点击
+    @IBAction func landTypeBtnClicked(sender: UIButton) {
+        
+        self.showRimLandType = sender.tag
+                
+                let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+                rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
+                //        rimLandListVC.landArray = self.rimLandArray
+                self.navigationController?.pushViewController(rimLandListVC, animated: true)
+    }
+    
+    
+    // MARK UISearchBarDelegate
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        print("999999")
+        self.isKeyword = true
+        self.rimInfoReqDomain.keyword = searchBar.text
+        self.queryData()
+    }
 }
 
 

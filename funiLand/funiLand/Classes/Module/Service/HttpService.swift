@@ -17,7 +17,7 @@ let baseURLString = "http://magic.funi.com/field/app/"
 let loginURLString = "login.json"
 let getSupplyOrBargainListURL = "getFieldList.json"
 let getRimInfoURL = "getAroundData.json"
-let getLandInfoURL = "getLandInfo.json"
+let getLandInfoURL = "getFieldInfo.json"
 
 
 class HttpService {
@@ -83,7 +83,7 @@ class HttpService {
     func getLandInfo(id:String, success:(landInfo:LandInfoDomain?) -> Void,faild: (error:String) -> Void) {
         
         var params:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-        params["id"] = id;
+        params["fieldCode"] = id;
         
         sessionManager.ESP_GET(self.buildUrl(getLandInfoURL), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             

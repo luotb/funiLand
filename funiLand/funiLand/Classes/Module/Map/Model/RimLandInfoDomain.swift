@@ -14,7 +14,7 @@ class RimLandInfoDomain: Mappable {
     var id:String?
     // 包含单位 亩
     var netAreaMu: String?
-    // 0=土地，1=项目
+    // 1=土地，2=项目
     var dataType: Int?
     // 规则：小于1000m 返回值单位m 大于等于1000m 返回值单位 km
     var distance: String?

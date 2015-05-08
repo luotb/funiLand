@@ -76,12 +76,13 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
 
         
         //设置展示表格的数据源和代理
-        myTableView.dataSource = self
-        myTableView.delegate = self
-        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
+        self.myTableView.separatorInset = UIEdgeInsetsZero
+//        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         //空值代理和数据源
-        myTableView.emptyDataSetDelegate = self
-        myTableView.emptyDataSetSource = self
+        self.myTableView.emptyDataSetDelegate = self
+        self.myTableView.emptyDataSetSource = self
         
         //集成下拉刷新
         setupDownRefresh()
@@ -92,25 +93,25 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     
     //选择器回调
     func segmentAction(segment:UISegmentedControl) {
-        reqType = segment.selectedSegmentIndex
+        self.reqType = segment.selectedSegmentIndex
         self.myTableView.header.beginRefreshing()
     }
     
     //加载日历
     func loadCalendar () {
-        calendarManager = JTCalendarManager()
-        calendarManager.delegate = self
-        todayDate = NSDate();
+        self.calendarManager = JTCalendarManager()
+        self.calendarManager.delegate = self
+        self.todayDate = NSDate();
         
         // Min date will be 2 month before today
-        minDate = calendarManager.dateHelper.addToDate(todayDate, months: -2)
+        self.minDate = calendarManager.dateHelper.addToDate(todayDate, months: -2)
         
         // Max date will be 2 month after today
-        maxDate = calendarManager.dateHelper.addToDate(todayDate, months: 2)
+        self.maxDate = calendarManager.dateHelper.addToDate(todayDate, months: 2)
         
-        calendarManager.menuView = calendarMenuView
-        calendarManager.contentView = calendarContentView
-        calendarManager.setDate(todayDate)
+        self.calendarManager.menuView = calendarMenuView
+        self.calendarManager.contentView = calendarContentView
+        self.calendarManager.setDate(todayDate)
     }
     
     //下拉刷新
@@ -123,7 +124,8 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //加载数据
     func queryData(){
         
-        HttpService.sharedInstance.getSupplyOrBargainList(reqType, months: reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
+        self.reqMonth = "2015-05"
+        HttpService.sharedInstance.getSupplyOrBargainList(self.reqType, months: self.reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
                 self.landResponArray = landArray
                 self.getSelectedDataLandArray()
                 self.calendarManager.reload()
@@ -145,7 +147,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "共计 \(landArray.count) 宗土地"
+        return "共计 \(self.landArray.count) 宗土地"
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -153,14 +155,14 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return landArray.count;
+        return self.landArray.count;
     }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)
         -> UITableViewCell{
             
             let cell = tableView.dequeueReusableCellWithIdentifier("LandTableViewCell", forIndexPath: indexPath) as! LandTableViewCell
-            cell.landDomain = landArray[indexPath.row]
+            cell.landDomain = self.landArray[indexPath.row]
             return cell;
             
     }
@@ -173,13 +175,12 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        landInfoDomain = landArray[indexPath.row]
+        self.landInfoDomain = self.landArray[indexPath.row]
         
         let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
-        landDetailVC.landDomain = landInfoDomain
+        landDetailVC.landDomain = self.landInfoDomain
         self.navigationController?.pushViewController(landDetailVC, animated: true)
     }
-    
     
     // MARK: - CalendarManager delegate
     
@@ -188,21 +189,21 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         let tempDayView = dayView as! JTCalendarDayView
         
         // Today
-        if calendarManager.dateHelper.date(NSDate(), isTheSameDayThan: tempDayView.date) {
+        if self.calendarManager.dateHelper.date(NSDate(), isTheSameDayThan: tempDayView.date) {
             tempDayView.circleView.hidden = false
             tempDayView.circleView.backgroundColor = UIColor.blueColor()
             tempDayView.dotView.backgroundColor = UIColor.whiteColor()
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Selected date
-        else if calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView.date) == true {
+        else if self.calendarManager.dateHelper.date(self.dateSelected, isTheSameDayThan: tempDayView.date) == true {
             tempDayView.circleView.hidden = false
             tempDayView.circleView.backgroundColor = UIColor.redColor()
             tempDayView.dotView.backgroundColor = UIColor.whiteColor()
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Other month
-        else if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
+        else if self.calendarManager.dateHelper.date(self.calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
             tempDayView.circleView.hidden = true
             tempDayView.dotView.backgroundColor = UIColor.redColor()
             tempDayView.textLabel.textColor = UIColor.lightGrayColor()
@@ -214,7 +215,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             tempDayView.textLabel.textColor = UIColor.blackColor()
         }
         
-        if landResponArray != nil && landResponArray?.isEmpty != false {
+        if self.landResponArray != nil && self.landResponArray?.isEmpty != false {
             if self.haveEventForDay(tempDayView.date) {
                 tempDayView.dotView.hidden = false
             } else {
@@ -226,7 +227,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     func calendar(calendar: JTCalendarManager!, didTouchDayView dayView: UIView!) {
         
         let tempDayView = dayView as! JTCalendarDayView
-        dateSelected = tempDayView.date;
+        self.dateSelected = tempDayView.date;
         self.getSelectedDataLandArray()
         
         // Animation for the circleView
@@ -239,22 +240,22 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         
         // Load the previous or next page if touch a day from another month
         
-        if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
-            if calendarContentView.date.compare(tempDayView.date) == NSComparisonResult.OrderedAscending {
-                calendarContentView.loadNextPageWithAnimation()
+        if self.calendarManager.dateHelper.date(self.calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
+            if self.calendarContentView.date.compare(tempDayView.date) == NSComparisonResult.OrderedAscending {
+                self.calendarContentView.loadNextPageWithAnimation()
             } else {
-                calendarContentView.loadPreviousPageWithAnimation()
+                self.calendarContentView.loadPreviousPageWithAnimation()
             }
         }
         
-        myTableView.reloadData()
+        self.myTableView.reloadData()
     }
     
     
     //pragma mark - CalendarManager delegate - Page mangement
     
     func calendar(calendar: JTCalendarManager!, canDisplayPageWithDate date: NSDate!) -> Bool {
-        return calendarManager.dateHelper.date(date, isEqualOrAfter: minDate, andEqualOrBefore: maxDate)
+        return self.calendarManager.dateHelper.date(date, isEqualOrAfter: minDate, andEqualOrBefore: maxDate)
     }
     
     
@@ -262,9 +263,9 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     func haveEventForDay(date: NSDate) -> Bool {
         var judge : Bool = false
         
-        for landRespon : LandArrayRespon in landResponArray! {
+        for landRespon : LandArrayRespon in self.landResponArray! {
             let responDate = NSDate.getDateByDateStr(landRespon.date!, format: DateFormat.format2)
-            if calendarManager.dateHelper.date(responDate, isTheSameDayThan: date) {
+            if self.calendarManager.dateHelper.date(responDate, isTheSameDayThan: date) {
                 judge = true
                 break
             }
@@ -276,11 +277,10 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     func getSelectedDataLandArray() {
         var judge : Bool = false
         if landResponArray != nil {
-            for landRespon : LandArrayRespon in landResponArray! {
-                //            let responDate = NSDate().getDateByDateStr(landRespon.date!, format: DateFormat.format2)
-                let responDate = NSDate()
-                if calendarManager.dateHelper.date(responDate, isTheSameDayThan: dateSelected) {
-                    landArray = landRespon.dataList!
+            for landRespon : LandArrayRespon in self.landResponArray! {
+                let responDate = NSDate.getDateByDateStr(landRespon.date!, format: DateFormat.format1)
+                if self.calendarManager.dateHelper.date(responDate, isTheSameDayThan: dateSelected) {
+                    self.landArray = landRespon.dataList!
                     judge = true
                     break
                 }
@@ -288,7 +288,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         }
         
         if judge == false {
-            landArray = Array<LandDomain>()
+            self.landArray = Array<LandDomain>()
         }
     }
 }

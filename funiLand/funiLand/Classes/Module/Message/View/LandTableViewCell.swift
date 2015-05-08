@@ -18,8 +18,8 @@ class LandTableViewCell: BaseCell {
     
     var landDomain:LandDomain = LandDomain(){
         willSet{
-            self.typeLabel.text  = HttpService.sharedInstance.getLandTypeZN(landDomain.type)
-            self.typeLabel.backgroundColor = UIColor.getLandTypeColor(landDomain.type)
+            self.typeLabel.text  = newValue.type!
+            self.typeLabel.backgroundColor = UIColor.getLandTypeColor(newValue.type!)
             self.titleLabel.text = newValue.title!
             self.projectNameLabel.text = newValue.description1!
             self.descLabel.text = newValue.description2!
