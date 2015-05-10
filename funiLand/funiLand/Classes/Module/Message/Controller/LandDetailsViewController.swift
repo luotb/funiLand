@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     @IBOutlet var myTableView: UITableView!
     @IBOutlet var titleLabel: UILabel!
@@ -54,24 +54,36 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
         myTableView.emptyDataSetSource = self
     }
     
-    //加载数据
-    func queryData(){
+    // 画虚线
+    func drawDottedLine(imageView: UIImageView) {
+        UIGraphicsBeginImageContext(imageView.size)
+        imageView.image?.drawInRect(CGRectMake(0, 0, imageView.width, imageView.height))
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), CGLineCap.Round)
+        let lengths:[CGFloat] = [10,5]
+        let line = UIGraphicsGetCurrentContext();
+        CGContextSetStrokeColorWithColor(line, UIColor.redColor().CGColor);
         
-        HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
-            if landInfo != nil {
-                self.landInfoObj = landInfo!
-            } else {
-                self.landInfoObj = LandInfoDomain()
-            }
-            
-            self.myTableView.reloadData()
-            
-            }) { (error: String) -> Void in
-                FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
-        }
+        CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
+        CGContextMoveToPoint(line, 0.0, 20.0);    //开始画线
+        CGContextAddLineToPoint(line, 310.0, 20.0);
+        CGContextStrokePath(line);
+        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    func drawInContext(view: UIView) {
+        let context: CGContextRef = UIGraphicsGetCurrentContext()!
+        
+        let lengths: [CGFloat] = [CGFloat(APPWIDTH-20)]
+        CGContextSetLineDash(context, 0, lengths, 2)
+        
+        CGContextMoveToPoint(context, view.x, view.y)
+        CGContextAddLineToPoint(context, CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame))
     }
 
-    // MARK: - Table view data source and delegate
+}
+
+// MARK: - Table view data source and delegate
+extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 25
@@ -89,6 +101,7 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
         if self.landInfoObj.fieldList?.count > 0 {
             
             let view = UIView(frame: CGRectMake(0, 0, APPWIDTH, 30))
+            view.backgroundColor = UIColor.whiteColor()
             
             let dashedLineView = DashedLineView(frame: CGRectMake(10, 0, APPWIDTH-20, 1))
             view.addSubview(dashedLineView)
@@ -131,13 +144,14 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
     }
+}
+
+// MARK: View EventHandler
+extension LandDetailsViewController {
     
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
-//        (85.247007395705, 112.499987678415)
-//        (50.7819511942915, 55.5469078074573)
-//        (0.0999999866806469, 0.101237958245349)
-//        (0.0999999866365897, 0.101237958245406)
+        
         self.landInfoObj.lat = 30.6709490000
         self.landInfoObj.lng = 104.0984620000
         if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
@@ -147,34 +161,29 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
             rimInfoReqDomain.lat = self.landInfoObj.lat
             rimInfoReqDomain.lng = self.landInfoObj.lng
             mapVC.rimInfoReqDomain = rimInfoReqDomain
+            mapVC.isShowRim = true
             self.navigationController?.pushViewController(mapVC, animated: true)
         }
     }
-    
-    // 画虚线
-    func drawDottedLine(imageView: UIImageView) {
-        UIGraphicsBeginImageContext(imageView.size)
-        imageView.image?.drawInRect(CGRectMake(0, 0, imageView.width, imageView.height))
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), CGLineCap.Round)
-        let lengths:[CGFloat] = [10,5]
-        let line = UIGraphicsGetCurrentContext();
-        CGContextSetStrokeColorWithColor(line, UIColor.redColor().CGColor);
-        
-        CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
-        CGContextMoveToPoint(line, 0.0, 20.0);    //开始画线
-        CGContextAddLineToPoint(line, 310.0, 20.0);
-        CGContextStrokePath(line);
-        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
-    }
-    
-    func drawInContext(view: UIView) {
-        let context: CGContextRef = UIGraphicsGetCurrentContext()!
-        
-        let lengths: [CGFloat] = [CGFloat(APPWIDTH-20)]
-        CGContextSetLineDash(context, 0, lengths, 2)
-        
-        CGContextMoveToPoint(context, view.x, view.y)
-        CGContextAddLineToPoint(context, CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame))
-    }
+}
 
+// MARK: Service Request And Data Package
+extension LandDetailsViewController {
+    
+    //加载数据
+    func queryData(){
+        
+        HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
+            if landInfo != nil {
+                self.landInfoObj = landInfo!
+            } else {
+                self.landInfoObj = LandInfoDomain()
+            }
+            
+            self.myTableView.reloadData()
+            
+            }) { (error: String) -> Void in
+                FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
+        }
+    }
 }

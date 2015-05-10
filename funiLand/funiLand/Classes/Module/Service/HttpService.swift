@@ -13,8 +13,8 @@ import Foundation
 let TERMINALTYPE = "IPHONE"
 
 let baseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/data/"
-//let accountBaseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/"
-let accountBaseURLString = "http://192.168.3.85/magic/field/app/"
+let accountBaseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/"
+//let accountBaseURLString = "http://192.168.3.85/magic/field/app/"
 let loginURLString = "login.json"
 let logoutURLString = "logout.json"
 let getSupplyOrBargainListURL = "getFieldList.json"
@@ -64,10 +64,13 @@ class HttpService {
         
         sessionManager.ESP_GET(self.accountBuildUrl(loginURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             
-            let userResp = Mapper<FLUser>().map(responseVO.data)
-            if let headUrl = userResp?.headUrl {
-                self.loginUserInfo?.headUrl = headUrl
+            if responseVO.data != nil {
+                let userResp = Mapper<FLUser>().map(responseVO.data)
+                if let headUrl = userResp?.headUrl {
+                    self.loginUserInfo?.headUrl = headUrl
+                }
             }
+            
             success(msg: String_LoginSuccess)
             
             }) { (error: String) -> Void in

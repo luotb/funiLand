@@ -16,6 +16,15 @@ class MapAnnotationDetailsViewController: BaseViewController {
     @IBOutlet var ratioLabel: UILabel!
     @IBOutlet var sellDateLabel: UILabel!
     @IBOutlet var landTypeLabel: UILabel!
+    @IBOutlet var rimBtn: UIButton!
+    
+    // 是否是查看周边
+    var isShowRim: Bool = Bool() {
+        willSet{
+            // 如果本身是查看周边数据 则需要隐藏本view的周边按钮  避免循环切换页面
+            self.rimBtn.hidden = newValue
+        }
+    }
     
     var rimLandInfoDomain:RimLandInfoDomain = RimLandInfoDomain(){
         willSet{
@@ -35,9 +44,13 @@ class MapAnnotationDetailsViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+}
+
+// MARK: View EventHandler
+extension MapAnnotationDetailsViewController {
     
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
     }
-
 }

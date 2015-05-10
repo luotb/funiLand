@@ -10,7 +10,6 @@ import UIKit
 
 class RimLandListTableViewCell: BaseCell {
     
-    
     @IBOutlet var typeLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!

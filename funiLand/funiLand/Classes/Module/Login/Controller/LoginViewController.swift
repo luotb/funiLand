@@ -13,16 +13,32 @@ class LoginViewController: BaseViewController {
     @IBOutlet var logoImageView: UIImageView!
     @IBOutlet var loginNameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var mainView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let account: Account = AccountTool.getAccount() {
+            self.loginRequest(account)
+        } else {
+            self.showMainView()
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    func showMainView() {
+        UIView.transitionWithView(self.mainView, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
+            self.mainView.alpha = 1
+            }, completion: nil)
+    }
+}
 
+// MARK: View EventHandler
+extension LoginViewController {
+    
     @IBAction func loginBtnClicked(sender: AnyObject) {
         let loginName = self.loginNameTextField.text
         if loginName == nil  || loginName?.isEmpty == true {
@@ -30,10 +46,10 @@ class LoginViewController: BaseViewController {
             return
         }
         
-//        if String.validateMobile(loginName!) == false {
-//            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入正确的手机号!")
-//            return
-//        }
+        if String.validateMobile(loginName!) == false {
+            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入正确的手机号!")
+            return
+        }
         
         let pwd = self.passwordTextField.text
         if pwd == nil  || pwd?.isEmpty == true {
@@ -41,27 +57,35 @@ class LoginViewController: BaseViewController {
             return
         }
         
-        if(true){//登陆成功
-            
-            let account = Account();
-            account.loginName = loginName
-            account.passWord = pwd
-            
-            let userInfo = FLUser(account: account)
-            
-//            AccountTool.saveAccount(account)
-//            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
-            
-            HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
-                
-                AccountTool.saveAccount(account)
-                UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
-                
-                }, faild: { (error:String) -> Void in
-                    FuniHUD.sharedHud().show(self.view, onlyMsg: error)
-            })
-        }
+        let account = Account();
+        account.loginName = loginName
+        account.passWord = pwd
+        self.loginRequest(account)
     }
-    
-
 }
+
+// MARK: Service Request And Data Package
+extension LoginViewController {
+    
+    //login request
+    func loginRequest(account: Account) {
+        
+        FuniHUD.sharedHud().show(self.view)
+        
+        let userInfo = FLUser(account: account)
+        
+//            AccountTool.saveAccount(account)
+//            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
+        
+        HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
+            
+            AccountTool.saveAccount(account)
+            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
+            FuniHUD.sharedHud().hide(self.view)
+            }, faild: { (error:String) -> Void in
+                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+                self.showMainView()
+        })
+    }
+}
+

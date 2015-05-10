@@ -13,8 +13,6 @@ class RimInfoReqDomain: Mappable {
     var distance: Int?
     var lat: Double?
     var lng: Double?
-    //已成交未呈现=4；已成交已呈现=3；未成交土地=2
-    var fieldType: Int?
     //关键词
     var keyword: String?
     
@@ -30,7 +28,6 @@ class RimInfoReqDomain: Mappable {
         distance <- map["distance"]
         lat <- map["lat"]
         lng <- map["lng"]
-        fieldType <- map["fieldType"]
         keyword <- map["keyword"]
     }
 }

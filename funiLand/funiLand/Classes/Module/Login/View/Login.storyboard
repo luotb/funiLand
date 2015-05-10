@@ -47,57 +47,71 @@
                                     <constraint firstAttribute="height" constant="120" id="rXY-wP-yX3"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUj-vB-w6K" userLabel="主题view">
-                                <rect key="frame" x="0.0" y="250" width="320" height="104"/>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUj-vB-w6K" userLabel="主题view">
+                                <rect key="frame" x="0.0" y="250" width="320" height="186"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="account number" translatesAutoresizingMaskIntoConstraints="NO" id="vQd-so-Wb6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="account number" translatesAutoresizingMaskIntoConstraints="NO" id="vQd-so-Wb6">
                                         <rect key="frame" x="9" y="0.0" width="301" height="47"/>
                                         <animations/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="18227607986" placeholder="手机号或个人账号" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AJr-Gr-c2e">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="18227607986" placeholder="手机号或个人账号" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AJr-Gr-c2e">
                                         <rect key="frame" x="50" y="11" width="257" height="24"/>
                                         <animations/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="password" translatesAutoresizingMaskIntoConstraints="NO" id="0Li-nk-0M5" userLabel="密码">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="password" translatesAutoresizingMaskIntoConstraints="NO" id="0Li-nk-0M5" userLabel="密码">
                                         <rect key="frame" x="9" y="57" width="301" height="47"/>
                                         <animations/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="密码" clearsOnBeginEditing="YES" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ovl-gm-wxS">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="密码" clearsOnBeginEditing="YES" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ovl-gm-wxS">
                                         <rect key="frame" x="50" y="68" width="257" height="24"/>
                                         <animations/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ere-7t-sF4">
+                                        <rect key="frame" x="31" y="124" width="257" height="62"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="257" id="B26-7S-KDK"/>
+                                            <constraint firstAttribute="height" constant="62" id="L6U-Hp-OXb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <state key="normal" image="Sign-in_btn_normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="Sign-in_btn_click"/>
+                                        <state key="highlighted" image="Sign-in_btn_click"/>
+                                        <connections>
+                                            <action selector="loginBtnClicked:" destination="adq-da-ZtN" eventType="touchUpInside" id="Ifg-7F-V2j"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="104" id="GcO-i3-oOq"/>
+                                    <constraint firstItem="0Li-nk-0M5" firstAttribute="top" secondItem="vQd-so-Wb6" secondAttribute="bottom" constant="10" id="5SC-pX-6hh"/>
+                                    <constraint firstItem="Ovl-gm-wxS" firstAttribute="top" secondItem="vQd-so-Wb6" secondAttribute="bottom" constant="21" id="8Bi-ox-0Jb"/>
+                                    <constraint firstItem="ere-7t-sF4" firstAttribute="centerX" secondItem="NUj-vB-w6K" secondAttribute="centerX" id="Gbl-Dk-GDb"/>
+                                    <constraint firstAttribute="height" constant="186" id="GcO-i3-oOq"/>
+                                    <constraint firstAttribute="bottom" secondItem="ere-7t-sF4" secondAttribute="bottom" id="HON-rE-6Pa"/>
+                                    <constraint firstItem="0Li-nk-0M5" firstAttribute="centerX" secondItem="ere-7t-sF4" secondAttribute="centerX" id="L9c-nx-HwY"/>
+                                    <constraint firstItem="0Li-nk-0M5" firstAttribute="leading" secondItem="vQd-so-Wb6" secondAttribute="leading" id="LFo-gd-jCv"/>
+                                    <constraint firstItem="Ovl-gm-wxS" firstAttribute="leading" secondItem="AJr-Gr-c2e" secondAttribute="leading" id="NBf-cI-PwF"/>
+                                    <constraint firstItem="0Li-nk-0M5" firstAttribute="top" secondItem="AJr-Gr-c2e" secondAttribute="bottom" constant="22" id="Owx-7W-e7a"/>
+                                    <constraint firstItem="Ovl-gm-wxS" firstAttribute="leading" secondItem="NUj-vB-w6K" secondAttribute="leading" constant="50" id="R46-ol-2c4"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ovl-gm-wxS" secondAttribute="trailing" constant="13" id="S8j-55-k5T"/>
+                                    <constraint firstItem="ere-7t-sF4" firstAttribute="top" secondItem="0Li-nk-0M5" secondAttribute="bottom" constant="20" id="WZD-Iu-PcU"/>
+                                    <constraint firstItem="Ovl-gm-wxS" firstAttribute="trailing" secondItem="AJr-Gr-c2e" secondAttribute="trailing" id="cCw-jJ-1s6"/>
+                                    <constraint firstItem="AJr-Gr-c2e" firstAttribute="centerY" secondItem="vQd-so-Wb6" secondAttribute="centerY" id="hc0-hH-vTC"/>
+                                    <constraint firstItem="0Li-nk-0M5" firstAttribute="centerY" secondItem="Ovl-gm-wxS" secondAttribute="centerY" id="i1Z-YV-y6E"/>
                                     <constraint firstAttribute="width" constant="320" id="mCW-Ms-rdz"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ere-7t-sF4">
-                                <rect key="frame" x="31" y="374" width="257" height="62"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="AZ5-wH-zaB"/>
-                                    <constraint firstAttribute="width" constant="257" id="hNE-zi-UrD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <state key="normal" image="Sign-in_btn_normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="Sign-in_btn_click"/>
-                                <state key="highlighted" image="Sign-in_btn_click"/>
-                                <connections>
-                                    <action selector="loginBtnClicked:" destination="adq-da-ZtN" eventType="touchUpInside" id="Ifg-7F-V2j"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,10 +120,8 @@
                             <constraint firstItem="RX9-Lr-5Za" firstAttribute="centerX" secondItem="9YI-cM-RvB" secondAttribute="centerX" id="Ftu-kp-eGS"/>
                             <constraint firstItem="MUl-Oe-lPl" firstAttribute="leading" secondItem="9YI-cM-RvB" secondAttribute="leading" id="LW0-7W-edj"/>
                             <constraint firstItem="NUj-vB-w6K" firstAttribute="top" secondItem="RX9-Lr-5Za" secondAttribute="bottom" constant="50" id="Nab-k5-IVr"/>
-                            <constraint firstItem="ere-7t-sF4" firstAttribute="top" secondItem="NUj-vB-w6K" secondAttribute="bottom" constant="20" id="Tf0-f5-vBb"/>
                             <constraint firstItem="RX9-Lr-5Za" firstAttribute="top" secondItem="hXz-26-SWO" secondAttribute="bottom" constant="60" id="gzl-Nn-gk6"/>
                             <constraint firstAttribute="trailing" secondItem="MUl-Oe-lPl" secondAttribute="trailing" id="mgI-3i-OS8"/>
-                            <constraint firstItem="ere-7t-sF4" firstAttribute="centerX" secondItem="9YI-cM-RvB" secondAttribute="centerX" id="o55-h8-Ps6"/>
                             <constraint firstItem="MUl-Oe-lPl" firstAttribute="top" secondItem="9YI-cM-RvB" secondAttribute="top" id="t0O-O4-T1h"/>
                             <constraint firstItem="j2H-86-i80" firstAttribute="top" secondItem="MUl-Oe-lPl" secondAttribute="bottom" id="vvS-yc-4WK"/>
                         </constraints>
@@ -119,6 +131,7 @@
                     <connections>
                         <outlet property="loginNameTextField" destination="AJr-Gr-c2e" id="RGP-JA-5h7"/>
                         <outlet property="logoImageView" destination="RX9-Lr-5Za" id="n8d-jq-IDf"/>
+                        <outlet property="mainView" destination="NUj-vB-w6K" id="XPJ-Yv-SNH"/>
                         <outlet property="passwordTextField" destination="Ovl-gm-wxS" id="XXi-f9-ZkF"/>
                     </connections>
                 </viewController>

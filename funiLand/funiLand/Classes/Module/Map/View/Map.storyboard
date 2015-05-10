@@ -103,6 +103,8 @@
                                         <color key="backgroundColor" red="0.1333333333" green="0.48627450979999998" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="30" minY="-15" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="土地" image="Territory_icon_normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -122,6 +124,8 @@
                                         <color key="backgroundColor" red="0.1333333333" green="0.48627450979999998" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="30" minY="-15" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="项目" image="Project_icon_normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -167,11 +171,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ZpT-OU-JpP">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" image="List_icon" style="done" id="Uxs-ZF-QgA">
-                            <connections>
-                                <action selector="showListBtnClicked:" destination="h6H-ZW-5wM" id="N4J-Ih-XTX"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -362,6 +361,7 @@
                         <outlet property="areaLabel" destination="4eP-Mk-x1i" id="Fti-Uj-CpU"/>
                         <outlet property="landTypeLabel" destination="Fb0-pz-QZs" id="eds-eB-ANm"/>
                         <outlet property="ratioLabel" destination="U5m-UH-FCg" id="cfY-SR-mBH"/>
+                        <outlet property="rimBtn" destination="1pP-g8-Tlr" id="4dU-yf-5ct"/>
                         <outlet property="sellDateLabel" destination="bjd-XD-tXx" id="MEi-GV-uim"/>
                         <outlet property="titleLabel" destination="CdT-5U-kNw" id="cL7-tW-dLk"/>
                     </connections>
@@ -536,6 +536,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
                             <tableViewSection id="1Bc-rd-yKW">
                                 <cells>
@@ -599,11 +600,11 @@
                                                     <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wi5-da-G0K">
+                                                <switch opaque="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wi5-da-G0K">
                                                     <rect key="frame" x="224" y="7" width="51" height="31"/>
                                                     <animations/>
                                                     <connections>
-                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="editingChanged" id="D1L-HT-9iW"/>
+                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="valueChanged" id="cJJ-Jw-KTH"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -625,11 +626,11 @@
                                                     <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0gW-DR-RCS">
+                                                <switch opaque="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0gW-DR-RCS">
                                                     <rect key="frame" x="224" y="6" width="51" height="31"/>
                                                     <animations/>
                                                     <connections>
-                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="editingChanged" id="hjs-q8-cls"/>
+                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="valueChanged" id="rEI-yd-12H"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -651,11 +652,11 @@
                                                     <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iCF-r4-6iI">
+                                                <switch opaque="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iCF-r4-6iI">
                                                     <rect key="frame" x="224" y="6" width="51" height="31"/>
                                                     <animations/>
                                                     <connections>
-                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="editingChanged" id="s3S-eM-wGj"/>
+                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="valueChanged" id="obj-jo-XKs"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -678,6 +679,9 @@
                                                         <segment title="2公里"/>
                                                         <segment title="3公里"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="distanceSegmentChangeValue:" destination="Xha-ov-Tlb" eventType="valueChanged" id="CwB-Ff-ZPY"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <animations/>
@@ -714,7 +718,6 @@
     <resources>
         <image name="2Dmap" width="130" height="80"/>
         <image name="Close_normal" width="53" height="53"/>
-        <image name="List_icon" width="44" height="44"/>
         <image name="Location_click" width="50" height="50"/>
         <image name="Location_normal" width="50" height="50"/>
         <image name="Mapset_normal" width="53" height="53"/>

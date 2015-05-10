@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
-            timestampString = "452834582.758235"
+            timestampString = "471407396.931508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "ESP_POST(_:parameters:taskSuccessed:taskFailured:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
-            timestampString = "452834583.646035"
+            timestampString = "471407396.931508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "ESP_POST(_:parameters:taskSuccessed:taskFailured:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -125,9 +125,9 @@
             timestampString = "471344520.529328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "application(_:didReceiveRemoteNotification:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/AppDelegate/AppDelegate.swift"
-            timestampString = "471344520.529328"
+            filePath = "funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
+            timestampString = "471412390.329431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "application(_:didReceiveRemoteNotification:)"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "ESP_GET(_:parameters:taskSuccessed:taskFailured:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,6 +9,7 @@
 import UIKit
 
 let Code_Success = "FAPP00010"
+let Code_Success2 = "FAPP00000"
 let Code_SessionTimeOut = "SEC20000"
 
 class ESPAFHTTPSessionManager: AFHTTPSessionManager {
@@ -73,7 +74,10 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
         }
         
         
-        if result!.code == Code_Success || result!.data != nil{
+        if result!.code == Code_Success ||
+            result!.code == Code_Success2 ||
+            result!.code == "FAPP00030 " ||
+            result!.data != nil{
             successed(responseVO: result!)
         } else {
             failured(error: String_RequestError_Msg_1001)

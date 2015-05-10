@@ -26,6 +26,17 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
         super.didReceiveMemoryWarning()
     }
     
+    //设置返回按钮图片
+    func navBarItemSetting() {
+//        self.navigationItem.leftBarButtonItem?.image = UIImage(named: "map_icon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        
+        let leftItem = self.navigationItem.leftBarButtonItem
+        leftItem?.image = UIImage(named: "map_icon")
+        self.navigationItem.leftBarButtonItem = leftItem
+        
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "map_icon", highImage: "map_icon")
+    }
+    
     //基础设置
     func initSteup(){
         

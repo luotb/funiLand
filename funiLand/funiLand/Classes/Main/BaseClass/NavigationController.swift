@@ -29,7 +29,12 @@ class NavigationController: UINavigationController {
             viewController.hidesBottomBarWhenPushed = true;
         }
         
-        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
+        var imgName = "Back_icon"
+        if viewController is RimLandListViewController {
+            imgName = "map_icon"
+        }
+        
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: imgName, highImage: imgName)
         
         let rightBarItem = viewController.navigationItem.rightBarButtonItem
         if rightBarItem != nil {

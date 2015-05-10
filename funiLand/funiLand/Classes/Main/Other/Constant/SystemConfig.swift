@@ -13,6 +13,7 @@ import Foundation
 //let APPHEIGHT = UIScreen.mainScreen().bounds.height
 let APPWIDTH = ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.frame.size.width
 let APPHEIGHT = ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.frame.size.height
+let APPWIDTH_4 = CGFloat(320)
 
 let UMengAppKey = "565d0d2f67e58e39d4001770"
 

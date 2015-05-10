@@ -38,6 +38,7 @@ extension ProfileViewController : UIAlertViewDelegate {
                 
                 }, faild: { (error: String) -> Void in
                     FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+                    AccountTool.delAccount()
             })
         }
     }

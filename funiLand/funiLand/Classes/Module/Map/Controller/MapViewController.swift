@@ -15,11 +15,16 @@ class MapViewController: BaseViewController {
     @IBOutlet var myMapView: MKMapView!
     var locationManager:CLLocationManager!
     var centerCoordinate:CLLocationCoordinate2D!
-    
+    //搜索框
+    var searchBar: UISearchBar!
     // 定位按钮
     @IBOutlet var userLocationBtn: UIButton!
+    // 是否定位成功
+    var isUserLocationSuccess: Bool = false
     // 搜索条件View
     @IBOutlet var searchConditionView: UIView!
+    //rightBarItem
+    var rightBarItemBtn: UIButton!
     //搜索条件按钮
     @IBOutlet var searchBtn: UIButton!
     // 搜索条件内容View
@@ -52,6 +57,10 @@ class MapViewController: BaseViewController {
     var showRimLandType: Int = 1
     // 是否是关键词搜索
     var isKeyword: Bool = false
+    // 是否是查看周边
+    var isShowRim: Bool = false
+    //土地数据类型过滤
+    var rimLandTypeVO: RimLandTypeVO?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +68,7 @@ class MapViewController: BaseViewController {
         self.initSteup()
         self.loadAnnoatationLandDetailsView()
         
-        if self.rimInfoReqDomain != nil {
+        if self.isShowRim == true {
             // 查看周边
             self.userLocationBtn.hidden = true
             self.landType_LandBtn.selected = true
@@ -82,6 +91,35 @@ class MapViewController: BaseViewController {
         }
     }
     
+    //状态栏按钮设置
+    func navBarItemSetting() {
+        if self.rimLandArray != nil {
+            if rightBarItemBtn == nil {
+                self.rightBarItemBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
+                self.rightBarItemBtn.setImage("List_icon", selImg: "List_icon")
+                self.rightBarItemBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+                self.rightBarItemBtn.addTarget(self, action: "showListBtnClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+                let rightItem = UIBarButtonItem(customView: self.rightBarItemBtn)
+                self.navigationItem.rightBarButtonItem = rightItem
+            }
+            self.rightBarItemBtn.hidden = false
+        } else if self.rightBarItemBtn != nil {
+            self.rightBarItemBtn.hidden = true
+        }
+        
+        self.searchBarWidthSetting()
+    }
+    
+    //搜索框宽度缩小
+    func searchBarWidthSetting() {
+        
+        if APPWIDTH == APPWIDTH_4 {
+            //4寸设备
+            self.searchBar.width = self.rightBarItemBtn.hidden == true ? 250 : 220
+            self.searchBar.x = self.rightBarItemBtn.hidden == true ? 0 : 10
+        }
+    }
+    
     //基础设置
     func initSteup(){
         
@@ -92,13 +130,19 @@ class MapViewController: BaseViewController {
         self.searchConditionView.setBorderWithWidth(0, color: UIColor.whiteColor(), radian: 5)
         self.searchConditionContentView = self.storyboard?.instantiateViewControllerWithIdentifier("MapSearchConditionTableViewController") as! MapSearchConditionTableViewController
         self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
-        self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
         self.searchConditionView.addSubview(self.searchConditionContentView.view)
         
-        self.searchConditionContentView.sendValueClosure = {
-            [unowned self](a:String) -> Int in
-            print(self)
-            return 1
+        self.searchConditionContentView.mapTypeClosure = {
+            (mapType: MKMapType) -> Void in
+            self.myMapView.mapType = mapType
+        }
+        
+        self.searchConditionContentView.mapDataFilterClosure = {
+            (rimLandTypeVO: RimLandTypeVO) -> Void in
+            self.rimLandTypeVO = rimLandTypeVO
+            self.testDataSourceTypeCount(self.rimLandArray)
+            self.packagePointAnnatotion()
+            self.myMapView.addAnnotations(self.pointAnnotationArray)
         }
     }
     
@@ -106,21 +150,22 @@ class MapViewController: BaseViewController {
     func loadAnnoatationLandDetailsView() {
         self.annoatationDetailsView = self.storyboard?.instantiateViewControllerWithIdentifier("MapAnnotationDetailsViewController") as! MapAnnotationDetailsViewController
         self.annoatationDetailsView.view.frame = CGRectMake(0, 0, self.landInfoView.width, self.landInfoView.height)
+        self.annoatationDetailsView.isShowRim = self.isShowRim
         self.landInfoView.addSubview(self.annoatationDetailsView.view)
     }
     
     // 加载搜索输入框
     func loadSearchBar() {
         //导航条的搜索条
-        let searchBar = UISearchBar(frame: CGRectMake(0, 6, 250, 30))
-        searchBar.backgroundColor = UIColor.clearColor()
-        searchBar.placeholder = "输入土地位置关键字"
-        searchBar.delegate = self
-        searchBar.searchBarStyle = UISearchBarStyle.Minimal
-        searchBar.tintColor = UIColor.whiteColor()
+        self.searchBar = UISearchBar(frame: CGRectMake(0, 6, 250, 30))
+        self.searchBar.backgroundColor = UIColor.clearColor()
+        self.searchBar.placeholder = "输入土地位置关键字"
+        self.searchBar.delegate = self
+        self.searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        self.searchBar.tintColor = UIColor.whiteColor()
         
         // Get the instance of the UITextField of the search bar
-        let searchField: UITextField = searchBar.valueForKey("_searchField") as! UITextField
+        let searchField: UITextField = self.searchBar.valueForKey("_searchField") as! UITextField
         // Change search bar text color
         searchField.textColor = UIColor.whiteColor()
         
@@ -129,7 +174,7 @@ class MapViewController: BaseViewController {
         
         let searchView = UIView(frame: CGRectMake(50, 0, 250, 44))
         searchView.backgroundColor = UIColor.clearColor()
-        searchView.addSubview(searchBar)
+        searchView.addSubview(self.searchBar)
         
         self.navigationItem.titleView = searchView
     }
@@ -153,8 +198,7 @@ class MapViewController: BaseViewController {
         }
     }
     
-    // MARK - CLLocationManagerDelegate
-    
+    // 开始定位
     func startLocation() {
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self;
@@ -190,6 +234,16 @@ class MapViewController: BaseViewController {
         })
     }
     
+    //关闭条件弹窗后的处理
+    func closeSearchConditionViewHandler() {
+        
+        if self.searchConditionContentView.currentDistance != self.rimInfoReqDomain.distance {
+            
+            self.rimInfoReqDomain.distance = self.searchConditionContentView.currentDistance
+            self.queryData()
+        }
+        
+    }
 }
 
 // MARK: CLLocationManagerDelegate
@@ -238,11 +292,7 @@ extension MapViewController : MKMapViewDelegate {
         
         //定位成功记录位置
         self.centerCoordinate = userLocation.location!.coordinate
-        
-        //点击大头针，会出现以下信息
-        userLocation.title = "中国";
-        userLocation.subtitle = "四大文明古国之一";
-        
+                
         //让地图显示用户的位置（iOS8一打开地图会默认转到用户所在位置的地图），该方法不能设置地图精度
         //    [mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
         
@@ -251,7 +301,11 @@ extension MapViewController : MKMapViewDelegate {
         let region = MKCoordinateRegionMake(userLocation.location!.coordinate, span);
         mapView.setRegion(region, animated: true)
         
-        self.queryData()
+        if self.isUserLocationSuccess == false {
+            self.queryData()
+        }
+        
+        self.isUserLocationSuccess = true
     }
     
     //定位失败
@@ -296,17 +350,6 @@ extension MapViewController : MKMapViewDelegate {
             }
         }
         
-        
-//        let button = UIButton(type: UIButtonType.DetailDisclosure)
-//        pinView!.rightCalloutAccessoryView = button;
-//        
-//        pinView!.opaque = false
-//        pinView!.selected = true;
-//        pinView!.calloutOffset = CGPointMake(15, 15);
-//        
-//        let imageView = UIImageView(image: UIImage(named: "Loca_normal"))
-//        pinView!.leftCalloutAccessoryView = imageView;
-        
         return pinView
     }
     
@@ -317,16 +360,20 @@ extension MapViewController : MKMapViewDelegate {
         
         self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
         
-        self.landInfoRunning = !self.landInfoRunning
+//        self.landInfoRunning = !self.landInfoRunning
         
         let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
         animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
         
-        if self.landInfoRunning == true {
+        let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.landInfoView.frame)
+        
+        if CGRectGetMaxY(self.landInfoView.frame) >= landInfoViewY {
             animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 20))
+            self.landInfoRunning = true
         }
         else {
             animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
+            self.landInfoRunning =  false
         }
         animation.springBounciness = 10.0;
         animation.springSpeed = 10.0;
@@ -351,7 +398,7 @@ extension MapViewController : MKMapViewDelegate {
 extension MapViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
+        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
         self.isKeyword = true
         self.rimInfoReqDomain.keyword = searchBar.text
         self.rimInfoReqDomain.keyword = "东城"
@@ -375,18 +422,21 @@ extension MapViewController {
     
     // 查询条件按钮点击
     @IBAction func searchConditionBtnClicked(sender: UIButton) {
-        self.timerRunning = !self.timerRunning;
-        sender.selected = self.timerRunning
+//        self.timerRunning = !self.timerRunning;
+        sender.selected = !self.timerRunning
         
         self.searchConditionView.alpha = 1.0
         let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
         animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
         
-        if self.timerRunning == true {
-            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
+//        if self.timerRunning == true {
+        if self.searchConditionView.width <= 5 {
+            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 340))
+            self.timerRunning = true
         }
         else {
             animation.toValue = NSValue(CGSize:CGSizeMake(5, 5))
+            self.timerRunning = false
         }
         animation.springBounciness = 10.0;
         animation.springSpeed = 10.0;
@@ -394,8 +444,9 @@ extension MapViewController {
         let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
         animation2.property = _POPAnimatableProperty(name: kPOPLayerPosition)
         
-        if self.timerRunning == true {
-            animation2.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.searchBtn.frame) + 150))
+//        if self.timerRunning == true {
+        if self.searchConditionView.width <= 5 {
+            animation2.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.searchBtn.frame) + 180))
         }
         else {
             animation2.toValue = NSValue(CGSize:CGSizeMake(CGRectGetMidX(self.searchBtn.frame), CGRectGetMidY(self.searchBtn.frame)))
@@ -405,6 +456,16 @@ extension MapViewController {
         
         _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
         _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.searchConditionView.layer)
+        
+        let time: NSTimeInterval = 0.5
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delay, dispatch_get_main_queue()) {
+            
+            if self.timerRunning == false {
+                self.closeSearchConditionViewHandler()
+            }
+        }
     }
     
     // 列表显示数据
@@ -469,9 +530,13 @@ extension MapViewController {
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             
             self.rimLandArray = rimInfoArray
+            
+            self.testDataSourceTypeCount(rimInfoArray)
+            
             self.packagePointAnnatotion()
             self.myMapView.addAnnotations(self.pointAnnotationArray)
             self.keywordSearchDefFirstDataCenter()
+            self.navBarItemSetting()
             FuniHUD.sharedHud().hide(self.view)
             
             }) { (error:String) -> Void in
@@ -486,17 +551,80 @@ extension MapViewController {
         self.pointAnnotationArray.removeAll()
         
         if let rimArray = self.rimLandArray {
+            
+            var tempRimArray: Array<RimLandInfoDomain> = Array<RimLandInfoDomain>()
+            
             for rimInfoDomain: RimLandInfoDomain in rimArray {
                 
-                if rimInfoDomain.lat > 0 && rimInfoDomain.lng > 0 && rimInfoDomain.dataType == self.showRimLandType {
-                    
-                    let pointAnnatotion = FuniPointAnnotation()
-                    pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
-                    pointAnnatotion.rimLandInfoDomain = rimInfoDomain
-                    pointAnnatotion.title = rimInfoDomain.title!
-                    self.pointAnnotationArray.append(pointAnnatotion)
+                if rimInfoDomain.lat > 0 &&
+                    rimInfoDomain.lng > 0 &&
+                    rimInfoDomain.dataType == self.showRimLandType {
+                        
+                        tempRimArray.append(rimInfoDomain)
                 }
             }
+            
+            self.rimLandInfoDataFilter(tempRimArray)
+        }
+    }
+    
+    //数据二次过滤
+    func rimLandInfoDataFilter(rimArray: Array<RimLandInfoDomain>) {
+        
+        var tempRimArray: Array<RimLandInfoDomain> = Array<RimLandInfoDomain>()
+        
+        if self.rimLandTypeVO != nil {
+            
+            tempRimArray.appendContentsOf(self.filterArray((self.rimLandTypeVO?.fieldType2)!, fieldType: 2, dataSource: rimArray))
+            tempRimArray.appendContentsOf(self.filterArray((self.rimLandTypeVO?.fieldType3)!, fieldType: 3, dataSource: rimArray))
+            tempRimArray.appendContentsOf(self.filterArray((self.rimLandTypeVO?.fieldType4)!, fieldType: 4, dataSource: rimArray))
+            
+        } else {
+            tempRimArray.appendContentsOf(rimArray)
+        }
+        
+        if tempRimArray.count == 0 {
+            tempRimArray.appendContentsOf(rimArray)
+        }
+        
+        for rimInfoDomain: RimLandInfoDomain in tempRimArray {
+            
+            let pointAnnatotion = FuniPointAnnotation()
+            pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
+            pointAnnatotion.rimLandInfoDomain = rimInfoDomain
+            pointAnnatotion.title = rimInfoDomain.title!
+            self.pointAnnotationArray.append(pointAnnatotion)
+        }
+        
+        
+        print("rimArray=\(rimArray.count)")
+    }
+    
+    
+    // 过滤array
+    func filterArray(on: Bool, fieldType: Int, dataSource: Array<RimLandInfoDomain>) -> Array<RimLandInfoDomain> {
+        
+        if on == true {
+            return dataSource.filter({ (tempRimLandInfoDomain: RimLandInfoDomain) -> Bool in
+                return tempRimLandInfoDomain.fieldType == fieldType
+            })
+        }
+        
+        return Array<RimLandInfoDomain>()
+    }
+    
+    
+    //test
+    func testDataSourceTypeCount(rimArray: Array<RimLandInfoDomain>) {
+        if self.rimLandTypeVO != nil {
+            let dataSource2: Array<RimLandInfoDomain> = self.filterArray((self.rimLandTypeVO?.fieldType2)!, fieldType: 2, dataSource: rimArray)
+            print("dataSource2=\(dataSource2.count)")
+            
+            let dataSource3: Array<RimLandInfoDomain> = self.filterArray((self.rimLandTypeVO?.fieldType3)!, fieldType: 3, dataSource: rimArray)
+            print("dataSource3=\(dataSource3.count)")
+            
+            let dataSource4: Array<RimLandInfoDomain> = self.filterArray((self.rimLandTypeVO?.fieldType4)!, fieldType: 4, dataSource: rimArray)
+            print("dataSource4=\(dataSource4.count)")
         }
     }
     

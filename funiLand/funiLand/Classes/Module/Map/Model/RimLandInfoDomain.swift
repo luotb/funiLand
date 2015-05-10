@@ -16,6 +16,8 @@ class RimLandInfoDomain: Mappable {
     var netAreaMu: String?
     // 1=土地，2=项目
     var dataType: Int?
+    //已成交未呈现=4；已成交已呈现=3；未成交土地=2
+    var fieldType: Int?
     // 规则：小于1000m 返回值单位m 大于等于1000m 返回值单位 km
     var distance: String?
     //用地性质
@@ -42,6 +44,7 @@ class RimLandInfoDomain: Mappable {
         id <- map["id"]
         netAreaMu <- map["netAreaMu"]
         dataType <- map["dataType"]
+        fieldType <- map["fieldType"]
         distance <- map["distance"]
         fieldusageName <- map["fieldusageName"]
         lat <- map["lat"]
