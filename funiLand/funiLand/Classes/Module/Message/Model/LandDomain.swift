@@ -10,7 +10,7 @@ import UIKit
 
 class LandDomain: BaseDomain {
     
-    var title: NSString?
-    var description1: NSString?
-    var description2: NSString?
+    var title: String?
+    var description1: String?
+    var description2: String?
 }

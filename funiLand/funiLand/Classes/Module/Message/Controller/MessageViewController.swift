@@ -12,13 +12,19 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
 
     @IBOutlet var myTableView: UITableView!
     var calendarManager: JTCalendarManager!
-    var calendarContentView: JTHorizontalCalendarView!
+    
+    @IBOutlet var calendarContentView: JTHorizontalCalendarView!
+    var todayDate: NSDate?
+    var minDate: NSDate?
+    var maxDate: NSDate?
     var dateSelected: NSDate?
     var landDataSource: Array<LandArrayRespon>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.initSteup()
+        self.loadCalendar()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,17 +44,29 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         
         //集成下拉刷新
         setupDownRefresh()
-        
+    }
+    
+    //加载日历
+    func loadCalendar () {
         calendarManager = JTCalendarManager()
         calendarManager.delegate = self
+        todayDate = NSDate();
         
+        // Min date will be 2 month before today
+        minDate = calendarManager.dateHelper.addToDate(todayDate, months: -2)
+        
+        // Max date will be 2 month after today
+        maxDate = calendarManager.dateHelper.addToDate(todayDate, months: 2)
+        
+        calendarManager.contentView = calendarContentView
+        calendarManager.setDate(todayDate)
     }
     
     //下拉刷新
     func setupDownRefresh(){
-//        self.myTableView.addLegendHeaderWithRefreshingBlock { [unowned self]() -> Void in
-//            self.queryData()
-//        }
+        self.myTableView.addLegendHeaderWithRefreshingBlock { () -> Void in
+            self.queryData()
+        }
     }
     
     //加载数据
@@ -56,17 +74,17 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         
         HttpService.sharedInstance.login(param: nil,
             success: { (str) -> Void in
-//                self.myTableView.header.endRefreshing()
+                self.myTableView.header.endRefreshing()
                 self.myTableView.reloadData()
             }) { (error) -> Void in
-//                self.myTableView.header.endRefreshing()
+                self.myTableView.header.endRefreshing()
         }
     }
     
     // MARK: - Table view data source and delegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 96
+        return indexPath.section == 0 ? 200 : 50
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -74,32 +92,13 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return 2;
     }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)
         -> UITableViewCell{
             
-            let Identifier = "myTableViewCell"
-            
-//            if(tableView == self.roomTableView){
-//                if(!self.nibsRegistered){
-//                    
-//                    let nib = UINib(nibName: "RoomTableViewCell", bundle: nil);
-//                    tableView.registerNib(nib, forCellReuseIdentifier: Identifier);
-//                    self.nibsRegistered = true;
-//                }
-//            }else{
-//                if(!self.nibsRegisteredForSearchTableView){
-//                    
-//                    let nib = UINib(nibName: "RoomTableViewCell", bundle: nil);
-//                    tableView.registerNib(nib, forCellReuseIdentifier: Identifier);
-//                    self.nibsRegisteredForSearchTableView = true;
-//                }
-//            }
-//            
-            let cell = tableView.dequeueReusableCellWithIdentifier(Identifier, forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("LandTableViewCell", forIndexPath: indexPath)
             
             return cell;
             
@@ -119,57 +118,95 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("RoomDetailSegue", sender: self);
+//        self.performSegueWithIdentifier("RoomDetailSegue", sender: self);
     }
     
     // MARK: - CalendarManager delegate
     
     func calendar(calendar: JTCalendarManager!, prepareDayView dayView: UIView!) {
         
-        let tempDayView = dayView as? JTCalendarDayView
+        let tempDayView = dayView as! JTCalendarDayView
         
         // Today
-        if calendarManager.dateHelper.date(NSDate(), isTheSameDayThan: tempDayView?.date) {
-            tempDayView?.circleView.hidden = false
-            tempDayView?.circleView.backgroundColor = UIColor.blueColor()
-            tempDayView?.dotView.backgroundColor = UIColor.whiteColor()
-            tempDayView?.textLabel.textColor = UIColor.whiteColor()
+        if calendarManager.dateHelper.date(NSDate(), isTheSameDayThan: tempDayView.date) {
+            tempDayView.circleView.hidden = false
+            tempDayView.circleView.backgroundColor = UIColor.blueColor()
+            tempDayView.dotView.backgroundColor = UIColor.whiteColor()
+            tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Selected date
-        else if calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView?.date) == true {
+        else if calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView.date) == true {
             
-            tempDayView?.circleView.hidden = false
-            tempDayView?.circleView.backgroundColor = UIColor.redColor()
-            tempDayView?.dotView.backgroundColor = UIColor.whiteColor()
-            tempDayView?.textLabel.textColor = UIColor.whiteColor()
+            tempDayView.circleView.hidden = false
+            tempDayView.circleView.backgroundColor = UIColor.redColor()
+            tempDayView.dotView.backgroundColor = UIColor.whiteColor()
+            tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Other month
-        else if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView?.date) {
+        else if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) {
             
-            tempDayView?.circleView.hidden = true
-            tempDayView?.dotView.backgroundColor = UIColor.redColor()
-            tempDayView?.textLabel.textColor = UIColor.lightGrayColor()
+            tempDayView.circleView.hidden = true
+            tempDayView.dotView.backgroundColor = UIColor.redColor()
+            tempDayView.textLabel.textColor = UIColor.lightGrayColor()
         }
         // Another day of the current month
         else {
-            tempDayView?.circleView.hidden = true
-            tempDayView?.dotView.backgroundColor = UIColor.redColor()
-            tempDayView?.textLabel.textColor = UIColor.blackColor()
+            tempDayView.circleView.hidden = true
+            tempDayView.dotView.backgroundColor = UIColor.redColor()
+            tempDayView.textLabel.textColor = UIColor.blackColor()
+        }
+        
+        if self.haveEventForDay(tempDayView.date) {
+             tempDayView.dotView.hidden = false
+        } else {
+            tempDayView.dotView.hidden = true
         }
     }
     
     func calendar(calendar: JTCalendarManager!, didTouchDayView dayView: UIView!) {
         
+        let tempDayView = dayView as! JTCalendarDayView
+        dateSelected = tempDayView.date;
+        
+        // Animation for the circleView
+        tempDayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+        
+        UIView.transitionWithView(tempDayView, duration: 0.3, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
+            tempDayView.circleView.transform = CGAffineTransformIdentity
+            }, completion: nil)
+        
+        // Load the previous or next page if touch a day from another month
+        
+        if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) {
+            if calendarContentView.date.compare(tempDayView.date) == NSComparisonResult.OrderedAscending {
+                calendarContentView.loadNextPageWithAnimation()
+            } else {
+                calendarContentView.loadPreviousPageWithAnimation()
+            }
+        }
+    }
+    
+    
+    //pragma mark - CalendarManager delegate - Page mangement
+    
+    func calendar(calendar: JTCalendarManager!, canDisplayPageWithDate date: NSDate!) -> Bool {
+        return calendarManager.dateHelper.date(date, isEqualOrAfter: nil, andEqualOrBefore: nil)
     }
     
     
     
-    func haveEventForDay(data: NSDate) {
+    func haveEventForDay(date: NSDate) -> Bool {
+        var judge : Bool = false
         
         for landRespon : LandArrayRespon in landDataSource {
-
+            print(landRespon)
+            
+            if landRespon.date == date {
+                judge = true
+                break
+            }
         }
-        
+        return judge
     }
 
 }
