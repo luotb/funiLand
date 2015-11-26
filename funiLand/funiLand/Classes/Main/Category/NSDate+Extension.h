@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-#define  LOCALPATH  [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-
 @interface NSDate (Extension)
 
 + (NSString *)getTime;
