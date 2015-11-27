@@ -13,7 +13,9 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     @IBOutlet var myTableView: UITableView!
     var calendarManager: JTCalendarManager!
     
+    @IBOutlet var calendarMenuView: JTCalendarMenuView!
     @IBOutlet var calendarContentView: JTHorizontalCalendarView!
+    
     var todayDate: NSDate?
     var minDate: NSDate?
     var maxDate: NSDate?
@@ -58,6 +60,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         // Max date will be 2 month after today
         maxDate = calendarManager.dateHelper.addToDate(todayDate, months: 2)
         
+        calendarManager.menuView = calendarMenuView
         calendarManager.contentView = calendarContentView
         calendarManager.setDate(todayDate)
     }
@@ -84,7 +87,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     // MARK: - Table view data source and delegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 200 : 50
+        return 50
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -92,7 +95,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2;
+        return 1;
     }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)
@@ -156,11 +159,11 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             tempDayView.textLabel.textColor = UIColor.blackColor()
         }
         
-        if self.haveEventForDay(tempDayView.date) {
-             tempDayView.dotView.hidden = false
-        } else {
-            tempDayView.dotView.hidden = true
-        }
+//        if self.haveEventForDay(tempDayView.date) {
+//             tempDayView.dotView.hidden = false
+//        } else {
+//            tempDayView.dotView.hidden = true
+//        }
     }
     
     func calendar(calendar: JTCalendarManager!, didTouchDayView dayView: UIView!) {

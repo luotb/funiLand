@@ -80,8 +80,6 @@
 		F43424E81C05814200E78F39 /* LandDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E71C05814200E78F39 /* LandDomain.swift */; };
 		F45700061C02B361005FEB26 /* funiLandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700051C02B361005FEB26 /* funiLandTests.swift */; };
 		F45700111C02B361005FEB26 /* funiLandUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700101C02B361005FEB26 /* funiLandUITests.swift */; };
-		F45700931C02CAB9005FEB26 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F45700221C02CAB9005FEB26 /* NSDate+Extension.m */; };
-		F45700941C02CAB9005FEB26 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F45700241C02CAB9005FEB26 /* NSString+Extension.m */; };
 		F45700961C02CAB9005FEB26 /* UIButton+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F45700281C02CAB9005FEB26 /* UIButton+Extension.m */; };
 		F45700971C02CAB9005FEB26 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F457002A1C02CAB9005FEB26 /* UIColor+Extension.m */; };
 		F45700981C02CAB9005FEB26 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F457002C1C02CAB9005FEB26 /* UIView+Extension.m */; };
@@ -96,6 +94,8 @@
 		F45700C41C02CD1A005FEB26 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700C31C02CD1A005FEB26 /* UIColorExt.swift */; };
 		F457FFF81C02B361005FEB26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F457FFF71C02B361005FEB26 /* Assets.xcassets */; };
 		F457FFFB1C02B361005FEB26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F457FFF91C02B361005FEB26 /* LaunchScreen.storyboard */; };
+		F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA21C07FDA500244201 /* NSDateExtension.swift */; };
+		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,10 +262,6 @@
 		F457000C1C02B361005FEB26 /* funiLandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = funiLandUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45700101C02B361005FEB26 /* funiLandUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = funiLandUITests.swift; sourceTree = "<group>"; };
 		F45700121C02B361005FEB26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F45700211C02CAB9005FEB26 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
-		F45700221C02CAB9005FEB26 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
-		F45700231C02CAB9005FEB26 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
-		F45700241C02CAB9005FEB26 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		F45700271C02CAB9005FEB26 /* UIButton+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extension.h"; sourceTree = "<group>"; };
 		F45700281C02CAB9005FEB26 /* UIButton+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extension.m"; sourceTree = "<group>"; };
 		F45700291C02CAB9005FEB26 /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
@@ -290,6 +286,8 @@
 		F457FFED1C02B361005FEB26 /* funiLand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = funiLand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F457FFF71C02B361005FEB26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F457FFFA1C02B361005FEB26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F4977DA21C07FDA500244201 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		F4977DA41C0827D100244201 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -648,10 +646,6 @@
 			children = (
 				F419E9221C03083B006A5815 /* UIBarButtonItemExt.swift */,
 				F45700C31C02CD1A005FEB26 /* UIColorExt.swift */,
-				F45700211C02CAB9005FEB26 /* NSDate+Extension.h */,
-				F45700221C02CAB9005FEB26 /* NSDate+Extension.m */,
-				F45700231C02CAB9005FEB26 /* NSString+Extension.h */,
-				F45700241C02CAB9005FEB26 /* NSString+Extension.m */,
 				F45700271C02CAB9005FEB26 /* UIButton+Extension.h */,
 				F45700281C02CAB9005FEB26 /* UIButton+Extension.m */,
 				F45700291C02CAB9005FEB26 /* UIColor+Extension.h */,
@@ -660,6 +654,8 @@
 				F457002C1C02CAB9005FEB26 /* UIView+Extension.m */,
 				F457002D1C02CAB9005FEB26 /* UIView+Shadow.h */,
 				F457002E1C02CAB9005FEB26 /* UIView+Shadow.m */,
+				F4977DA21C07FDA500244201 /* NSDateExtension.swift */,
+				F4977DA41C0827D100244201 /* StringExtension.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1104,6 +1100,7 @@
 				F419E94B1C030B9B006A5815 /* IQNSArray+Sort.m in Sources */,
 				24C49EE61C0734190065D9B6 /* MJRefreshConst.m in Sources */,
 				F419E8E51C02FB09006A5815 /* AFURLConnectionOperation.m in Sources */,
+				F4977DA51C0827D100244201 /* StringExtension.swift in Sources */,
 				24C49EF21C0736690065D9B6 /* LandTableViewCell.swift in Sources */,
 				F45700961C02CAB9005FEB26 /* UIButton+Extension.m in Sources */,
 				F419E8B71C02F20D006A5815 /* Account.swift in Sources */,
@@ -1133,6 +1130,7 @@
 				24C49EEF1C0734190065D9B6 /* UIView+MJExtension.m in Sources */,
 				F419E8E41C02FB09006A5815 /* AFSecurityPolicy.m in Sources */,
 				F45700A61C02CAB9005FEB26 /* AFAppDotNetAPIClient.m in Sources */,
+				F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */,
 				F419E94F1C030B9B006A5815 /* IQUIWindow+Hierarchy.m in Sources */,
 				F43424E41C05806900E78F39 /* BaseDomain.swift in Sources */,
 				F419E9521C030B9B006A5815 /* IQSegmentedNextPrevious.m in Sources */,
@@ -1149,14 +1147,12 @@
 				F43424E11C055B9000E78F39 /* JTHorizontalCalendarView.m in Sources */,
 				F419E95C1C030C6F006A5815 /* MBProgressHUD.m in Sources */,
 				24C49EEE1C0734190065D9B6 /* UIScrollView+MJRefresh.m in Sources */,
-				F45700931C02CAB9005FEB26 /* NSDate+Extension.m in Sources */,
 				24C49EE71C0734190065D9B6 /* MJRefreshFooter.m in Sources */,
 				F419E9171C0304B9006A5815 /* MapViewController.swift in Sources */,
 				F43424DB1C055B9000E78F39 /* JTCalendarScrollManager.m in Sources */,
 				F45700991C02CAB9005FEB26 /* UIView+Shadow.m in Sources */,
 				F457009E1C02CAB9005FEB26 /* MLNavigationController.m in Sources */,
 				24C49EED1C0734190065D9B6 /* UIScrollView+MJExtension.m in Sources */,
-				F45700941C02CAB9005FEB26 /* NSString+Extension.m in Sources */,
 				F43424E61C05810B00E78F39 /* LandArrayRespon.swift in Sources */,
 				F419E8E21C02FB09006A5815 /* AFHTTPSessionManager.m in Sources */,
 				F43424DC1C055B9000E78F39 /* JTCalendarDayView.m in Sources */,
