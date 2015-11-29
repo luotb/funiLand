@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/Module/Message/Controller/MessageViewController.swift"
-            timestampString = "470239127.055139"
+            filePath = "funiLand/Classes/Main/Libs/JTCalendar/Views/JTVerticalCalendarView.m"
+            timestampString = "470484066.595862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "calendar(_:didTouchDayView:)"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "-setDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "funiLand/Classes/Module/Message/Controller/MessageViewController.swift"
+            timestampString = "470487402.627315"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "calendar(_:prepareDayView:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

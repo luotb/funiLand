@@ -24,7 +24,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.initDataSource()
         self.initSteup()
         self.loadCalendar()
     }
@@ -138,16 +138,14 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Selected date
-        else if calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView.date) == true {
-            
+        else if  dateSelected != nil && calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView.date) == true {
             tempDayView.circleView.hidden = false
             tempDayView.circleView.backgroundColor = UIColor.redColor()
             tempDayView.dotView.backgroundColor = UIColor.whiteColor()
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Other month
-        else if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) {
-            
+        else if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
             tempDayView.circleView.hidden = true
             tempDayView.dotView.backgroundColor = UIColor.redColor()
             tempDayView.textLabel.textColor = UIColor.lightGrayColor()
@@ -159,11 +157,11 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             tempDayView.textLabel.textColor = UIColor.blackColor()
         }
         
-//        if self.haveEventForDay(tempDayView.date) {
-//             tempDayView.dotView.hidden = false
-//        } else {
-//            tempDayView.dotView.hidden = true
-//        }
+        if self.haveEventForDay(tempDayView.date) {
+             tempDayView.dotView.hidden = false
+        } else {
+            tempDayView.dotView.hidden = true
+        }
     }
     
     func calendar(calendar: JTCalendarManager!, didTouchDayView dayView: UIView!) {
@@ -174,13 +172,14 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         // Animation for the circleView
         tempDayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
         
-        UIView.transitionWithView(tempDayView, duration: 0.3, options: UIViewAnimationOptions.AllowAnimatedContent, animations: { () -> Void in
+        UIView.transitionWithView(tempDayView, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
             tempDayView.circleView.transform = CGAffineTransformIdentity
+            self.calendarManager.reload()
             }, completion: nil)
         
         // Load the previous or next page if touch a day from another month
         
-        if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) {
+        if calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
             if calendarContentView.date.compare(tempDayView.date) == NSComparisonResult.OrderedAscending {
                 calendarContentView.loadNextPageWithAnimation()
             } else {
@@ -193,7 +192,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //pragma mark - CalendarManager delegate - Page mangement
     
     func calendar(calendar: JTCalendarManager!, canDisplayPageWithDate date: NSDate!) -> Bool {
-        return calendarManager.dateHelper.date(date, isEqualOrAfter: nil, andEqualOrBefore: nil)
+        return calendarManager.dateHelper.date(date, isEqualOrAfter: minDate, andEqualOrBefore: maxDate)
     }
     
     
@@ -202,14 +201,21 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         var judge : Bool = false
         
         for landRespon : LandArrayRespon in landDataSource {
-            print(landRespon)
-            
-            if landRespon.date == date {
+            if calendarManager.dateHelper.date(landRespon.date, isTheSameDayThan: date) {
                 judge = true
                 break
             }
         }
         return judge
+    }
+    
+    func initDataSource() {
+        landDataSource = Array<LandArrayRespon>()
+        
+        var temp = LandArrayRespon()
+        temp.date = NSDate()
+        
+        landDataSource.append(temp)
     }
 
 }
