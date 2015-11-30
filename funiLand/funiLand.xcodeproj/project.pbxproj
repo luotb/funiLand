@@ -78,6 +78,21 @@
 		F43424E41C05806900E78F39 /* BaseDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E31C05806900E78F39 /* BaseDomain.swift */; };
 		F43424E61C05810B00E78F39 /* LandArrayRespon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E51C05810B00E78F39 /* LandArrayRespon.swift */; };
 		F43424E81C05814200E78F39 /* LandDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E71C05814200E78F39 /* LandDomain.swift */; };
+		F45474CB1C0BEC9D00ED344B /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BB1C0BEC9D00ED344B /* FromJSON.swift */; };
+		F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BC1C0BEC9D00ED344B /* Map.swift */; };
+		F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BD1C0BEC9D00ED344B /* Mapper.swift */; };
+		F45474CE1C0BEC9D00ED344B /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BE1C0BEC9D00ED344B /* Operators.swift */; };
+		F45474CF1C0BEC9D00ED344B /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BF1C0BEC9D00ED344B /* ToJSON.swift */; };
+		F45474D01C0BEC9D00ED344B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F45474C01C0BEC9D00ED344B /* Info.plist */; };
+		F45474D11C0BEC9D00ED344B /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C31C0BEC9D00ED344B /* CustomDateFormatTransform.swift */; };
+		F45474D21C0BEC9D00ED344B /* DateFormatterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C41C0BEC9D00ED344B /* DateFormatterTransform.swift */; };
+		F45474D31C0BEC9D00ED344B /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C51C0BEC9D00ED344B /* DateTransform.swift */; };
+		F45474D41C0BEC9D00ED344B /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C61C0BEC9D00ED344B /* EnumTransform.swift */; };
+		F45474D51C0BEC9D00ED344B /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C71C0BEC9D00ED344B /* ISO8601DateTransform.swift */; };
+		F45474D61C0BEC9D00ED344B /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C81C0BEC9D00ED344B /* TransformOf.swift */; };
+		F45474D71C0BEC9D00ED344B /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474C91C0BEC9D00ED344B /* TransformType.swift */; };
+		F45474D81C0BEC9E00ED344B /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474CA1C0BEC9D00ED344B /* URLTransform.swift */; };
+		F45474DC1C0BF05600ED344B /* BaseRespDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474DB1C0BF05600ED344B /* BaseRespDomain.swift */; };
 		F45700061C02B361005FEB26 /* funiLandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700051C02B361005FEB26 /* funiLandTests.swift */; };
 		F45700111C02B361005FEB26 /* funiLandUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700101C02B361005FEB26 /* funiLandUITests.swift */; };
 		F45700961C02CAB9005FEB26 /* UIButton+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F45700281C02CAB9005FEB26 /* UIButton+Extension.m */; };
@@ -256,6 +271,22 @@
 		F43424E31C05806900E78F39 /* BaseDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDomain.swift; sourceTree = "<group>"; };
 		F43424E51C05810B00E78F39 /* LandArrayRespon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandArrayRespon.swift; sourceTree = "<group>"; };
 		F43424E71C05814200E78F39 /* LandDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDomain.swift; sourceTree = "<group>"; };
+		F45474BB1C0BEC9D00ED344B /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
+		F45474BC1C0BEC9D00ED344B /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		F45474BD1C0BEC9D00ED344B /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		F45474BE1C0BEC9D00ED344B /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		F45474BF1C0BEC9D00ED344B /* ToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToJSON.swift; sourceTree = "<group>"; };
+		F45474C01C0BEC9D00ED344B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F45474C11C0BEC9D00ED344B /* ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
+		F45474C31C0BEC9D00ED344B /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
+		F45474C41C0BEC9D00ED344B /* DateFormatterTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatterTransform.swift; sourceTree = "<group>"; };
+		F45474C51C0BEC9D00ED344B /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
+		F45474C61C0BEC9D00ED344B /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
+		F45474C71C0BEC9D00ED344B /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateTransform.swift; sourceTree = "<group>"; };
+		F45474C81C0BEC9D00ED344B /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
+		F45474C91C0BEC9D00ED344B /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
+		F45474CA1C0BEC9D00ED344B /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
+		F45474DB1C0BF05600ED344B /* BaseRespDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRespDomain.swift; sourceTree = "<group>"; };
 		F45700011C02B361005FEB26 /* funiLandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = funiLandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45700051C02B361005FEB26 /* funiLandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = funiLandTests.swift; sourceTree = "<group>"; };
 		F45700071C02B361005FEB26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -597,6 +628,44 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F45474B91C0BEC9D00ED344B /* ObjectMapper */ = {
+			isa = PBXGroup;
+			children = (
+				F45474BA1C0BEC9D00ED344B /* Core */,
+				F45474C01C0BEC9D00ED344B /* Info.plist */,
+				F45474C11C0BEC9D00ED344B /* ObjectMapper.h */,
+				F45474C21C0BEC9D00ED344B /* Transforms */,
+			);
+			path = ObjectMapper;
+			sourceTree = "<group>";
+		};
+		F45474BA1C0BEC9D00ED344B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F45474BB1C0BEC9D00ED344B /* FromJSON.swift */,
+				F45474BC1C0BEC9D00ED344B /* Map.swift */,
+				F45474BD1C0BEC9D00ED344B /* Mapper.swift */,
+				F45474BE1C0BEC9D00ED344B /* Operators.swift */,
+				F45474BF1C0BEC9D00ED344B /* ToJSON.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F45474C21C0BEC9D00ED344B /* Transforms */ = {
+			isa = PBXGroup;
+			children = (
+				F45474C31C0BEC9D00ED344B /* CustomDateFormatTransform.swift */,
+				F45474C41C0BEC9D00ED344B /* DateFormatterTransform.swift */,
+				F45474C51C0BEC9D00ED344B /* DateTransform.swift */,
+				F45474C61C0BEC9D00ED344B /* EnumTransform.swift */,
+				F45474C71C0BEC9D00ED344B /* ISO8601DateTransform.swift */,
+				F45474C81C0BEC9D00ED344B /* TransformOf.swift */,
+				F45474C91C0BEC9D00ED344B /* TransformType.swift */,
+				F45474CA1C0BEC9D00ED344B /* URLTransform.swift */,
+			);
+			path = Transforms;
+			sourceTree = "<group>";
+		};
 		F45700041C02B361005FEB26 /* funiLandTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +732,7 @@
 		F45700361C02CAB9005FEB26 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F45474B91C0BEC9D00ED344B /* ObjectMapper */,
 				F43424B31C055B9000E78F39 /* JTCalendar */,
 				F43424731C055AA800E78F39 /* MJRefresh */,
 				F434246F1C05584000E78F39 /* DZNEmptyDataSet */,
@@ -778,6 +848,7 @@
 		F457006A1C02CAB9005FEB26 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F45474DB1C0BF05600ED344B /* BaseRespDomain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1068,6 +1139,7 @@
 				F419E9211C03058A006A5815 /* Profile.storyboard in Resources */,
 				F457FFF81C02B361005FEB26 /* Assets.xcassets in Resources */,
 				F419E9581C030B9B006A5815 /* IQKeyboardManager.bundle in Resources */,
+				F45474D01C0BEC9D00ED344B /* Info.plist in Resources */,
 				24C49EE41C0734190065D9B6 /* MJRefresh.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1103,6 +1175,8 @@
 				F4977DA51C0827D100244201 /* StringExtension.swift in Sources */,
 				24C49EF21C0736690065D9B6 /* LandTableViewCell.swift in Sources */,
 				F45700961C02CAB9005FEB26 /* UIButton+Extension.m in Sources */,
+				F45474D41C0BEC9D00ED344B /* EnumTransform.swift in Sources */,
+				F45474D71C0BEC9D00ED344B /* TransformType.swift in Sources */,
 				F419E8B71C02F20D006A5815 /* Account.swift in Sources */,
 				F419E94D1C030B9B006A5815 /* IQUIView+Hierarchy.m in Sources */,
 				F425E9A81C06E4B600003B9F /* FLUser.swift in Sources */,
@@ -1110,6 +1184,7 @@
 				F419E91F1C030581006A5815 /* ProfileViewController.swift in Sources */,
 				24C49EEB1C0734190065D9B6 /* MJRefreshLegendFooter.m in Sources */,
 				F419E8E11C02FB09006A5815 /* AFHTTPRequestOperationManager.m in Sources */,
+				F45474D51C0BEC9D00ED344B /* ISO8601DateTransform.swift in Sources */,
 				F419E8EA1C02FC32006A5815 /* LoginViewController.swift in Sources */,
 				F43424DA1C055B9000E78F39 /* JTCalendarDelegateManager.m in Sources */,
 				F43424D71C055B9000E78F39 /* JTCalendarManager.m in Sources */,
@@ -1118,12 +1193,16 @@
 				F43424721C05584100E78F39 /* UIScrollView+EmptyDataSet.m in Sources */,
 				F43424E21C055B9000E78F39 /* JTVerticalCalendarView.m in Sources */,
 				F419E9541C030B9B006A5815 /* IQBarButtonItem.m in Sources */,
+				F45474D11C0BEC9D00ED344B /* CustomDateFormatTransform.swift in Sources */,
+				F45474CB1C0BEC9D00ED344B /* FromJSON.swift in Sources */,
 				F419E8E31C02FB09006A5815 /* AFNetworkReachabilityManager.m in Sources */,
 				F419E8BC1C02F62B006A5815 /* HttpService.swift in Sources */,
 				F419E9511C030B9B006A5815 /* IQKeyboardReturnKeyHandler.m in Sources */,
+				F45474DC1C0BF05600ED344B /* BaseRespDomain.swift in Sources */,
 				F419E9531C030B9B006A5815 /* IQTextView.m in Sources */,
 				F419E8E01C02FB09006A5815 /* AFHTTPRequestOperation.m in Sources */,
 				F419E8AF1C02F1C3006A5815 /* NavigationController.swift in Sources */,
+				F45474D31C0BEC9D00ED344B /* DateTransform.swift in Sources */,
 				F457009D1C02CAB9005FEB26 /* FuniHUD.m in Sources */,
 				F45700971C02CAB9005FEB26 /* UIColor+Extension.m in Sources */,
 				F419E8B81C02F20D006A5815 /* AccountTool.swift in Sources */,
@@ -1139,16 +1218,19 @@
 				F419E9571C030B9B006A5815 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				F419E94E1C030B9B006A5815 /* IQUIViewController+Additions.m in Sources */,
 				F43424E81C05814200E78F39 /* LandDomain.swift in Sources */,
+				F45474D81C0BEC9E00ED344B /* URLTransform.swift in Sources */,
 				F43424DF1C055B9000E78F39 /* JTCalendarWeekDayView.m in Sources */,
 				F419E8B11C02F1C3006A5815 /* BaseViewController.swift in Sources */,
 				F43424D91C055B9000E78F39 /* JTDateHelper.m in Sources */,
 				24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */,
+				F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */,
 				F419E8B91C02F20D006A5815 /* Helper.swift in Sources */,
 				F43424E11C055B9000E78F39 /* JTHorizontalCalendarView.m in Sources */,
 				F419E95C1C030C6F006A5815 /* MBProgressHUD.m in Sources */,
 				24C49EEE1C0734190065D9B6 /* UIScrollView+MJRefresh.m in Sources */,
 				24C49EE71C0734190065D9B6 /* MJRefreshFooter.m in Sources */,
 				F419E9171C0304B9006A5815 /* MapViewController.swift in Sources */,
+				F45474CE1C0BEC9D00ED344B /* Operators.swift in Sources */,
 				F43424DB1C055B9000E78F39 /* JTCalendarScrollManager.m in Sources */,
 				F45700991C02CAB9005FEB26 /* UIView+Shadow.m in Sources */,
 				F457009E1C02CAB9005FEB26 /* MLNavigationController.m in Sources */,
@@ -1159,14 +1241,18 @@
 				F45700981C02CAB9005FEB26 /* UIView+Extension.m in Sources */,
 				F419E9501C030B9B006A5815 /* IQKeyboardManager.m in Sources */,
 				F419E9551C030B9B006A5815 /* IQTitleBarButtonItem.m in Sources */,
+				F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */,
 				24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */,
+				F45474CF1C0BEC9D00ED344B /* ToJSON.swift in Sources */,
 				F419E8B01C02F1C3006A5815 /* TabBarController.swift in Sources */,
 				F419E8E61C02FB09006A5815 /* AFURLRequestSerialization.m in Sources */,
 				F45700BF1C02CB53005FEB26 /* AppDelegate.swift in Sources */,
 				24C49EE91C0734190065D9B6 /* MJRefreshGifHeader.m in Sources */,
 				F419E94C1C030B9B006A5815 /* IQUITextFieldView+Additions.m in Sources */,
 				F419E8E71C02FB09006A5815 /* AFURLResponseSerialization.m in Sources */,
+				F45474D61C0BEC9D00ED344B /* TransformOf.swift in Sources */,
 				24C49EEA1C0734190065D9B6 /* MJRefreshHeader.m in Sources */,
+				F45474D21C0BEC9D00ED344B /* DateFormatterTransform.swift in Sources */,
 				F419E9561C030B9B006A5815 /* IQToolbar.m in Sources */,
 				24C49EEC1C0734190065D9B6 /* MJRefreshLegendHeader.m in Sources */,
 				F43424DE1C055B9000E78F39 /* JTCalendarPageView.m in Sources */,

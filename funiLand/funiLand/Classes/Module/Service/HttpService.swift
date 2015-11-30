@@ -33,14 +33,32 @@ class HttpService {
         return baseURLString + postfixUrl
     }
     
+    func packageBaseRespon(id: AnyObject) -> BaseRespDomain {
+        return id as! BaseRespDomain
+    }
+    
     func login(param params:NSMutableDictionary?,success:(str:String)->Void,faild:(error:String)->Void){
         
         sessionManager.GET(self.buildUrl(loginURLString), parameters: params, success: { (task:NSURLSessionDataTask!, id:AnyObject!) -> Void in
             success(str: "调用成功")
             }) { (NSURLSessionDataTask, error:NSError!) -> Void in
-                faild(error: "网络错误，请稍后再试！")
+                faild(error: String_RequestError_Msg_1001)
         }
         
     }
+    
+    //获取供应或成交土地数据
+//    func getSupplyOrBargainList(type:Int, moths:String, success:(landArray:Array<LandDomain>)->Void,faild:(error:String)->Void) ->  {
+//        
+//        sessionManager.GET(self.buildUrl(loginURLString), parameters: nil, success: { (task:NSURLSessionDataTask!, id:AnyObject!) -> Void in
+//            
+//            var baseResp = id as? BaseRespDomain
+//            var respArray = Mapper.mapArray(baseResp?.data as ) as Array<LandDomain>
+//            
+//            success(landArray: respArray)
+//            }) { (NSURLSessionDataTask, error:NSError!) -> Void in
+//                faild(error: String_RequestError_Msg_1001)
+//        }
+//    }
 }
 

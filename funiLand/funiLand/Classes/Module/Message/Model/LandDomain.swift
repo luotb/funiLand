@@ -8,9 +8,23 @@
 
 import UIKit
 
-class LandDomain: BaseDomain {
+class LandDomain: Mappable {
     
+    var id: String?
     var title: String?
     var description1: String?
     var description2: String?
+    
+    init(){}
+    
+    required init?(_ map: Map){
+        mapping(map)
+    }
+    
+    func mapping(map: Map) {
+        id <- map["id"]
+        title <- map["title"]
+        description1 <- map["description1"]
+        description2 <- map["description2"]
+    }
 }
