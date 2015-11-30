@@ -75,13 +75,19 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //加载数据
     func queryData(){
         
-        HttpService.sharedInstance.login(param: nil,
-            success: { (str) -> Void in
-                self.myTableView.header.endRefreshing()
-                self.myTableView.reloadData()
-            }) { (error) -> Void in
-                self.myTableView.header.endRefreshing()
+        HttpService.sharedInstance.getSupplyOrBargainList(0, moths: "", success: { (landArray: Array<LandDomain>?) -> Void in
+            
+            }) { (error: String) -> Void in
+                
         }
+        
+//        login(param: nil,
+//            success: { (str) -> Void in
+//                self.myTableView.header.endRefreshing()
+//                self.myTableView.reloadData()
+//            }) { (error) -> Void in
+//                self.myTableView.header.endRefreshing()
+//        }
     }
     
     // MARK: - Table view data source and delegate

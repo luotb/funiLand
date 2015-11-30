@@ -131,6 +131,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		246BD0291C0C764C003BEE8C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		24C49ECC1C0734190065D9B6 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		24C49ECD1C0734190065D9B6 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		24C49ECE1C0734190065D9B6 /* MJRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshComponent.h; sourceTree = "<group>"; };
@@ -992,6 +993,7 @@
 		F457FFE41C02B360005FEB26 = {
 			isa = PBXGroup;
 			children = (
+				246BD0291C0C764C003BEE8C /* MapKit.framework */,
 				F457FFEF1C02B361005FEB26 /* funiLand */,
 				F45700041C02B361005FEB26 /* funiLandTests */,
 				F457000F1C02B361005FEB26 /* funiLandUITests */,

@@ -14,5 +14,5 @@ let APPHEIGHT = UIScreen.mainScreen().bounds.height
 
 
 // String
-let String_RequestError_Msg_1001          = "请求超时 请待会再试!"
+let String_RequestError_Msg_1001 : String          = "请求超时 请待会再试!"
 let String_RequestError_Msg_1009          = "网络不给力哦 请检查您是否在冲浪!"
