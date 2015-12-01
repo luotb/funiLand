@@ -10,21 +10,32 @@ import UIKit
 
 class MessageViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate,DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIActionSheetDelegate, JTCalendarDelegate {
 
+    @IBOutlet var dataTypeSegment: UISegmentedControl!
     @IBOutlet var myTableView: UITableView!
     var calendarManager: JTCalendarManager!
     
     @IBOutlet var calendarMenuView: JTCalendarMenuView!
     @IBOutlet var calendarContentView: JTHorizontalCalendarView!
-    
+    //当前日期
     var todayDate: NSDate?
+    //日历控件最小日期
     var minDate: NSDate?
+    //日历控件最大日期
     var maxDate: NSDate?
-    var dateSelected: NSDate?
-    var landDataSource: Array<LandArrayRespon>!
+    //选中的日期
+    var dateSelected: NSDate = NSDate()
+    //服务器返回的土地数据集合
+    var landResponArray: Array<LandArrayRespon>?
+    //选中日期对应的土地数据集合
+    var landArray: Array<LandDomain> = Array<LandDomain>()
+    //请求类型 0=供应, 1=成交
+    var reqType: Int = 0
+    //初始化请求的月份
+    var reqMonth: String = NSDate().getTime(DateFormat.format4)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initDataSource()
+        self.queryData()
         self.initSteup()
         self.loadCalendar()
     }
@@ -35,6 +46,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     
     //基础设置
     func initSteup(){
+        
         //禁用自动调整位置
         self.automaticallyAdjustsScrollViewInsets = false
         //设置展示表格的数据源和代理
@@ -46,6 +58,13 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         
         //集成下拉刷新
         setupDownRefresh()
+        
+        dataTypeSegment.addTarget(self, action:"segmentAction", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    //选择器回调
+    func segmentAction(segment:UISegmentedControl) {
+        print("ppp\(segment.selectedSegmentIndex)")
     }
     
     //加载日历
@@ -75,18 +94,12 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //加载数据
     func queryData(){
         
-        HttpService.sharedInstance.getSupplyOrBargainList(0, moths: "", success: { (landArray: Array<LandDomain>?) -> Void in
-            
-            }) { (error: String) -> Void in
-                
-        }
-        
-//        login(param: nil,
-//            success: { (str) -> Void in
-//                self.myTableView.header.endRefreshing()
-//                self.myTableView.reloadData()
-//            }) { (error) -> Void in
-//                self.myTableView.header.endRefreshing()
+//        HttpService.sharedInstance.getSupplyOrBargainList(reqType, months: reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
+//                self.landResponArray = landArray
+//                self.getSelectedDataLandArray()
+//                self.calendarManager.reload()
+//            }) { (error: String) -> Void in
+//                FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
 //        }
     }
     
@@ -100,15 +113,23 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         return 1
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "777"
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1;
+        return landArray.count;
     }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)
         -> UITableViewCell{
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("LandTableViewCell", forIndexPath: indexPath)
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("LandTableViewCell", forIndexPath: indexPath) as! LandTableViewCell
+            cell.landDomain = landArray[indexPath.row]
             return cell;
             
     }
@@ -120,15 +141,10 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         return view;
     }
     
-    //    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-    //
-    //        self.performSegueWithIdentifier("RoomDetailSegue", sender: self);
-    //
-    //    }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        self.performSegueWithIdentifier("RoomDetailSegue", sender: self);
+        self.performSegueWithIdentifier("LandDetailsSegue", sender: self);
     }
+    
     
     // MARK: - CalendarManager delegate
     
@@ -144,7 +160,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
         // Selected date
-        else if  dateSelected != nil && calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView.date) == true {
+        else if calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: tempDayView.date) == true {
             tempDayView.circleView.hidden = false
             tempDayView.circleView.backgroundColor = UIColor.redColor()
             tempDayView.dotView.backgroundColor = UIColor.whiteColor()
@@ -163,10 +179,12 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             tempDayView.textLabel.textColor = UIColor.blackColor()
         }
         
-        if self.haveEventForDay(tempDayView.date) {
-             tempDayView.dotView.hidden = false
-        } else {
-            tempDayView.dotView.hidden = true
+        if landResponArray != nil && landResponArray?.isEmpty != false {
+            if self.haveEventForDay(tempDayView.date) {
+                tempDayView.dotView.hidden = false
+            } else {
+                tempDayView.dotView.hidden = true
+            }
         }
     }
     
@@ -174,6 +192,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         
         let tempDayView = dayView as! JTCalendarDayView
         dateSelected = tempDayView.date;
+        self.getSelectedDataLandArray()
         
         // Animation for the circleView
         tempDayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
@@ -192,6 +211,8 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
                 calendarContentView.loadPreviousPageWithAnimation()
             }
         }
+        
+        myTableView.reloadData()
     }
     
     
@@ -202,11 +223,11 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     
-    
+    //根据指定日期判断是否有数据
     func haveEventForDay(date: NSDate) -> Bool {
         var judge : Bool = false
         
-        for landRespon : LandArrayRespon in landDataSource {
+        for landRespon : LandArrayRespon in landResponArray! {
             if calendarManager.dateHelper.date(landRespon.date, isTheSameDayThan: date) {
                 judge = true
                 break
@@ -215,13 +236,20 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         return judge
     }
     
-    func initDataSource() {
-        landDataSource = Array<LandArrayRespon>()
+    //获得选中日期的土地数据
+    func getSelectedDataLandArray() {
+        var judge : Bool = false
+        for landRespon : LandArrayRespon in landResponArray! {
+            if calendarManager.dateHelper.date(landRespon.date, isTheSameDayThan: dateSelected) {
+                landArray = landRespon.dataList!
+                judge = true
+                break
+            }
+        }
         
-        var temp = LandArrayRespon()
-        temp.date = NSDate()
-        
-        landDataSource.append(temp)
+        if judge == false {
+            landArray = Array<LandDomain>()
+        }
     }
 
 }

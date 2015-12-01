@@ -13,7 +13,7 @@ class BaseRespDomain: Mappable {
     var code: Int?
     var remark: String?
     var total: Int?
-    var data: NSObject?
+    var data: AnyObject?
     
     init(){}
     

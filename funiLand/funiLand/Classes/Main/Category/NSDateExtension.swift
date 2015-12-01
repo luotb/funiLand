@@ -12,6 +12,7 @@ enum DateFormat {
     case format1
     case format2
     case format3
+    case format4
 }
 
 extension NSDate {
@@ -32,6 +33,8 @@ extension NSDate {
                 df.dateFormat = "yyyy-MM-dd HH:mm:ss"
             case DateFormat.format3 :
                 df.dateFormat = "yyyyMMddHHmmss"
+            case DateFormat.format4 :
+                df.dateFormat = "yyyy-MM"
         }
         
         let na = df.stringFromDate(currentDate)

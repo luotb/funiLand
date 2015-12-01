@@ -1,17 +1,17 @@
 //
-//  LandArrayRespon.swift
+//  FieldDomain.swift
 //  funiLand
 //
-//  Created by You on 15/11/25.
+//  Created by You on 15/12/1.
 //  Copyright © 2015年 funi. All rights reserved.
 //
 
 import UIKit
 
-class LandArrayRespon: Mappable {
+class FieldDomain: Mappable {
 
-    var date: NSDate?
-    var dataList: [LandDomain]?
+    var name: String?
+    var value: String?
     
     init(){}
     
@@ -20,7 +20,7 @@ class LandArrayRespon: Mappable {
     }
     
     func mapping(map: Map) {
-        date <- map["date"]
-        dataList <- map["dataList"]
+        name <- map["name"]
+        value <- map["value"]
     }
 }

@@ -62,6 +62,13 @@
 		F419E9581C030B9B006A5815 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F419E94A1C030B9B006A5815 /* IQKeyboardManager.bundle */; };
 		F419E95C1C030C6F006A5815 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F419E95B1C030C6F006A5815 /* MBProgressHUD.m */; };
 		F425E9A81C06E4B600003B9F /* FLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F425E9A71C06E4B600003B9F /* FLUser.swift */; };
+		F42CF1391C0D73FA008F0CCE /* LandDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1381C0D73FA008F0CCE /* LandDetailsViewController.swift */; };
+		F42CF13B1C0D8DB1008F0CCE /* RimLandInfoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */; };
+		F42CF13D1C0D9456008F0CCE /* RimInfoRespDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF13C1C0D9456008F0CCE /* RimInfoRespDomain.swift */; };
+		F42CF1411C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1401C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift */; };
+		F42CF1431C0D9C69008F0CCE /* LandInfoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1421C0D9C69008F0CCE /* LandInfoDomain.swift */; };
+		F42CF1451C0D9CE1008F0CCE /* FieldDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1441C0D9CE1008F0CCE /* FieldDomain.swift */; };
+		F42CF1471C0D9D38008F0CCE /* FieldGroupDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1461C0D9D38008F0CCE /* FieldGroupDomain.swift */; };
 		F43424721C05584100E78F39 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F43424711C05584100E78F39 /* UIScrollView+EmptyDataSet.m */; };
 		F43424D71C055B9000E78F39 /* JTCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F43424B71C055B9000E78F39 /* JTCalendarManager.m */; };
 		F43424D81C055B9000E78F39 /* JTCalendarSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F43424B91C055B9000E78F39 /* JTCalendarSettings.m */; };
@@ -131,7 +138,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		246BD0291C0C764C003BEE8C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		24C49ECC1C0734190065D9B6 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		24C49ECD1C0734190065D9B6 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		24C49ECE1C0734190065D9B6 /* MJRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshComponent.h; sourceTree = "<group>"; };
@@ -235,6 +241,13 @@
 		F419E95A1C030C6F006A5815 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		F419E95B1C030C6F006A5815 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		F425E9A71C06E4B600003B9F /* FLUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLUser.swift; sourceTree = "<group>"; };
+		F42CF1381C0D73FA008F0CCE /* LandDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsViewController.swift; sourceTree = "<group>"; };
+		F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimLandInfoDomain.swift; sourceTree = "<group>"; };
+		F42CF13C1C0D9456008F0CCE /* RimInfoRespDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimInfoRespDomain.swift; sourceTree = "<group>"; };
+		F42CF1401C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESPAFHTTPSessionManager.swift; sourceTree = "<group>"; };
+		F42CF1421C0D9C69008F0CCE /* LandInfoDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandInfoDomain.swift; sourceTree = "<group>"; };
+		F42CF1441C0D9CE1008F0CCE /* FieldDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldDomain.swift; sourceTree = "<group>"; };
+		F42CF1461C0D9D38008F0CCE /* FieldGroupDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldGroupDomain.swift; sourceTree = "<group>"; };
 		F43424701C05584100E78F39 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		F43424711C05584100E78F39 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		F43424B41C055B9000E78F39 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
@@ -916,6 +929,8 @@
 		F457007E1C02CAB9005FEB26 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */,
+				F42CF13C1C0D9456008F0CCE /* RimInfoRespDomain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -942,6 +957,7 @@
 			isa = PBXGroup;
 			children = (
 				F419E9121C0301A3006A5815 /* MessageViewController.swift */,
+				F42CF1381C0D73FA008F0CCE /* LandDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -951,6 +967,9 @@
 			children = (
 				F43424E51C05810B00E78F39 /* LandArrayRespon.swift */,
 				F43424E71C05814200E78F39 /* LandDomain.swift */,
+				F42CF1421C0D9C69008F0CCE /* LandInfoDomain.swift */,
+				F42CF1441C0D9CE1008F0CCE /* FieldDomain.swift */,
+				F42CF1461C0D9D38008F0CCE /* FieldGroupDomain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -967,6 +986,7 @@
 		F457008E1C02CAB9005FEB26 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				F42CF1401C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift */,
 				F419E8BB1C02F62B006A5815 /* HttpService.swift */,
 			);
 			path = Service;
@@ -993,7 +1013,6 @@
 		F457FFE41C02B360005FEB26 = {
 			isa = PBXGroup;
 			children = (
-				246BD0291C0C764C003BEE8C /* MapKit.framework */,
 				F457FFEF1C02B361005FEB26 /* funiLand */,
 				F45700041C02B361005FEB26 /* funiLandTests */,
 				F457000F1C02B361005FEB26 /* funiLandUITests */,
@@ -1178,6 +1197,7 @@
 				24C49EF21C0736690065D9B6 /* LandTableViewCell.swift in Sources */,
 				F45700961C02CAB9005FEB26 /* UIButton+Extension.m in Sources */,
 				F45474D41C0BEC9D00ED344B /* EnumTransform.swift in Sources */,
+				F42CF1411C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift in Sources */,
 				F45474D71C0BEC9D00ED344B /* TransformType.swift in Sources */,
 				F419E8B71C02F20D006A5815 /* Account.swift in Sources */,
 				F419E94D1C030B9B006A5815 /* IQUIView+Hierarchy.m in Sources */,
@@ -1204,6 +1224,7 @@
 				F419E9531C030B9B006A5815 /* IQTextView.m in Sources */,
 				F419E8E01C02FB09006A5815 /* AFHTTPRequestOperation.m in Sources */,
 				F419E8AF1C02F1C3006A5815 /* NavigationController.swift in Sources */,
+				F42CF13D1C0D9456008F0CCE /* RimInfoRespDomain.swift in Sources */,
 				F45474D31C0BEC9D00ED344B /* DateTransform.swift in Sources */,
 				F457009D1C02CAB9005FEB26 /* FuniHUD.m in Sources */,
 				F45700971C02CAB9005FEB26 /* UIColor+Extension.m in Sources */,
@@ -1218,6 +1239,8 @@
 				F45700C41C02CD1A005FEB26 /* UIColorExt.swift in Sources */,
 				24C49EE81C0734190065D9B6 /* MJRefreshGifFooter.m in Sources */,
 				F419E9571C030B9B006A5815 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				F42CF1391C0D73FA008F0CCE /* LandDetailsViewController.swift in Sources */,
+				F42CF1471C0D9D38008F0CCE /* FieldGroupDomain.swift in Sources */,
 				F419E94E1C030B9B006A5815 /* IQUIViewController+Additions.m in Sources */,
 				F43424E81C05814200E78F39 /* LandDomain.swift in Sources */,
 				F45474D81C0BEC9E00ED344B /* URLTransform.swift in Sources */,
@@ -1225,9 +1248,11 @@
 				F419E8B11C02F1C3006A5815 /* BaseViewController.swift in Sources */,
 				F43424D91C055B9000E78F39 /* JTDateHelper.m in Sources */,
 				24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */,
+				F42CF1431C0D9C69008F0CCE /* LandInfoDomain.swift in Sources */,
 				F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */,
 				F419E8B91C02F20D006A5815 /* Helper.swift in Sources */,
 				F43424E11C055B9000E78F39 /* JTHorizontalCalendarView.m in Sources */,
+				F42CF1451C0D9CE1008F0CCE /* FieldDomain.swift in Sources */,
 				F419E95C1C030C6F006A5815 /* MBProgressHUD.m in Sources */,
 				24C49EEE1C0734190065D9B6 /* UIScrollView+MJRefresh.m in Sources */,
 				24C49EE71C0734190065D9B6 /* MJRefreshFooter.m in Sources */,
@@ -1244,6 +1269,7 @@
 				F419E9501C030B9B006A5815 /* IQKeyboardManager.m in Sources */,
 				F419E9551C030B9B006A5815 /* IQTitleBarButtonItem.m in Sources */,
 				F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */,
+				F42CF13B1C0D8DB1008F0CCE /* RimLandInfoDomain.swift in Sources */,
 				24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */,
 				F45474CF1C0BEC9D00ED344B /* ToJSON.swift in Sources */,
 				F419E8B01C02F1C3006A5815 /* TabBarController.swift in Sources */,
