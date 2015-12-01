@@ -18,7 +18,7 @@ class BaseRespDomain: Mappable {
     init(){}
     
     required init?(_ map: Map){
-        mapping(map)
+//        mapping(map)
     }
     
     func mapping(map: Map) {

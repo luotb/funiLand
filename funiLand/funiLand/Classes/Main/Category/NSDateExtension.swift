@@ -17,10 +17,12 @@ enum DateFormat {
 
 extension NSDate {
     
-    func getTime(format: DateFormat) -> String {
+    func getTime(format: DateFormat, var date: NSDate?) -> String {
         // 获取系统当前时间
-        let date = NSDate()
-        let sec = date.timeIntervalSinceNow
+        if date == nil {
+            date = NSDate()
+        }
+        let sec = date!.timeIntervalSinceNow
         let currentDate = NSDate.init(timeIntervalSinceNow: sec)
         
         //设置时间输出格式：
@@ -46,6 +48,22 @@ extension NSDate {
         
         let time = NSDate().timeIntervalSince1970 * 1000
         return "\(time)"
+    }
+    
+    //时间格式的字符串转日期对象
+    func getDateByDateStr(str: String, format: DateFormat) ->NSDate {
+        let df =  NSDateFormatter()
+        switch format {
+        case DateFormat.format1 :
+            df.dateFormat = "yyyy-MM-dd"
+        case DateFormat.format2 :
+            df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        case DateFormat.format3 :
+            df.dateFormat = "yyyyMMddHHmmss"
+        case DateFormat.format4 :
+            df.dateFormat = "yyyy-MM"
+        }
+        return  df.dateFromString(str)!
     }
     
 }

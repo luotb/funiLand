@@ -20,7 +20,28 @@ class LandArrayRespon: Mappable {
     }
     
     func mapping(map: Map) {
-        date <- map["date"]
+        date <- (map["date"], FuniDateTransform())
         dataList <- map["dataList"]
+    }
+}
+
+public class FuniDateTransform: TransformType {
+    public typealias Object = NSDate
+    public typealias JSON = Double
+    
+    public init() {}
+    
+    public func transformFromJSON(value: AnyObject?) -> NSDate? {
+        if let timeStr = value as? String {
+            return NSDate().getDateByDateStr(timeStr, format: DateFormat.format1)
+        }
+        return nil
+    }
+    
+    public func transformToJSON(value: NSDate?) -> Double? {
+        if let date = value {
+            return Double(date.timeIntervalSince1970)
+        }
+        return nil
     }
 }

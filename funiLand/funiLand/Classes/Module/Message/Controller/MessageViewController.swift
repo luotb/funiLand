@@ -31,7 +31,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //请求类型 0=供应, 1=成交
     var reqType: Int = 0
     //初始化请求的月份
-    var reqMonth: String = NSDate().getTime(DateFormat.format4)
+    var reqMonth: String = NSDate().getTime(DateFormat.format4, date: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()

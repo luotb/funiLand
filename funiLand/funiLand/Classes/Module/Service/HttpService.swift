@@ -9,8 +9,8 @@
 import Foundation
 
 let tal = "IPHONE"
-let baseURLString = "http://192.168.1.241:8090/rap/mockjs/1/"
-//let baseURLString = "http://cn.rapapi.net/mockjs/302/"
+//let baseURLString = "http://192.168.1.241:8090/rap/mockjs/1/"
+let baseURLString = "http://www.rapapi.net/mockjs/302/"
 let loginURLString = "login.json"
 let getSupplyOrBargainListURL = "getSupplyOrBargainList.json"
 let getRimInfoURL = "getRimInfo.json"

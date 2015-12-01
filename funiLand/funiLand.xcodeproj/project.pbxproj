@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		247DD0B61C0DE01800A1BDB1 /* UIAlertViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247DD0B51C0DE01800A1BDB1 /* UIAlertViewExtension.swift */; };
 		24C49EE41C0734190065D9B6 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 24C49ECC1C0734190065D9B6 /* MJRefresh.bundle */; };
 		24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49ECF1C0734190065D9B6 /* MJRefreshComponent.m */; };
 		24C49EE61C0734190065D9B6 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49ED11C0734190065D9B6 /* MJRefreshConst.m */; };
@@ -138,6 +139,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		247DD0B51C0DE01800A1BDB1 /* UIAlertViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtension.swift; sourceTree = "<group>"; };
 		24C49ECC1C0734190065D9B6 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		24C49ECD1C0734190065D9B6 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		24C49ECE1C0734190065D9B6 /* MJRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshComponent.h; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 				F457002E1C02CAB9005FEB26 /* UIView+Shadow.m */,
 				F4977DA21C07FDA500244201 /* NSDateExtension.swift */,
 				F4977DA41C0827D100244201 /* StringExtension.swift */,
+				247DD0B51C0DE01800A1BDB1 /* UIAlertViewExtension.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1270,6 +1273,7 @@
 				F419E9551C030B9B006A5815 /* IQTitleBarButtonItem.m in Sources */,
 				F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */,
 				F42CF13B1C0D8DB1008F0CCE /* RimLandInfoDomain.swift in Sources */,
+				247DD0B61C0DE01800A1BDB1 /* UIAlertViewExtension.swift in Sources */,
 				24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */,
 				F45474CF1C0BEC9D00ED344B /* ToJSON.swift in Sources */,
 				F419E8B01C02F1C3006A5815 /* TabBarController.swift in Sources */,
