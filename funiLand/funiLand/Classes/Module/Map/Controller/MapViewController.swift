@@ -21,6 +21,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var searchConditionContentView: MapSearchConditionTableViewController!
     // 搜索条件封装VO
     var rimInfoReqDomain = RimInfoReqDomain()
+    // 动画是否执行
+    var timerRunning: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +124,31 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     // 查询条件按钮点击
     @IBAction func searchConditionBtnClicked(sender: AnyObject) {
+        self.timerRunning = !self.timerRunning;
         
+        // Create view to animate
+//        let view = UIView(frame: UIScreen.mainScreen().bounds)
+//        view.backgroundColor = UIColor.blueColor()
+        
+        // Create animation
+//        let anim = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+//        anim.property = _POPAnimatableProperty(name: kPOPLayerOpacity)
+//        anim.toValue = 0
+//        _POPAnimation.addAnimation(anim, key: anim.property.name, obj: view.layer)
+        
+        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
+        
+        if self.timerRunning == true {
+            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
+        }
+        else {
+            animation.toValue = NSValue(CGSize:CGSizeMake(46, 46))
+        }
+        animation.springBounciness = 10.0;
+        animation.springSpeed = 10.0;
+//        self.searchConditionView.hidden = false
+        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
     }
     
     // 列表显示数据
