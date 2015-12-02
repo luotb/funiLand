@@ -60,7 +60,6 @@ class HttpService {
         params["type"] = type;
         params["date"] = months;
         
-//        sessionManager.responseSerializer = AFJSONResponseSerializer()
         sessionManager.ESP_GET(self.buildUrl(getSupplyOrBargainListURL), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             
                 let respArray = Mapper<LandArrayRespon>().mapArray(responseVO.data)
@@ -88,11 +87,10 @@ class HttpService {
     }
     
     //获取地图周边数据
-    func getRimInfoList(rimInfo:RimInfoRespDomain, success:(rimInfoArray:Array<RimLandInfoDomain>?) -> Void,faild: (error:String) -> Void) {
+    func getRimInfoList(rimInfo:RimInfoReqDomain, success:(rimInfoArray:Array<RimLandInfoDomain>?) -> Void,faild: (error:String) -> Void) {
         
-        let params = Mapper<RimInfoRespDomain>().toJSON(rimInfo)
+        let params = Mapper<RimInfoReqDomain>().toJSON(rimInfo)
         
-//        sessionManager.responseSerializer = AFJSONResponseSerializer()
         sessionManager.ESP_GET(self.buildUrl(getRimInfoURL), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             
                 let respArray = Mapper<RimLandInfoDomain>().mapArray(responseVO.data)
@@ -102,6 +100,21 @@ class HttpService {
             }) { (error: String) -> Void in
                 faild(error: error)
         }
+    }
+    
+    // 根据土地类型数值返回中文  0=招，1=挂，2=拍
+    func getLandTypeZN(type:Int?) -> String {
+        var str = ""
+        if type != nil {
+            switch type! {
+            case 0 : str = "招"; break
+            case 1 : str = "挂"; break
+            case 2 : str = "拍"; break
+            default: break;
+            }
+        }
+        
+        return str
     }
 }
 

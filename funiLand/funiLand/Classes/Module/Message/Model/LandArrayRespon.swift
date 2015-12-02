@@ -10,7 +10,8 @@ import UIKit
 
 class LandArrayRespon: Mappable {
 
-    var date: NSDate?
+//    var date: NSDate?
+    var date: String?
     var dataList: [LandDomain]?
     
     init(){}
@@ -20,7 +21,8 @@ class LandArrayRespon: Mappable {
     }
     
     func mapping(map: Map) {
-        date <- (map["date"], FuniDateTransform())
+//        date <- (map["date"], FuniDateTransform())
+        date <- map["date"]
         dataList <- map["dataList"]
     }
 }
@@ -33,7 +35,7 @@ public class FuniDateTransform: TransformType {
     
     public func transformFromJSON(value: AnyObject?) -> NSDate? {
         if let timeStr = value as? String {
-            return NSDate().getDateByDateStr(timeStr, format: DateFormat.format1)
+            return NSDate.getDateByDateStr(timeStr, format: DateFormat.format1)
         }
         return nil
     }

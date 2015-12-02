@@ -8,6 +8,10 @@
 
 import UIKit
 
+let Color_Zhao = "#1548ED"
+let Color_Gua = "#09B736"
+let Color_Pai = "#ED6715"
+
 extension UIColor {
      class func colorFromHexString (hex:String) -> UIColor {
         var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
@@ -29,4 +33,18 @@ extension UIColor {
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
 
+    // 根据土地类型返回对应颜色
+    static func getLandTypeColor(type: Int?) -> UIColor {
+        var str = Color_Zhao
+        if type != nil {
+            switch type! {
+            case 0 : str = Color_Zhao; break
+            case 1 : str = Color_Gua; break
+            case 2 : str = Color_Pai; break
+            default: break;
+            }
+        }
+        
+        return UIColor.colorFromHexString(str)
+    }
 }

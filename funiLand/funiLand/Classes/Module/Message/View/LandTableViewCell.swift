@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LandTableViewCell: UITableViewCell {
+class LandTableViewCell: BaseCell {
 
     
     @IBOutlet var typeLabel: UILabel!
@@ -18,6 +18,8 @@ class LandTableViewCell: UITableViewCell {
     
     var landDomain:LandDomain = LandDomain(){
         willSet{
+            self.typeLabel.text  = HttpService.sharedInstance.getLandTypeZN(landDomain.type)
+            self.typeLabel.backgroundColor = UIColor.getLandTypeColor(landDomain.type)
             self.titleLabel.text = newValue.title!
             self.projectNameLabel.text = newValue.description1!
             self.descLabel.text = newValue.description2!

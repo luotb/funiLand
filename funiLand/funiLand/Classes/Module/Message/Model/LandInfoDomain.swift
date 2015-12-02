@@ -17,7 +17,9 @@ class LandInfoDomain: Mappable {
     var lng: Double?
     var title: String?
     
-    init(){}
+    init(){
+        self.fieldList = Array<FieldGroupDomain>()
+    }
     
     required init?(_ map: Map){
         mapping(map)

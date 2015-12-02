@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -35,35 +35,275 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tYp-Di-8Ep">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tYp-Di-8Ep">
+                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <animations/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLx-AW-l57">
+                                <rect key="frame" x="12" y="456" width="50" height="50"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Wwe-tE-8Hh"/>
+                                    <constraint firstAttribute="height" constant="50" id="lLc-Wg-K4A"/>
+                                </constraints>
+                                <state key="normal" image="Location_normal"/>
+                                <state key="selected" image="Location_click"/>
+                                <state key="highlighted" image="Location_click"/>
+                                <connections>
+                                    <action selector="userLocationBtnClicked:" destination="h6H-ZW-5wM" eventType="touchUpInside" id="ENl-Y2-o4l"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwG-wN-tec">
+                                <rect key="frame" x="255" y="79" width="53" height="53"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="hRo-9y-ETa"/>
+                                    <constraint firstAttribute="width" constant="53" id="jla-8u-IpI"/>
+                                </constraints>
+                                <state key="normal" image="Mapset_normal"/>
+                                <state key="selected" image="Close_normal"/>
+                                <state key="highlighted" image="Mapset_click"/>
+                                <connections>
+                                    <action selector="searchConditionBtnClicked:" destination="h6H-ZW-5wM" eventType="touchUpInside" id="lsU-6u-j9F"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6NW-nk-jII">
+                                <rect key="frame" x="10" y="130" width="300" height="300"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="vql-7F-MxU"/>
+                                    <constraint firstAttribute="height" constant="300" id="zkW-SV-lq5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6NW-nk-jII" secondAttribute="trailing" constant="10" id="1T9-cz-mhq"/>
                             <constraint firstItem="tYp-Di-8Ep" firstAttribute="top" secondItem="MH7-2D-fGF" secondAttribute="bottom" id="1up-P6-YeY"/>
+                            <constraint firstItem="6NW-nk-jII" firstAttribute="leading" secondItem="EgQ-LA-ymG" secondAttribute="leading" constant="10" id="22u-jV-xJ5"/>
+                            <constraint firstAttribute="trailing" secondItem="vwG-wN-tec" secondAttribute="trailing" constant="12" id="4Os-MM-KbQ"/>
                             <constraint firstItem="sTJ-B8-xsb" firstAttribute="top" secondItem="tYp-Di-8Ep" secondAttribute="bottom" id="5K3-JG-mUR"/>
                             <constraint firstItem="tYp-Di-8Ep" firstAttribute="leading" secondItem="EgQ-LA-ymG" secondAttribute="leading" id="8Qr-PB-K0p"/>
+                            <constraint firstItem="RLx-AW-l57" firstAttribute="leading" secondItem="EgQ-LA-ymG" secondAttribute="leading" constant="12" id="FmP-iD-FMk"/>
+                            <constraint firstItem="sTJ-B8-xsb" firstAttribute="top" secondItem="RLx-AW-l57" secondAttribute="bottom" constant="18" id="Hga-Kt-I3U"/>
+                            <constraint firstItem="6NW-nk-jII" firstAttribute="top" secondItem="vwG-wN-tec" secondAttribute="bottom" constant="-2" id="QQc-or-uBZ"/>
                             <constraint firstAttribute="trailing" secondItem="tYp-Di-8Ep" secondAttribute="trailing" id="Qvl-P6-3ED"/>
+                            <constraint firstItem="vwG-wN-tec" firstAttribute="top" secondItem="MH7-2D-fGF" secondAttribute="bottom" constant="15" id="ftT-65-nyu"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="b4N-kM-FzZ"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="ZpT-OU-JpP">
-                        <barButtonItem key="rightBarButtonItem" title="列表" id="Uxs-ZF-QgA"/>
+                        <barButtonItem key="rightBarButtonItem" image="List_icon" id="Uxs-ZF-QgA">
+                            <connections>
+                                <action selector="showListBtnClicked:" destination="h6H-ZW-5wM" id="N4J-Ih-XTX"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="myMapView" destination="tYp-Di-8Ep" id="8ty-Q0-ySY"/>
+                        <outlet property="searchConditionView" destination="6NW-nk-jII" id="CWt-5L-wp9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8YG-aq-AZR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-438" y="228"/>
         </scene>
+        <!--Map Search Condition Table View Controller-->
+        <scene sceneID="HZ5-sy-FNq">
+            <objects>
+                <tableViewController storyboardIdentifier="MapSearchConditionTableViewController" id="Xha-ov-Tlb" customClass="MapSearchConditionTableViewController" customModule="funiLand" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="5iR-WO-gna">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="1Bc-rd-yKW">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="129" id="ZFY-Eq-TOa">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="129"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZFY-Eq-TOa" id="hnZ-rz-1fg">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Isd-Y0-5hp">
+                                                    <rect key="frame" x="10" y="17" width="130" height="80"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Button" image="Satellitemap"/>
+                                                    <state key="selected" image="Satellitemap"/>
+                                                    <state key="highlighted" image="Satellitemap"/>
+                                                    <connections>
+                                                        <action selector="mapTypeBtnClicked:" destination="Xha-ov-Tlb" eventType="touchUpInside" id="n5j-EH-oES"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uo9-Ou-ydP">
+                                                    <rect key="frame" x="160" y="17" width="130" height="80"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Button" image="2Dmap"/>
+                                                    <state key="selected" image="2Dmap"/>
+                                                    <state key="highlighted" image="2Dmap"/>
+                                                    <connections>
+                                                        <action selector="mapTypeBtnClicked:" destination="Xha-ov-Tlb" eventType="touchUpInside" id="8zd-Tq-aOg"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="卫星图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F33-do-xcK">
+                                                    <rect key="frame" x="57" y="106" width="42" height="14"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2D平面图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYd-x5-w8z">
+                                                    <rect key="frame" x="187" y="106" width="70" height="14"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="trP-4N-ZdR">
+                                        <rect key="frame" x="0.0" y="129" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="trP-4N-ZdR" id="z1j-Fg-0QY">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="未成交土地" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jS9-tX-ROM">
+                                                    <rect key="frame" x="25" y="15" width="80" height="14"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wi5-da-G0K">
+                                                    <rect key="frame" x="224" y="7" width="51" height="31"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="editingChanged" id="D1L-HT-9iW"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pFx-K2-i6K">
+                                        <rect key="frame" x="0.0" y="173" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pFx-K2-i6K" id="cnf-2p-Uaj">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="已成交已呈现土地" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qg-Df-JPf">
+                                                    <rect key="frame" x="25" y="15" width="121" height="14"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0gW-DR-RCS">
+                                                    <rect key="frame" x="224" y="6" width="51" height="31"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="editingChanged" id="hjs-q8-cls"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="oVH-U7-pfS">
+                                        <rect key="frame" x="0.0" y="217" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oVH-U7-pfS" id="hT5-EC-sZ1">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="已成交未呈现土地" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZ2-S2-zT3">
+                                                    <rect key="frame" x="25" y="15" width="121" height="14"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iCF-r4-6iI">
+                                                    <rect key="frame" x="224" y="6" width="51" height="31"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="switchChanged:" destination="Xha-ov-Tlb" eventType="editingChanged" id="s3S-eM-wGj"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="XJZ-Ue-zMV">
+                                        <rect key="frame" x="0.0" y="261" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XJZ-Ue-zMV" id="3pf-Z9-1J9">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="ybN-Rl-96n">
+                                                    <rect key="frame" x="72" y="7" width="156" height="29"/>
+                                                    <animations/>
+                                                    <segments>
+                                                        <segment title="1公里"/>
+                                                        <segment title="2公里"/>
+                                                        <segment title="3公里"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Xha-ov-Tlb" id="Oea-pf-hUt"/>
+                            <outlet property="delegate" destination="Xha-ov-Tlb" id="8Y0-ku-lCi"/>
+                        </connections>
+                    </tableView>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="300"/>
+                    <connections>
+                        <outlet property="distanceSegment" destination="ybN-Rl-96n" id="wfN-PJ-BBp"/>
+                        <outlet property="mapType2DBtn" destination="Uo9-Ou-ydP" id="EHO-Am-5Ex"/>
+                        <outlet property="mapTypeMoonBtn" destination="Isd-Y0-5hp" id="9B0-hy-3cp"/>
+                        <outlet property="switch1" destination="wi5-da-G0K" id="QCV-ws-iqJ"/>
+                        <outlet property="switch2" destination="0gW-DR-RCS" id="ltK-Db-AFJ"/>
+                        <outlet property="switch3" destination="iCF-r4-6iI" id="4FD-HM-F4I"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7bN-bi-vjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-79" y="94"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="2Dmap" width="130" height="80"/>
+        <image name="Close_normal" width="53" height="53"/>
+        <image name="List_icon" width="44" height="44"/>
+        <image name="Location_click" width="50" height="50"/>
+        <image name="Location_normal" width="50" height="50"/>
+        <image name="Mapset_click" width="53" height="53"/>
+        <image name="Mapset_normal" width="53" height="53"/>
+        <image name="Satellitemap" width="130" height="80"/>
+    </resources>
 </document>

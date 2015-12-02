@@ -14,6 +14,7 @@ class LandDomain: Mappable {
     var title: String?
     var description1: String?
     var description2: String?
+    var type:Int?
     
     init(){}
     
@@ -26,5 +27,6 @@ class LandDomain: Mappable {
         title <- map["title"]
         description1 <- map["description1"]
         description2 <- map["description2"]
+        type <- map["type"]
     }
 }

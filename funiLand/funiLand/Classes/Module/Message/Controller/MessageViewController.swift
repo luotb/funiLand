@@ -31,7 +31,9 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //请求类型 0=供应, 1=成交
     var reqType: Int = 0
     //初始化请求的月份
-    var reqMonth: String = NSDate().getTime(DateFormat.format4, date: nil)
+    var reqMonth: String = NSDate.getTime(DateFormat.format4, date: nil)
+    //选中的土地数据
+    var landInfoDomain: LandDomain!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +54,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         //设置展示表格的数据源和代理
         myTableView.dataSource = self
         myTableView.delegate = self
+        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         //空值代理和数据源
         myTableView.emptyDataSetDelegate = self
         myTableView.emptyDataSetSource = self
@@ -59,12 +62,14 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         //集成下拉刷新
         setupDownRefresh()
         
-        dataTypeSegment.addTarget(self, action:"segmentAction", forControlEvents: UIControlEvents.ValueChanged)
+        dataTypeSegment.addTarget(self, action:"segmentAction:", forControlEvents: UIControlEvents.ValueChanged)
     }
     
     //选择器回调
     func segmentAction(segment:UISegmentedControl) {
-        print("ppp\(segment.selectedSegmentIndex)")
+        reqType = segment.selectedSegmentIndex
+//        self.queryData()
+        self.myTableView.header.beginRefreshing()
     }
     
     //加载日历
@@ -94,19 +99,21 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //加载数据
     func queryData(){
         
-//        HttpService.sharedInstance.getSupplyOrBargainList(reqType, months: reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
-//                self.landResponArray = landArray
-//                self.getSelectedDataLandArray()
-//                self.calendarManager.reload()
-//            }) { (error: String) -> Void in
-//                FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
-//        }
+        HttpService.sharedInstance.getSupplyOrBargainList(reqType, months: reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
+                self.landResponArray = landArray
+                self.getSelectedDataLandArray()
+                self.calendarManager.reload()
+                self.myTableView.header.endRefreshing()
+            }) { (error: String) -> Void in
+                FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
+                self.myTableView.header.endRefreshing()
+        }
     }
     
     // MARK: - Table view data source and delegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
+        return 75
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -114,7 +121,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "777"
+        return "共计 \(landArray.count) 宗土地"
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -142,7 +149,11 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("LandDetailsSegue", sender: self);
+        landInfoDomain = landArray[indexPath.row]
+        
+        let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
+        landDetailVC.landDomain = landInfoDomain
+        self.navigationController?.pushViewController(landDetailVC, animated: true)
     }
     
     
@@ -228,7 +239,8 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         var judge : Bool = false
         
         for landRespon : LandArrayRespon in landResponArray! {
-            if calendarManager.dateHelper.date(landRespon.date, isTheSameDayThan: date) {
+            let responDate = NSDate.getDateByDateStr(landRespon.date!, format: DateFormat.format2)
+            if calendarManager.dateHelper.date(responDate, isTheSameDayThan: date) {
                 judge = true
                 break
             }
@@ -239,11 +251,15 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //获得选中日期的土地数据
     func getSelectedDataLandArray() {
         var judge : Bool = false
-        for landRespon : LandArrayRespon in landResponArray! {
-            if calendarManager.dateHelper.date(landRespon.date, isTheSameDayThan: dateSelected) {
-                landArray = landRespon.dataList!
-                judge = true
-                break
+        if landResponArray != nil {
+            for landRespon : LandArrayRespon in landResponArray! {
+                //            let responDate = NSDate().getDateByDateStr(landRespon.date!, format: DateFormat.format2)
+                let responDate = NSDate()
+                if calendarManager.dateHelper.date(responDate, isTheSameDayThan: dateSelected) {
+                    landArray = landRespon.dataList!
+                    judge = true
+                    break
+                }
             }
         }
         
@@ -251,5 +267,4 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
             landArray = Array<LandDomain>()
         }
     }
-
 }

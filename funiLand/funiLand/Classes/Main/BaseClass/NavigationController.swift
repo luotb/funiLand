@@ -28,7 +28,7 @@ class NavigationController: UINavigationController {
             viewController.hidesBottomBarWhenPushed = true;
         }
         
-        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "tab_discover_hl", highImage: "tab_discover_hl")
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
         super.pushViewController(viewController, animated: animated)
     }
     

@@ -14,14 +14,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet var myMapView: MKMapView!
     var locationManager:CLLocationManager!
+    var centerCoordinate:CLLocationCoordinate2D!
+    // 搜索条件View
+    @IBOutlet var searchConditionView: UIView!
+    // 搜索条件内容View
+    var searchConditionContentView: MapSearchConditionTableViewController!
+    // 搜索条件封装VO
+    var rimInfoReqDomain = RimInfoReqDomain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myMapView.delegate = self
-        myMapView.mapType = MKMapType.Standard
-        myMapView.showsUserLocation = true
-        
+        self.initSteup()
         startLocation()
     }
 
@@ -29,12 +33,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.didReceiveMemoryWarning()
     }
     
+    //基础设置
+    func initSteup(){
+        
+        //禁用自动调整位置
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.myMapView.delegate = self
+        self.myMapView.mapType = MKMapType.Standard
+        self.myMapView.showsUserLocation = true
+        
+        self.searchConditionContentView = self.storyboard?.instantiateViewControllerWithIdentifier("MapSearchConditionTableViewController") as! MapSearchConditionTableViewController
+        self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
+        self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
+        self.searchConditionView.addSubview(self.searchConditionContentView.view)
+    }
+    
     // MARK - CLLocationManagerDelegate
     
     func startLocation() {
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         self.locationManager.startUpdatingLocation()
     }
     
@@ -57,21 +76,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
             break;
             
-        case CLAuthorizationStatus.Denied : // kCLAuthorizationStatusDenied:
+        case CLAuthorizationStatus.Denied :
             UIAlertView().alertViewWithTitle("请在设置-隐私-定位服务中开启定位功能!")
             break
             
-        case CLAuthorizationStatus.Restricted :  // kCLAuthorizationStatusRestricted:
+        case CLAuthorizationStatus.Restricted :
             UIAlertView().alertViewWithTitle("定位服务无法使用!")
             break
         default:
              self.locationManager.startUpdatingLocation()
-//            if #available(iOS 8.0, *) {
-//                self.locationManager.requestWhenInUseAuthorization()
-//                self.locationManager.requestAlwaysAuthorization()
-//            } else {
-//                // Fallback on earlier versions
-//            }
             break;
         }
     }
@@ -79,6 +92,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // MARK: mapView delegate
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        
+        //定位成功记录位置
+        self.centerCoordinate = userLocation.location!.coordinate
+        
         //点击大头针，会出现以下信息
         userLocation.title = "中国";
         userLocation.subtitle = "四大文明古国之一";
@@ -97,4 +114,30 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print("\(mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta)")
     }
 
+    // 定位按钮点击
+    @IBAction func userLocationBtnClicked(sender: AnyObject) {
+        //用户位置为地图中心点
+        self.myMapView.setCenterCoordinate(self.centerCoordinate, animated: true)
+    }
+    
+    // 查询条件按钮点击
+    @IBAction func searchConditionBtnClicked(sender: AnyObject) {
+        
+    }
+    
+    // 列表显示数据
+    @IBAction func showListBtnClicked(sender: AnyObject) {
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

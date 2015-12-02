@@ -65,11 +65,14 @@
 		F425E9A81C06E4B600003B9F /* FLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F425E9A71C06E4B600003B9F /* FLUser.swift */; };
 		F42CF1391C0D73FA008F0CCE /* LandDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1381C0D73FA008F0CCE /* LandDetailsViewController.swift */; };
 		F42CF13B1C0D8DB1008F0CCE /* RimLandInfoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */; };
-		F42CF13D1C0D9456008F0CCE /* RimInfoRespDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF13C1C0D9456008F0CCE /* RimInfoRespDomain.swift */; };
+		F42CF13D1C0D9456008F0CCE /* RimInfoReqpDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF13C1C0D9456008F0CCE /* RimInfoReqpDomain.swift */; };
 		F42CF1411C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1401C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift */; };
 		F42CF1431C0D9C69008F0CCE /* LandInfoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1421C0D9C69008F0CCE /* LandInfoDomain.swift */; };
 		F42CF1451C0D9CE1008F0CCE /* FieldDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1441C0D9CE1008F0CCE /* FieldDomain.swift */; };
 		F42CF1471C0D9D38008F0CCE /* FieldGroupDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF1461C0D9D38008F0CCE /* FieldGroupDomain.swift */; };
+		F42FBC991C0EA0DB0029A3FE /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42FBC981C0EA0DB0029A3FE /* BaseCell.swift */; };
+		F42FBC9B1C0EB0F20029A3FE /* LandInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42FBC9A1C0EB0F20029A3FE /* LandInfoTableViewCell.swift */; };
+		F42FBC9D1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42FBC9C1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift */; };
 		F43424721C05584100E78F39 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F43424711C05584100E78F39 /* UIScrollView+EmptyDataSet.m */; };
 		F43424D71C055B9000E78F39 /* JTCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F43424B71C055B9000E78F39 /* JTCalendarManager.m */; };
 		F43424D81C055B9000E78F39 /* JTCalendarSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F43424B91C055B9000E78F39 /* JTCalendarSettings.m */; };
@@ -245,11 +248,14 @@
 		F425E9A71C06E4B600003B9F /* FLUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLUser.swift; sourceTree = "<group>"; };
 		F42CF1381C0D73FA008F0CCE /* LandDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsViewController.swift; sourceTree = "<group>"; };
 		F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimLandInfoDomain.swift; sourceTree = "<group>"; };
-		F42CF13C1C0D9456008F0CCE /* RimInfoRespDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimInfoRespDomain.swift; sourceTree = "<group>"; };
+		F42CF13C1C0D9456008F0CCE /* RimInfoReqpDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimInfoReqpDomain.swift; sourceTree = "<group>"; };
 		F42CF1401C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESPAFHTTPSessionManager.swift; sourceTree = "<group>"; };
 		F42CF1421C0D9C69008F0CCE /* LandInfoDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandInfoDomain.swift; sourceTree = "<group>"; };
 		F42CF1441C0D9CE1008F0CCE /* FieldDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldDomain.swift; sourceTree = "<group>"; };
 		F42CF1461C0D9D38008F0CCE /* FieldGroupDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldGroupDomain.swift; sourceTree = "<group>"; };
+		F42FBC981C0EA0DB0029A3FE /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		F42FBC9A1C0EB0F20029A3FE /* LandInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandInfoTableViewCell.swift; sourceTree = "<group>"; };
+		F42FBC9C1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSearchConditionTableViewController.swift; sourceTree = "<group>"; };
 		F43424701C05584100E78F39 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		F43424711C05584100E78F39 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		F43424B41C055B9000E78F39 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
@@ -873,6 +879,7 @@
 		F457006B1C02CAB9005FEB26 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F42FBC981C0EA0DB0029A3FE /* BaseCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -925,6 +932,7 @@
 			isa = PBXGroup;
 			children = (
 				F419E9161C0304B9006A5815 /* MapViewController.swift */,
+				F42FBC9C1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -933,7 +941,7 @@
 			isa = PBXGroup;
 			children = (
 				F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */,
-				F42CF13C1C0D9456008F0CCE /* RimInfoRespDomain.swift */,
+				F42CF13C1C0D9456008F0CCE /* RimInfoReqpDomain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -982,6 +990,7 @@
 			children = (
 				F419E9141C0301B3006A5815 /* Message.storyboard */,
 				24C49EF01C0736690065D9B6 /* LandTableViewCell.swift */,
+				F42FBC9A1C0EB0F20029A3FE /* LandInfoTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1191,6 +1200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F419E9131C0301A3006A5815 /* MessageViewController.swift in Sources */,
+				F42FBC991C0EA0DB0029A3FE /* BaseCell.swift in Sources */,
 				F45700A81C02CAB9005FEB26 /* FuniBaseView.m in Sources */,
 				F43424D81C055B9000E78F39 /* JTCalendarSettings.m in Sources */,
 				F419E94B1C030B9B006A5815 /* IQNSArray+Sort.m in Sources */,
@@ -1208,7 +1218,9 @@
 				F419E8E81C02FB09006A5815 /* AFURLSessionManager.m in Sources */,
 				F419E91F1C030581006A5815 /* ProfileViewController.swift in Sources */,
 				24C49EEB1C0734190065D9B6 /* MJRefreshLegendFooter.m in Sources */,
+				F42FBC9D1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift in Sources */,
 				F419E8E11C02FB09006A5815 /* AFHTTPRequestOperationManager.m in Sources */,
+				F42FBC9B1C0EB0F20029A3FE /* LandInfoTableViewCell.swift in Sources */,
 				F45474D51C0BEC9D00ED344B /* ISO8601DateTransform.swift in Sources */,
 				F419E8EA1C02FC32006A5815 /* LoginViewController.swift in Sources */,
 				F43424DA1C055B9000E78F39 /* JTCalendarDelegateManager.m in Sources */,
@@ -1227,7 +1239,7 @@
 				F419E9531C030B9B006A5815 /* IQTextView.m in Sources */,
 				F419E8E01C02FB09006A5815 /* AFHTTPRequestOperation.m in Sources */,
 				F419E8AF1C02F1C3006A5815 /* NavigationController.swift in Sources */,
-				F42CF13D1C0D9456008F0CCE /* RimInfoRespDomain.swift in Sources */,
+				F42CF13D1C0D9456008F0CCE /* RimInfoReqpDomain.swift in Sources */,
 				F45474D31C0BEC9D00ED344B /* DateTransform.swift in Sources */,
 				F457009D1C02CAB9005FEB26 /* FuniHUD.m in Sources */,
 				F45700971C02CAB9005FEB26 /* UIColor+Extension.m in Sources */,

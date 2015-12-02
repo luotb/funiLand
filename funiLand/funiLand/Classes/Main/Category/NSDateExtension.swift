@@ -17,7 +17,7 @@ enum DateFormat {
 
 extension NSDate {
     
-    func getTime(format: DateFormat, var date: NSDate?) -> String {
+    class func getTime(format: DateFormat, var date: NSDate?) -> String {
         // 获取系统当前时间
         if date == nil {
             date = NSDate()
@@ -51,7 +51,7 @@ extension NSDate {
     }
     
     //时间格式的字符串转日期对象
-    func getDateByDateStr(str: String, format: DateFormat) ->NSDate {
+    class func getDateByDateStr(str: String, format: DateFormat) ->NSDate {
         let df =  NSDateFormatter()
         switch format {
         case DateFormat.format1 :

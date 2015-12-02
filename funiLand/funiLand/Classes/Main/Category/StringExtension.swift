@@ -13,7 +13,7 @@ let LocalStr_None   = ""
 extension String {
     
     //获取uuid
-    func gen_uuid() -> String {
+    static func gen_uuid() -> String {
         let uuid_ref = CFUUIDCreate(nil)
         let uuid_string_ref = CFUUIDCreateString(nil, uuid_ref);
 //        CFRelease(uuid_ref);
@@ -27,7 +27,7 @@ extension String {
     * 判断str里面是否包含数字
     * @return   YES包含   NO不包含
     */
-    func isIncludeNumber(str: String) -> Bool {
+    static func isIncludeNumber(str: String) -> Bool {
         let regex     = "(^[A-Za-z0-9]+$)"
         let pred = NSPredicate(format: "SELF MATCHES \(regex)", NSNumber(int: 24))
         let isMatch          = pred.evaluateWithObject(str);

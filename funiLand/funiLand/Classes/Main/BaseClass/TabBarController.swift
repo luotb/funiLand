@@ -18,20 +18,20 @@ class TabBarViewController: UITabBarController {
         let messageNav = Helper.getViewControllerFromStoryboard("Message", storyboardID: "NavigationController") as! NavigationController
         let messageViewController = messageNav.topViewController as? MessageViewController
         if let messageViewController = messageViewController {
-            addChildViewController(messageViewController, title: "消息", imageName: "tab_Gov", selectedImageName: "tab_Gov_Sel", navController: messageNav)
+            addChildViewController(messageViewController, title: "消息", imageName: "News_icon_normal", selectedImageName: "News_iconclick&selected1", navController: messageNav)
         }
         
         
         let mapNav = Helper.getViewControllerFromStoryboard("Map", storyboardID: "NavigationController") as! NavigationController
         let mapViewController = mapNav.topViewController as? MapViewController
         if let mapViewController = mapViewController {
-            addChildViewController(mapViewController, title: "地图", imageName: "tab_Information", selectedImageName: "tab_Information_Sel", navController: mapNav)
+            addChildViewController(mapViewController, title: "地图", imageName: "Search_icon_normal", selectedImageName: "Search_icon_click", navController: mapNav)
         }
         
         let profileNav = Helper.getViewControllerFromStoryboard("Profile", storyboardID: "NavigationController") as! NavigationController
         let profileViewController = profileNav.topViewController as? ProfileViewController
         if let profileViewController = profileViewController {
-            addChildViewController(profileViewController, title: "我的", imageName: "tab_Me", selectedImageName: "tab_Me_Sel", navController: profileNav)
+            addChildViewController(profileViewController, title: "我的", imageName: "Myself_icon_normal", selectedImageName: "Myself_icon_click", navController: profileNav)
         }
         
     }

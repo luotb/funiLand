@@ -11,9 +11,11 @@ import UIKit
 class FieldGroupDomain: Mappable {
 
     var group: String?
-    var groupField: Array<FieldDomain>?
+    var groupFields: Array<FieldDomain>?
     
-    init(){}
+    init(){
+        self.groupFields = Array<FieldDomain>()
+    }
     
     required init?(_ map: Map){
         mapping(map)
@@ -21,6 +23,6 @@ class FieldGroupDomain: Mappable {
     
     func mapping(map: Map) {
         group <- map["group"]
-        groupField <- map["groupField"]
+        groupFields <- map["groupFields"]
     }
 }
