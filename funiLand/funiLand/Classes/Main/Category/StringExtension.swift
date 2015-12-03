@@ -50,4 +50,21 @@ extension String {
         return str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
     }
     
+    //手机号码验证
+    static func validateMobile(mobile:String) -> Bool
+    {
+    //手机号以13， 15，18开头，八个 \d 数字字符
+        let mobileReg = "^((13[0-9])|(17[0])|(15[^4,\\D])|(18[0,2,3,5-9]))\\d{8}$"
+        let regextestmobile = NSPredicate(format: "SELF MATCHES %@",mobileReg)
+        
+        if regextestmobile.evaluateWithObject(mobile)
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
 }

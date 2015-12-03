@@ -9,20 +9,40 @@
 import UIKit
 
 class LoginViewController: BaseViewController {
-
+    
+    @IBOutlet var logoImageView: UIImageView!
+    @IBOutlet var loginNameTextField: UITextField!
+    @IBOutlet var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.logoImageView.setBorderWithWidth(0, color: UIColor.whiteColor(), radian: self.logoImageView.width / 2)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
     @IBAction func loginBtnClicked(sender: AnyObject) {
+        let loginName = self.loginNameTextField.text
+        if loginName == nil  || loginName?.isEmpty == true {
+            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入手机号!")
+            return
+        }
+        
+        if String.validateMobile(loginName!) == false {
+            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入正确的手机号!")
+            return
+        }
+        
+        let pwd = self.passwordTextField.text
+        if pwd == nil  || pwd?.isEmpty == true {
+            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入密码!")
+            return
+        }
+        
         if(true){//登陆成功
             let account = Account();
             AccountTool.account = account;
@@ -30,14 +50,5 @@ class LoginViewController: BaseViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
