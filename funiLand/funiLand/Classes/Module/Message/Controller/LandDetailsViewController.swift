@@ -38,8 +38,6 @@ class LandDetailsViewController: BaseViewController, UITableViewDataSource, UITa
     //基础设置
     func initSteup(){
         
-        //禁用自动调整位置
-        self.automaticallyAdjustsScrollViewInsets = false
         //设置展示表格的数据源和代理
         myTableView.dataSource = self
         myTableView.delegate = self

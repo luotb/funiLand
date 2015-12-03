@@ -9,12 +9,13 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-
+class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+    
     
     @IBOutlet var myMapView: MKMapView!
     var locationManager:CLLocationManager!
     var centerCoordinate:CLLocationCoordinate2D!
+    
     // 搜索条件View
     @IBOutlet var searchConditionView: UIView!
     // 搜索条件内容View
@@ -30,7 +31,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.initSteup()
         startLocation()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -38,12 +39,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //基础设置
     func initSteup(){
         
-        //禁用自动调整位置
-        self.automaticallyAdjustsScrollViewInsets = false
         self.myMapView.delegate = self
         self.myMapView.mapType = MKMapType.Standard
         self.myMapView.showsUserLocation = true
         
+        self.searchConditionView.setBorderWithWidth(1, color: UIColor.whiteColor(), radian: 5)
         self.searchConditionContentView = self.storyboard?.instantiateViewControllerWithIdentifier("MapSearchConditionTableViewController") as! MapSearchConditionTableViewController
         self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
         self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
@@ -60,7 +60,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-       
+        
         switch (status) {
         case CLAuthorizationStatus.NotDetermined :
             if self.locationManager.respondsToSelector("requestAlwaysAuthorization") {
@@ -86,7 +86,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             UIAlertView().alertViewWithTitle("定位服务无法使用!")
             break
         default:
-             self.locationManager.startUpdatingLocation()
+            self.locationManager.startUpdatingLocation()
             break;
         }
     }
@@ -115,40 +115,48 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         print("\(mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta)")
     }
-
+    
     // 定位按钮点击
     @IBAction func userLocationBtnClicked(sender: AnyObject) {
-        //用户位置为地图中心点
-        self.myMapView.setCenterCoordinate(self.centerCoordinate, animated: true)
+        if self.centerCoordinate == nil {
+            self.startLocation()
+        } else {
+            //用户位置为地图中心点
+            self.myMapView.setCenterCoordinate(self.centerCoordinate, animated: true)
+        }
     }
     
     // 查询条件按钮点击
-    @IBAction func searchConditionBtnClicked(sender: AnyObject) {
+    @IBAction func searchConditionBtnClicked(sender: UIButton) {
         self.timerRunning = !self.timerRunning;
+        sender.selected = self.timerRunning
+        
+        UIView.transitionWithView(self.searchConditionView, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
+            self.searchConditionView.alpha = self.timerRunning ? 1.0 : 0
+            }, completion: nil)
         
         // Create view to animate
-//        let view = UIView(frame: UIScreen.mainScreen().bounds)
-//        view.backgroundColor = UIColor.blueColor()
+        //        let view = UIView(frame: UIScreen.mainScreen().bounds)
+        //        view.backgroundColor = UIColor.blueColor()
         
         // Create animation
-//        let anim = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-//        anim.property = _POPAnimatableProperty(name: kPOPLayerOpacity)
-//        anim.toValue = 0
-//        _POPAnimation.addAnimation(anim, key: anim.property.name, obj: view.layer)
+        //        let anim = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        //        anim.property = _POPAnimatableProperty(name: kPOPLayerOpacity)
+        //        anim.toValue = 0
+        //        _POPAnimation.addAnimation(anim, key: anim.property.name, obj: view.layer)
         
-        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
-        
-        if self.timerRunning == true {
-            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
-        }
-        else {
-            animation.toValue = NSValue(CGSize:CGSizeMake(46, 46))
-        }
-        animation.springBounciness = 10.0;
-        animation.springSpeed = 10.0;
-//        self.searchConditionView.hidden = false
-        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
+        //        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        //        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
+        //
+        //        if self.timerRunning == true {
+        //            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
+        //        }
+        //        else {
+        //            animation.toValue = NSValue(CGSize:CGSizeMake(46, 46))
+        //        }
+        //        animation.springBounciness = 10.0;
+        //        animation.springSpeed = 10.0;
+        //        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
     }
     
     // 列表显示数据
