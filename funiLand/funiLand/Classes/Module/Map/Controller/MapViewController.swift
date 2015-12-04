@@ -24,6 +24,10 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     var rimInfoReqDomain = RimInfoReqDomain()
     // 动画是否执行
     var timerRunning: Bool = false
+    //所有标注
+    var pointAnnotationArray = Array<FuniPointAnnotation>()
+    //地图搜索
+    var localSearch:MKLocalSearch?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,11 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.locationManager.stopUpdatingLocation()
     }
     
     //基础设置
@@ -48,6 +57,31 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
         self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
         self.searchConditionView.addSubview(self.searchConditionContentView.view)
+    }
+    
+    //请求数据
+    func queryData() {
+        
+        HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
+            
+                self.packagePointAnnatotion(rimInfoArray)
+                self.myMapView.addAnnotations(self.pointAnnotationArray)
+            
+            }) { (error:String) -> Void in
+                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+        }
+    }
+    
+    //封装标注数据
+    func packagePointAnnatotion(rimInfoArray: Array<RimLandInfoDomain>) {
+        
+        for rimInfoDomain: RimLandInfoDomain in rimInfoArray {
+            let pointAnnatotion = FuniPointAnnotation()
+            pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
+            pointAnnatotion.rimLandInfoDomain = rimInfoDomain
+            pointAnnatotion.title = rimInfoDomain.title!
+            self.pointAnnotationArray.append(pointAnnatotion)
+        }
     }
     
     // MARK - CLLocationManagerDelegate
@@ -80,15 +114,44 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
             
         case CLAuthorizationStatus.Denied :
             UIAlertView().alertViewWithTitle("请在设置-隐私-定位服务中开启定位功能!")
+            self.defLoadCDMap()
             break
             
         case CLAuthorizationStatus.Restricted :
             UIAlertView().alertViewWithTitle("定位服务无法使用!")
+            self.defLoadCDMap()
             break
         default:
             self.locationManager.startUpdatingLocation()
             break;
         }
+    }
+    
+    //默认定位到成都
+    func defLoadCDMap() {
+        
+        HttpService.setAppNetworkActivity(true)
+        
+        let searchRequest = MKLocalSearchRequest()
+        searchRequest.naturalLanguageQuery = "成都"
+        
+        if self.localSearch == nil {
+            self.localSearch = MKLocalSearch(request: searchRequest)
+        }
+        
+        self.localSearch?.startWithCompletionHandler({ (response:MKLocalSearchResponse?, error:NSError?) -> Void in
+            HttpService.setAppNetworkActivity(false)
+            
+            if error != nil {
+                
+            } else {
+                let pointAnnotation = FuniPointAnnotation()
+                pointAnnotation.coordinate = response!.boundingRegion.center
+                self.pointAnnotationArray.append(pointAnnotation)
+                
+                self.myMapView.setCenterCoordinate(response!.boundingRegion.center, animated: true)
+            }
+        })
     }
     
     // MARK: mapView delegate
@@ -109,11 +172,60 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         let span = MKCoordinateSpanMake(0.1, 0.1);
         let region = MKCoordinateRegionMake(userLocation.location!.coordinate, span);
         mapView.setRegion(region, animated: true)
+        
+        self.queryData()
+    }
+    
+    //定位失败
+    func mapView(mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
+        self.defLoadCDMap()
     }
     
     //可以打印经纬度的跨度，用来测试当前视图下地经纬度跨度是多少，然后用于上面的MKCoordinateSpanMake方法中
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         print("\(mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta)")
+    }
+    
+    //地图标注
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            //return nil so map view draws "blue dot" for standard user location
+            return nil
+        }
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.animatesDrop = true
+            pinView!.pinColor = .Purple
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        let pointAnnatotion = annotation as! FuniPointAnnotation
+        
+        if pointAnnatotion.rimLandInfoDomain != nil {
+            if pointAnnatotion.rimLandInfoDomain?.dataType == 0 {
+                //土地
+                pinView?.image = UIImage(named: "Loca_normal")
+            } else {
+                //项目
+                pinView?.image = UIImage(named: "other_normal")
+            }
+        }
+        
+        return pinView
+    }
+    
+    // 地图标注点击
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        
+//        let pointAnnatotion = view.annotation as! FuniPointAnnotation
+//        pointAnnatotion.rimLandInfoDomain
     }
     
     // 定位按钮点击

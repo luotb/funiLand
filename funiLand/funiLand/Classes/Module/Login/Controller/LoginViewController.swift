@@ -16,8 +16,6 @@ class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.logoImageView.setBorderWithWidth(0, color: UIColor.whiteColor(), radian: self.logoImageView.width / 2)
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,10 +30,10 @@ class LoginViewController: BaseViewController {
             return
         }
         
-        if String.validateMobile(loginName!) == false {
-            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入正确的手机号!")
-            return
-        }
+//        if String.validateMobile(loginName!) == false {
+//            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入正确的手机号!")
+//            return
+//        }
         
         let pwd = self.passwordTextField.text
         if pwd == nil  || pwd?.isEmpty == true {
@@ -45,7 +43,9 @@ class LoginViewController: BaseViewController {
         
         if(true){//登陆成功
             let account = Account();
-            AccountTool.account = account;
+            account.loginName = loginName
+            account.password = pwd
+            AccountTool.saveAccount(account)
             UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
         }
     }

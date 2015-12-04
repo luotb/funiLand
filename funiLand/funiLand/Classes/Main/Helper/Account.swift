@@ -8,18 +8,20 @@
 
 import UIKit
 
-class Account: NSObject {
+class Account: NSObject, NSCoding {
     
     var loginName:String?
-    
+    var password: String?
     
     func encodeWithCoder(aCoder: NSCoder){
         aCoder.encodeObject(self.loginName, forKey: "loginName")
+        aCoder.encodeObject(self.password, forKey: "password")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init()
         self.loginName = aDecoder.decodeObjectForKey("loginName") as? String
+        self.password = aDecoder.decodeObjectForKey("password") as? String
     }
     
     override init() {

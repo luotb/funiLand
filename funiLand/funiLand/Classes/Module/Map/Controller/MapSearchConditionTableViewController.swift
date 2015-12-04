@@ -61,19 +61,19 @@ class MapSearchConditionTableViewController: UITableViewController {
     
     // 开关改变事件
     @IBAction func switchChanged(sender: UISwitch) {
-        switch sender.tag {
-        case 11 :
-            self.rimInfoReqDomain.check1 = sender.on
-            break
-        case 12 :
-            self.rimInfoReqDomain.check2 = sender.on
-            break
-        case 13 :
-            self.rimInfoReqDomain.check3 = sender.on
-            break
-        default:
-            break
-        }
+//        switch sender.tag {
+//        case 11 :
+//            self.rimInfoReqDomain.check1 = sender.on
+//            break
+//        case 12 :
+//            self.rimInfoReqDomain.check2 = sender.on
+//            break
+//        case 13 :
+//            self.rimInfoReqDomain.check3 = sender.on
+//            break
+//        default:
+//            break
+//        }
     }
     
 }

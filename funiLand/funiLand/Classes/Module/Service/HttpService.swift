@@ -8,12 +8,15 @@
 
 import Foundation
 
+// magic.funi.com/magic/field/app/getFieldList.json?date=201512&type=0
+
 let tal = "IPHONE"
 //let baseURLString = "http://192.168.1.241:8090/rap/mockjs/1/"
-let baseURLString = "http://www.rapapi.net/mockjs/302/"
+//let baseURLString = "http://rapapi.net/mockjs/302"
+let baseURLString = "magic.funi.com/magic/field/app/"
 let loginURLString = "login.json"
-let getSupplyOrBargainListURL = "getSupplyOrBargainList.json"
-let getRimInfoURL = "getRimInfo.json"
+let getSupplyOrBargainListURL = "getFieldList.json"
+let getRimInfoURL = "getAroundData.json"
 let getLandInfoURL = "getLandInfo.json"
 
 
@@ -21,6 +24,10 @@ class HttpService {
     let sessionManager:ESPAFHTTPSessionManager;
     
     static let sharedInstance = HttpService()
+    
+    class func setAppNetworkActivity(on: Bool) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = on;
+    }
     
     private init() {
         //        sessionManager = AFHTTPSessionManager(baseURL: NSURL(string: baseURLString)!)
@@ -87,16 +94,17 @@ class HttpService {
     }
     
     //获取地图周边数据
-    func getRimInfoList(rimInfo:RimInfoReqDomain, success:(rimInfoArray:Array<RimLandInfoDomain>?) -> Void,faild: (error:String) -> Void) {
+    func getRimInfoList(rimInfo:RimInfoReqDomain, success:(rimInfoArray:Array<RimLandInfoDomain>) -> Void,faild: (error:String) -> Void) {
         
         let params = Mapper<RimInfoReqDomain>().toJSON(rimInfo)
         
         sessionManager.ESP_GET(self.buildUrl(getRimInfoURL), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
-            
+            if responseVO.data != nil {
                 let respArray = Mapper<RimLandInfoDomain>().mapArray(responseVO.data)
-            
                 success(rimInfoArray: respArray!)
-            
+            } else {
+                success(rimInfoArray: Array<RimLandInfoDomain>())
+            }
             }) { (error: String) -> Void in
                 faild(error: error)
         }

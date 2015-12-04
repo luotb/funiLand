@@ -37,7 +37,6 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.queryData()
         self.initSteup()
         self.loadCalendar()
     }
@@ -59,6 +58,7 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         
         //集成下拉刷新
         setupDownRefresh()
+        self.myTableView.header.beginRefreshing()
         
         dataTypeSegment.addTarget(self, action:"segmentAction:", forControlEvents: UIControlEvents.ValueChanged)
     }
@@ -66,7 +66,6 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //选择器回调
     func segmentAction(segment:UISegmentedControl) {
         reqType = segment.selectedSegmentIndex
-//        self.queryData()
         self.myTableView.header.beginRefreshing()
     }
     

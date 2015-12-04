@@ -8,7 +8,7 @@
         <!--Navigation Controller-->
         <scene sceneID="RH5-nu-5BF">
             <objects>
-                <navigationController storyboardIdentifier="NavigationController" id="htI-QP-CDC" customClass="NavigationController" customModule="funiLand" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavigationController" navigationBarHidden="YES" id="htI-QP-CDC" customClass="NavigationController" customModule="funiLand" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jl7-qE-EpE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -35,16 +35,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2py-5B-qjy">
-                                <rect key="frame" x="67" y="159" width="42" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ZAA-uO-27f">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_circle" translatesAutoresizingMaskIntoConstraints="NO" id="DyA-dy-sEf">
+                                <rect key="frame" x="100" y="80" width="120" height="120"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Dkq-7n-0Xu"/>
+                                    <constraint firstAttribute="width" constant="120" id="Nbi-iI-cnt"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbX-3o-4X7">
+                                <rect key="frame" x="268" y="30" width="46" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="4W2-b6-yat"/>
+                                    <constraint firstAttribute="height" constant="30" id="sXh-Ka-LDR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="退出">
+                                    <color key="titleColor" red="0.96078431369999995" green="0.29411764709999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutBtnClicked:" destination="b5t-Xp-SFg" eventType="touchUpInside" id="fGf-N7-NNR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DyA-dy-sEf" firstAttribute="top" secondItem="Jdh-g1-FR1" secondAttribute="bottom" constant="60" id="Fl9-da-Mol"/>
+                            <constraint firstItem="DyA-dy-sEf" firstAttribute="centerX" secondItem="mmc-7K-ks0" secondAttribute="centerX" id="NbM-yz-b0e"/>
+                            <constraint firstItem="ZAA-uO-27f" firstAttribute="leading" secondItem="mmc-7K-ks0" secondAttribute="leading" id="Qch-j9-uqf"/>
+                            <constraint firstItem="ZAA-uO-27f" firstAttribute="top" secondItem="mmc-7K-ks0" secondAttribute="top" id="YjH-IL-dWb"/>
+                            <constraint firstAttribute="trailing" secondItem="XbX-3o-4X7" secondAttribute="trailing" constant="6" id="eWF-2V-Wav"/>
+                            <constraint firstItem="XbX-3o-4X7" firstAttribute="top" secondItem="Jdh-g1-FR1" secondAttribute="bottom" constant="10" id="fYN-00-jLQ"/>
+                            <constraint firstAttribute="trailing" secondItem="ZAA-uO-27f" secondAttribute="trailing" id="v8b-Rq-ZhV"/>
+                            <constraint firstItem="B6I-Ik-5iB" firstAttribute="top" secondItem="ZAA-uO-27f" secondAttribute="bottom" id="vjb-i4-HxQ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="我的" id="LjX-h2-3CQ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -54,4 +84,8 @@
             <point key="canvasLocation" x="94" y="240"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="375" height="667"/>
+        <image name="logo_circle" width="120" height="120"/>
+    </resources>
 </document>

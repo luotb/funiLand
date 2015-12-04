@@ -9,18 +9,30 @@
 import UIKit
 
 //+"/account.archive"
-let filePath=(NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent("account.archive")
+let keychainKEY = "funiLandAccount"
 
 
 class AccountTool: NSObject {
     
-    class var account:Account?{
-        get{
-            return NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? Account;
-        }
-        set{
-            NSKeyedArchiver.archiveRootObject(newValue!, toFile: filePath)
+    // 保存账号信息到钥匙串
+    class func saveAccount(account: Account){
+        let tempData = NSKeyedArchiver.archivedDataWithRootObject(account)
+        KeychainSwift().set(tempData, forKey: keychainKEY)
+    }
+    
+    // 从钥匙串获取账户信息
+    class func getAccount() -> Account? {
+       let tempData = KeychainSwift().getData(keychainKEY)
+        if tempData != nil {
+            let account = NSKeyedUnarchiver.unarchiveObjectWithData(tempData!)
+            return account as? Account
+        } else {
+            return nil
         }
     }
-
+    
+    // 删除信息
+    class func delAccount(){
+        KeychainSwift().delete(keychainKEY)
+    }
 }

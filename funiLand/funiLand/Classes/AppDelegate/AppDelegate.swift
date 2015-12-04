@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        if(AccountTool.account==nil){
-            window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "NavigationController") as! NavigationController
+        if AccountTool.getAccount() == nil {
+            window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
         }else{
             window!.rootViewController = tabController
         }

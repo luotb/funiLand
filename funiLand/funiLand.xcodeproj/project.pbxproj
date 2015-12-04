@@ -124,6 +124,13 @@
 		F45700C41C02CD1A005FEB26 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700C31C02CD1A005FEB26 /* UIColorExt.swift */; };
 		F457FFF81C02B361005FEB26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F457FFF71C02B361005FEB26 /* Assets.xcassets */; };
 		F457FFFB1C02B361005FEB26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F457FFF91C02B361005FEB26 /* LaunchScreen.storyboard */; };
+		F458E5FF1C1142200097AFB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F458E5FA1C1142200097AFB0 /* Info.plist */; };
+		F458E6001C1142200097AFB0 /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E5FC1C1142200097AFB0 /* KeychainSwift.swift */; };
+		F458E6011C1142200097AFB0 /* KeychainSwiftAccessOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E5FD1C1142200097AFB0 /* KeychainSwiftAccessOptions.swift */; };
+		F458E6021C1142200097AFB0 /* TegKeychainConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E5FE1C1142200097AFB0 /* TegKeychainConstants.swift */; };
+		F458E6041C1166920097AFB0 /* keychain-access-groups.plist in Resources */ = {isa = PBXBuildFile; fileRef = F458E6031C1166920097AFB0 /* keychain-access-groups.plist */; };
+		F458E6061C117DE40097AFB0 /* FuniMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */; };
+		F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */; };
 		F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA21C07FDA500244201 /* NSDateExtension.swift */; };
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
@@ -350,6 +357,14 @@
 		F457FFED1C02B361005FEB26 /* funiLand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = funiLand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F457FFF71C02B361005FEB26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F457FFFA1C02B361005FEB26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F458E5FA1C1142200097AFB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F458E5FB1C1142200097AFB0 /* KeychainSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainSwift.h; sourceTree = "<group>"; };
+		F458E5FC1C1142200097AFB0 /* KeychainSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
+		F458E5FD1C1142200097AFB0 /* KeychainSwiftAccessOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftAccessOptions.swift; sourceTree = "<group>"; };
+		F458E5FE1C1142200097AFB0 /* TegKeychainConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TegKeychainConstants.swift; sourceTree = "<group>"; };
+		F458E6031C1166920097AFB0 /* keychain-access-groups.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keychain-access-groups.plist"; sourceTree = "<group>"; };
+		F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniMapAnnotationView.swift; sourceTree = "<group>"; };
+		F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniPointAnnotation.swift; sourceTree = "<group>"; };
 		F4977DA21C07FDA500244201 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		F4977DA41C0827D100244201 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -794,6 +809,7 @@
 		F45700361C02CAB9005FEB26 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F458E5F91C1142200097AFB0 /* KeychainSwift */,
 				242B220B1C0F1D6E00CE2E76 /* POPSwift */,
 				F45474B91C0BEC9D00ED344B /* ObjectMapper */,
 				F43424B31C055B9000E78F39 /* JTCalendar */,
@@ -982,6 +998,7 @@
 			children = (
 				F42CF13A1C0D8DB1008F0CCE /* RimLandInfoDomain.swift */,
 				F42CF13C1C0D9456008F0CCE /* RimInfoReqpDomain.swift */,
+				F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -990,6 +1007,7 @@
 			isa = PBXGroup;
 			children = (
 				F419E9181C0304C7006A5815 /* Map.storyboard */,
+				F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1050,6 +1068,7 @@
 				F419E8CA1C02F89C006A5815 /* FuniLand-Bridging-Header.h */,
 				F419E8CB1C02F89C006A5815 /* FuniLand-Swift.h */,
 				F45700BB1C02CB4B005FEB26 /* Info.plist */,
+				F458E6031C1166920097AFB0 /* keychain-access-groups.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1094,6 +1113,18 @@
 				242B22091C0F1AC800CE2E76 /* Podfile */,
 			);
 			path = funiLand;
+			sourceTree = "<group>";
+		};
+		F458E5F91C1142200097AFB0 /* KeychainSwift */ = {
+			isa = PBXGroup;
+			children = (
+				F458E5FA1C1142200097AFB0 /* Info.plist */,
+				F458E5FB1C1142200097AFB0 /* KeychainSwift.h */,
+				F458E5FC1C1142200097AFB0 /* KeychainSwift.swift */,
+				F458E5FD1C1142200097AFB0 /* KeychainSwiftAccessOptions.swift */,
+				F458E5FE1C1142200097AFB0 /* TegKeychainConstants.swift */,
+			);
+			path = KeychainSwift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1211,6 +1242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F419E8EC1C02FC4E006A5815 /* Login.storyboard in Resources */,
+				F458E6041C1166920097AFB0 /* keychain-access-groups.plist in Resources */,
 				F45700BC1C02CB4B005FEB26 /* Info.plist in Resources */,
 				F419E9191C0304C7006A5815 /* Map.storyboard in Resources */,
 				F419E9151C0301B3006A5815 /* Message.storyboard in Resources */,
@@ -1218,6 +1250,7 @@
 				F419E9211C03058A006A5815 /* Profile.storyboard in Resources */,
 				F457FFF81C02B361005FEB26 /* Assets.xcassets in Resources */,
 				F419E9581C030B9B006A5815 /* IQKeyboardManager.bundle in Resources */,
+				F458E5FF1C1142200097AFB0 /* Info.plist in Resources */,
 				F45474D01C0BEC9D00ED344B /* Info.plist in Resources */,
 				24C49EE41C0734190065D9B6 /* MJRefresh.bundle in Resources */,
 				242B220A1C0F1AC800CE2E76 /* Podfile in Resources */,
@@ -1305,6 +1338,7 @@
 				24C49EF21C0736690065D9B6 /* LandTableViewCell.swift in Sources */,
 				F45700961C02CAB9005FEB26 /* UIButton+Extension.m in Sources */,
 				F45474D41C0BEC9D00ED344B /* EnumTransform.swift in Sources */,
+				F458E6001C1142200097AFB0 /* KeychainSwift.swift in Sources */,
 				F42CF1411C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift in Sources */,
 				F45474D71C0BEC9D00ED344B /* TransformType.swift in Sources */,
 				F419E8B71C02F20D006A5815 /* Account.swift in Sources */,
@@ -1326,6 +1360,7 @@
 				F43424E21C055B9000E78F39 /* JTVerticalCalendarView.m in Sources */,
 				F419E9541C030B9B006A5815 /* IQBarButtonItem.m in Sources */,
 				F45474D11C0BEC9D00ED344B /* CustomDateFormatTransform.swift in Sources */,
+				F458E6021C1142200097AFB0 /* TegKeychainConstants.swift in Sources */,
 				F45474CB1C0BEC9D00ED344B /* FromJSON.swift in Sources */,
 				F419E8E31C02FB09006A5815 /* AFNetworkReachabilityManager.m in Sources */,
 				F419E8BC1C02F62B006A5815 /* HttpService.swift in Sources */,
@@ -1342,6 +1377,7 @@
 				24C49EEF1C0734190065D9B6 /* UIView+MJExtension.m in Sources */,
 				F419E8E41C02FB09006A5815 /* AFSecurityPolicy.m in Sources */,
 				F45700A61C02CAB9005FEB26 /* AFAppDotNetAPIClient.m in Sources */,
+				F458E6061C117DE40097AFB0 /* FuniMapAnnotationView.swift in Sources */,
 				F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */,
 				F419E94F1C030B9B006A5815 /* IQUIWindow+Hierarchy.m in Sources */,
 				F43424E41C05806900E78F39 /* BaseDomain.swift in Sources */,
@@ -1358,6 +1394,7 @@
 				F419E8B11C02F1C3006A5815 /* BaseViewController.swift in Sources */,
 				242B22101C0F1D6E00CE2E76 /* POPSwiftWrapper.m in Sources */,
 				F43424D91C055B9000E78F39 /* JTDateHelper.m in Sources */,
+				F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */,
 				24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */,
 				F42CF1431C0D9C69008F0CCE /* LandInfoDomain.swift in Sources */,
 				F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */,
@@ -1368,6 +1405,7 @@
 				24C49EEE1C0734190065D9B6 /* UIScrollView+MJRefresh.m in Sources */,
 				24C49EE71C0734190065D9B6 /* MJRefreshFooter.m in Sources */,
 				F419E9171C0304B9006A5815 /* MapViewController.swift in Sources */,
+				F458E6011C1142200097AFB0 /* KeychainSwiftAccessOptions.swift in Sources */,
 				F45474CE1C0BEC9D00ED344B /* Operators.swift in Sources */,
 				F43424DB1C055B9000E78F39 /* JTCalendarScrollManager.m in Sources */,
 				F45700991C02CAB9005FEB26 /* UIView+Shadow.m in Sources */,
@@ -1523,6 +1561,7 @@
 			baseConfigurationReference = 3803A32673801F750E3E3E0B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
 				INFOPLIST_FILE = "$(SWIFT_MODULE_NAME)/Config/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1538,6 +1577,7 @@
 			baseConfigurationReference = 7F165950CD3C16BA00F52C8A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
 				INFOPLIST_FILE = "$(SWIFT_MODULE_NAME)/Config/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

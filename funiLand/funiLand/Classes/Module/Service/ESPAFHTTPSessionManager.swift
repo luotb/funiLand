@@ -20,7 +20,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
                 taskSuccessed(responseVO: result);
                 
             }else if(result.code == 102){//session过期,直接跳回登陆页面
-                UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "NavigationController") as! NavigationController
+                UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
             }else{
                 if let message = result.remark{
                     taskFailured(error: message);
@@ -43,7 +43,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
                 taskSuccessed(responseVO: result);
                 
             }else if(result.code == 102){//session过期,直接跳回登陆页面
-                UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "NavigationController") as! NavigationController
+                UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
             }else{
                 if let message = result.remark{
                     taskFailured(error: message);
@@ -72,7 +72,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
                 taskSuccessed(responseVO: result!);
                 
             }else if(result!.code == 102){//session过期,直接跳回登陆页面
-                UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "NavigationController") as! NavigationController
+                UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
             }else{
                 if let message = result!.remark{
                     taskFailured(error: message);

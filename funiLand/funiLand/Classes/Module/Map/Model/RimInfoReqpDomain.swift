@@ -13,11 +13,14 @@ class RimInfoReqDomain: Mappable {
     var distance: Int?
     var lat: Double?
     var lng: Double?
-    var check1: Bool = false
-    var check2: Bool = false
-    var check3: Bool = false
-
-    init(){}
+    //已成交未呈现=4；已成交已呈现=3；未成交土地=2
+    var fieldType: Int?
+    //关键词
+    var keyword: String?
+    
+    init(){
+        self.distance = 2
+    }
     
     required init?(_ map: Map){
         mapping(map)
@@ -27,8 +30,7 @@ class RimInfoReqDomain: Mappable {
         distance <- map["distance"]
         lat <- map["lat"]
         lng <- map["lng"]
-        check1 <- map["check1"]
-        check2 <- map["check2"]
-        check3 <- map["check3"]
+        fieldType <- map["fieldType"]
+        keyword <- map["keyword"]
     }
 }
