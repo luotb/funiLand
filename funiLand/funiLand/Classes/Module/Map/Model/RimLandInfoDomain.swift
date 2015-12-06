@@ -10,6 +10,8 @@ import UIKit
 
 class RimLandInfoDomain: Mappable {
     
+    //id
+    var id:String?
     // 包含单位 亩
     var netAreaMu: String?
     // 0=土地，1=项目
@@ -37,6 +39,7 @@ class RimLandInfoDomain: Mappable {
     }
     
     func mapping(map: Map) {
+        id <- map["id"]
         netAreaMu <- map["netAreaMu"]
         dataType <- map["dataType"]
         distance <- map["distance"]

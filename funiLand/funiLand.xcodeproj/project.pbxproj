@@ -24,6 +24,7 @@
 		24C49EEE1C0734190065D9B6 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49EE11C0734190065D9B6 /* UIScrollView+MJRefresh.m */; };
 		24C49EEF1C0734190065D9B6 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49EE31C0734190065D9B6 /* UIView+MJExtension.m */; };
 		24C49EF21C0736690065D9B6 /* LandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C49EF01C0736690065D9B6 /* LandTableViewCell.swift */; };
+		24D78B811C142D92007C17EF /* RimLandListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78B801C142D92007C17EF /* RimLandListViewController.swift */; };
 		24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6A3671C072D09002AD03B /* SystemConfig.swift */; };
 		EDB50619F2D7A034F5069C6E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC6D63499291C9E6AAA6539 /* libPods.a */; };
 		F419E8AF1C02F1C3006A5815 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419E8AC1C02F1C3006A5815 /* NavigationController.swift */; };
@@ -183,6 +184,7 @@
 		24C49EE21C0734190065D9B6 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		24C49EE31C0734190065D9B6 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		24C49EF01C0736690065D9B6 /* LandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandTableViewCell.swift; sourceTree = "<group>"; };
+		24D78B801C142D92007C17EF /* RimLandListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimLandListViewController.swift; sourceTree = "<group>"; };
 		24E6A3671C072D09002AD03B /* SystemConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		3803A32673801F750E3E3E0B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7F165950CD3C16BA00F52C8A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -989,6 +991,7 @@
 			children = (
 				F419E9161C0304B9006A5815 /* MapViewController.swift */,
 				F42FBC9C1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift */,
+				24D78B801C142D92007C17EF /* RimLandListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1342,6 +1345,7 @@
 				F42CF1411C0D95DA008F0CCE /* ESPAFHTTPSessionManager.swift in Sources */,
 				F45474D71C0BEC9D00ED344B /* TransformType.swift in Sources */,
 				F419E8B71C02F20D006A5815 /* Account.swift in Sources */,
+				24D78B811C142D92007C17EF /* RimLandListViewController.swift in Sources */,
 				F419E94D1C030B9B006A5815 /* IQUIView+Hierarchy.m in Sources */,
 				F425E9A81C06E4B600003B9F /* FLUser.swift in Sources */,
 				F419E8E81C02FB09006A5815 /* AFURLSessionManager.m in Sources */,

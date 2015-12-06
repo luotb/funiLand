@@ -32,7 +32,7 @@ class ProfileViewController: BaseViewController, UIAlertViewDelegate {
         
         if buttonIndex == 1 {
             AccountTool.delAccount()
-            UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+            ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
         }
     }
 }

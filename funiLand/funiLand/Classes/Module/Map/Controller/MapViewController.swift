@@ -18,21 +18,32 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     
     // 搜索条件View
     @IBOutlet var searchConditionView: UIView!
+    //搜索条件按钮
+    @IBOutlet var searchBtn: UIButton!
     // 搜索条件内容View
     var searchConditionContentView: MapSearchConditionTableViewController!
     // 搜索条件封装VO
     var rimInfoReqDomain = RimInfoReqDomain()
-    // 动画是否执行
+    // 搜索按钮动画是否执行
     var timerRunning: Bool = false
+    // 土地详情view动画是否执行
+    var landInfoRunning: Bool = false
+    
+    // 周边数据源
+    var rimLandArray: Array<RimLandInfoDomain>!
     //所有标注
     var pointAnnotationArray = Array<FuniPointAnnotation>()
     //地图搜索
     var localSearch:MKLocalSearch?
     
+    //土地详情View
+    @IBOutlet var landInfoView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.initSteup()
+//        self.loadRimLieView()
         startLocation()
     }
     
@@ -52,7 +63,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.myMapView.mapType = MKMapType.Standard
         self.myMapView.showsUserLocation = true
         
-        self.searchConditionView.setBorderWithWidth(1, color: UIColor.whiteColor(), radian: 5)
+        self.searchConditionView.setBorderWithWidth(0, color: UIColor.whiteColor(), radian: 5)
         self.searchConditionContentView = self.storyboard?.instantiateViewControllerWithIdentifier("MapSearchConditionTableViewController") as! MapSearchConditionTableViewController
         self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
         self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
@@ -64,7 +75,8 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             
-                self.packagePointAnnatotion(rimInfoArray)
+                self.rimLandArray = rimInfoArray
+                self.packagePointAnnatotion()
                 self.myMapView.addAnnotations(self.pointAnnotationArray)
             
             }) { (error:String) -> Void in
@@ -73,9 +85,9 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     }
     
     //封装标注数据
-    func packagePointAnnatotion(rimInfoArray: Array<RimLandInfoDomain>) {
+    func packagePointAnnatotion() {
         
-        for rimInfoDomain: RimLandInfoDomain in rimInfoArray {
+        for rimInfoDomain: RimLandInfoDomain in self.rimLandArray {
             let pointAnnatotion = FuniPointAnnotation()
             pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
             pointAnnatotion.rimLandInfoDomain = rimInfoDomain
@@ -226,6 +238,17 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         
 //        let pointAnnatotion = view.annotation as! FuniPointAnnotation
 //        pointAnnatotion.rimLandInfoDomain
+       
+        if self.timerRunning {
+            self.searchConditionBtnClicked(self.searchBtn)
+        }
+    }
+    
+    //    在通过双指捏拢、放大、缩小地图的时候回调
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        if self.timerRunning {
+            self.searchConditionBtnClicked(self.searchBtn)
+        }
     }
     
     // 定位按钮点击
@@ -243,38 +266,102 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.timerRunning = !self.timerRunning;
         sender.selected = self.timerRunning
         
-        UIView.transitionWithView(self.searchConditionView, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
-            self.searchConditionView.alpha = self.timerRunning ? 1.0 : 0
-            }, completion: nil)
+        self.searchConditionView.alpha = 1.0
+        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
         
-        // Create view to animate
-        //        let view = UIView(frame: UIScreen.mainScreen().bounds)
-        //        view.backgroundColor = UIColor.blueColor()
+        if self.timerRunning == true {
+            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
+        }
+        else {
+            animation.toValue = NSValue(CGSize:CGSizeMake(5, 5))
+        }
+        animation.springBounciness = 10.0;
+        animation.springSpeed = 10.0;
         
-        // Create animation
-        //        let anim = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        //        anim.property = _POPAnimatableProperty(name: kPOPLayerOpacity)
-        //        anim.toValue = 0
-        //        _POPAnimation.addAnimation(anim, key: anim.property.name, obj: view.layer)
+        let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation2.property = _POPAnimatableProperty(name: kPOPLayerPosition)
+
+        if self.timerRunning == true {
+            animation2.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.searchBtn.frame) + 150))
+        }
+        else {
+            animation2.toValue = NSValue(CGSize:CGSizeMake(CGRectGetMidX(self.searchBtn.frame), CGRectGetMidY(self.searchBtn.frame)))
+        }
+        animation2.springBounciness = 10.0;
+        animation2.springSpeed = 10.0;
         
-        //        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        //        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
-        //
-        //        if self.timerRunning == true {
-        //            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
-        //        }
-        //        else {
-        //            animation.toValue = NSValue(CGSize:CGSizeMake(46, 46))
-        //        }
-        //        animation.springBounciness = 10.0;
-        //        animation.springSpeed = 10.0;
-        //        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
+//        animation2.completionBlock = {
+//            (anim:_POPAnimation, finished:Bool) -> void in
+//            
+//        }
+        
+        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
+        _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.searchConditionView.layer)
     }
     
     // 列表显示数据
     @IBAction func showListBtnClicked(sender: AnyObject) {
         
+        let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("RimLandListViewController") as! RimLandListViewController
+        rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
+//        rimLandListVC.landArray = self.rimLandArray
+        self.navigationController?.pushViewController(rimLandListVC, animated: true)
+        
+//        self.rimLandListViewController.rimInfoReqDomain = self.rimInfoReqDomain
+//        
+//        let toValue = CGRectGetMidX(self.view.bounds);
+//        
+//        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+//        animation.property = _POPAnimatableProperty(name: kPOPLayerPositionX)
+//        
+//        animation.toValue =  toValue
+//        animation.springBounciness = 10.0;
+//        animation.springSpeed = 10.0;
+//        
+//        let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+//        animation2.property = _POPAnimatableProperty(name: kPOPLayerPositionX)
+//        animation2.toValue = -toValue
+//        animation2.springBounciness = 10.0;
+//        animation2.springSpeed = 10.0;
+//        
+//        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.myMapView.layer)
+//        _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.rimLandListViewController.view.layer)
+        
+//        POPSpringAnimation *onscreenAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+//        onscreenAnimation.toValue = @(toValue);
+//        onscreenAnimation.springBounciness = 10.f;
+//        
+//        POPBasicAnimation *offscreenAnimation = [POPBasicAnimation easeInAnimation];
+//        offscreenAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerPositionX];
+//        offscreenAnimation.toValue = @(-toValue);
+//        offscreenAnimation.duration = 0.2f;
+//        [offscreenAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+//        [self setTitleLabel];
+//        [self.titleLabel.layer pop_addAnimation:onscreenAnimation forKey:@"onscreenAnimation"];
+//        }];
+//        [self.titleLabel.layer pop_addAnimation:offscreenAnimation forKey:@"offscreenAnimation"];
+
     }
+    
+    
+    @IBAction func testBtnClicked(sender: AnyObject) {
+        self.landInfoRunning = !self.landInfoRunning
+        
+        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
+        
+        if self.landInfoRunning == true {
+            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame)))
+        }
+        else {
+            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)))
+        }
+        animation.springBounciness = 10.0;
+        animation.springSpeed = 10.0;
+        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
+    }
+    
 }
 
 
