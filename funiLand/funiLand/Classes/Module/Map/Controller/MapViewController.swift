@@ -77,6 +77,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     // 加载标注土地详情VC
     func loadAnnoatationLandDetailsView() {
         self.annoatationDetailsView = self.storyboard?.instantiateViewControllerWithIdentifier("MapAnnotationDetailsViewController") as! MapAnnotationDetailsViewController
+        self.annoatationDetailsView.view.frame = CGRectMake(0, 0, self.landInfoView.width, self.landInfoView.height)
         self.landInfoView.addSubview(self.annoatationDetailsView.view)
     }
     
@@ -328,7 +329,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
         
         if self.landInfoRunning == true {
-            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame)))
+            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 20))
         }
         else {
             animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))

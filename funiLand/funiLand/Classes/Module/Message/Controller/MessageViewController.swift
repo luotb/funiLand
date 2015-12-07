@@ -48,6 +48,33 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     //基础设置
     func initSteup(){
         
+        //这个是设置按下按钮时的颜色
+        self.dataTypeSegment.tintColor = UIColor.grayColor()
+        //默认选中的按钮索引
+        self.dataTypeSegment.selectedSegmentIndex = 0
+        //下面的代码实同正常状态和按下状态的属性控制,比如字体的大小和颜色等
+        
+        var attributes:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+        attributes["UITextAttributeFont"] = UIFont.systemFontOfSize(12)
+        attributes["UITextAttributeTextColor"] = UIColor.whiteColor()
+//        attributes["UITextAttributeTextShadowColor"] = UIColor.clearColor()
+        attributes["NSForegroundColorAttributeName"] = UIColor.whiteColor()
+        self.dataTypeSegment.setTitleTextAttributes(attributes, forState: UIControlState.Normal)
+    
+        
+//        var highlightedAttributes:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+//        highlightedAttributes[NSForegroundColorAttributeName] = UIColor.redColor()
+//        self.dataTypeSegment.setTitleTextAttributes(highlightedAttributes, forState: UIControlState.Highlighted)
+    
+        //修改字体的默认颜色与选中颜色
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor],UITextAttributeTextColor,  [UIFont fontWithName:Helvetica size:16.f],UITextAttributeFont ,[UIColor whiteColor],UITextAttributeTextShadowColor ,nil];
+//        [segmentedControl setTitleTextAttributes:dic forState:UIControlStateSelected];
+        
+//        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12],NSFontAttributeName,[UIColor redColor], NSForegroundColorAttributeName, nil];
+//        NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor redColor] forKey:NSForegroundColorAttributeName];
+//        [segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
+
+        
         //设置展示表格的数据源和代理
         myTableView.dataSource = self
         myTableView.delegate = self
