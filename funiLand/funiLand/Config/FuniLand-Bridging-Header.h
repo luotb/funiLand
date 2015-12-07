@@ -2,7 +2,9 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-
+#define AFNETWORKING_ALLOW_INVALID_SSL_CERTIFICATES
+#import <systemconfiguration/SystemConfiguration.h>
+#import <mobilecoreservices/MobileCoreServices.h>
 #import "AFNetworking.h"
 #import "AFSecurityPolicy.h"
 #import "UIView+Extension.h"

@@ -16,6 +16,8 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     var locationManager:CLLocationManager!
     var centerCoordinate:CLLocationCoordinate2D!
     
+    // 定位按钮
+    @IBOutlet var userLocationBtn: UIButton!
     // 搜索条件View
     @IBOutlet var searchConditionView: UIView!
     //搜索条件按钮
@@ -38,13 +40,15 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     
     //土地详情View
     @IBOutlet var landInfoView: UIView!
+    // 标注点的土地详情
+    var annoatationDetailsView:MapAnnotationDetailsViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.initSteup()
-//        self.loadRimLieView()
         startLocation()
+        self.loadAnnoatationLandDetailsView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +72,12 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
         self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
         self.searchConditionView.addSubview(self.searchConditionContentView.view)
+    }
+    
+    // 加载标注土地详情VC
+    func loadAnnoatationLandDetailsView() {
+        self.annoatationDetailsView = self.storyboard?.instantiateViewControllerWithIdentifier("MapAnnotationDetailsViewController") as! MapAnnotationDetailsViewController
+        self.landInfoView.addSubview(self.annoatationDetailsView.view)
     }
     
     //请求数据
@@ -307,40 +317,6 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
 //        rimLandListVC.landArray = self.rimLandArray
         self.navigationController?.pushViewController(rimLandListVC, animated: true)
-        
-//        self.rimLandListViewController.rimInfoReqDomain = self.rimInfoReqDomain
-//        
-//        let toValue = CGRectGetMidX(self.view.bounds);
-//        
-//        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-//        animation.property = _POPAnimatableProperty(name: kPOPLayerPositionX)
-//        
-//        animation.toValue =  toValue
-//        animation.springBounciness = 10.0;
-//        animation.springSpeed = 10.0;
-//        
-//        let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-//        animation2.property = _POPAnimatableProperty(name: kPOPLayerPositionX)
-//        animation2.toValue = -toValue
-//        animation2.springBounciness = 10.0;
-//        animation2.springSpeed = 10.0;
-//        
-//        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.myMapView.layer)
-//        _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.rimLandListViewController.view.layer)
-        
-//        POPSpringAnimation *onscreenAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
-//        onscreenAnimation.toValue = @(toValue);
-//        onscreenAnimation.springBounciness = 10.f;
-//        
-//        POPBasicAnimation *offscreenAnimation = [POPBasicAnimation easeInAnimation];
-//        offscreenAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerPositionX];
-//        offscreenAnimation.toValue = @(-toValue);
-//        offscreenAnimation.duration = 0.2f;
-//        [offscreenAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
-//        [self setTitleLabel];
-//        [self.titleLabel.layer pop_addAnimation:onscreenAnimation forKey:@"onscreenAnimation"];
-//        }];
-//        [self.titleLabel.layer pop_addAnimation:offscreenAnimation forKey:@"offscreenAnimation"];
 
     }
     
@@ -355,11 +331,17 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
             animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame)))
         }
         else {
-            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)))
+            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
         }
         animation.springBounciness = 10.0;
         animation.springSpeed = 10.0;
         _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
+        
+        UIView.transitionWithView(self.userLocationBtn, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
+            
+            self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
+            
+            }, completion: nil)
     }
     
 }

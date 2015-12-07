@@ -42,11 +42,22 @@ class LoginViewController: BaseViewController {
         }
         
         if(true){//登陆成功
+            
             let account = Account();
             account.loginName = loginName
-            account.password = pwd
+            account.passWord = pwd
+            
             AccountTool.saveAccount(account)
             UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
+            
+//            HttpService.sharedInstance.login(account, success: { (msg:String) -> Void in
+//                
+//                AccountTool.saveAccount(account)
+//                UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
+//                
+//                }, faild: { (error:String) -> Void in
+//                    FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+//            })
         }
     }
     

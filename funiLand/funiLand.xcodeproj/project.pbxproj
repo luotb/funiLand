@@ -94,6 +94,8 @@
 		F43424E41C05806900E78F39 /* BaseDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E31C05806900E78F39 /* BaseDomain.swift */; };
 		F43424E61C05810B00E78F39 /* LandArrayRespon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E51C05810B00E78F39 /* LandArrayRespon.swift */; };
 		F43424E81C05814200E78F39 /* LandDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43424E71C05814200E78F39 /* LandDomain.swift */; };
+		F436B33B1C15253F007B1F6F /* FuniLand-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F436B33A1C15253F007B1F6F /* FuniLand-Info.plist */; };
+		F436B33D1C157D41007B1F6F /* MapAnnotationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436B33C1C157D41007B1F6F /* MapAnnotationDetailsViewController.swift */; };
 		F45474CB1C0BEC9D00ED344B /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BB1C0BEC9D00ED344B /* FromJSON.swift */; };
 		F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BC1C0BEC9D00ED344B /* Map.swift */; };
 		F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45474BD1C0BEC9D00ED344B /* Mapper.swift */; };
@@ -120,7 +122,6 @@
 		F45700A61C02CAB9005FEB26 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F457005B1C02CAB9005FEB26 /* AFAppDotNetAPIClient.m */; };
 		F45700A71C02CAB9005FEB26 /* FuniDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F457005E1C02CAB9005FEB26 /* FuniDeviceUtil.m */; };
 		F45700A81C02CAB9005FEB26 /* FuniBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45700621C02CAB9005FEB26 /* FuniBaseView.m */; };
-		F45700BC1C02CB4B005FEB26 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F45700BB1C02CB4B005FEB26 /* Info.plist */; };
 		F45700BF1C02CB53005FEB26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700BE1C02CB53005FEB26 /* AppDelegate.swift */; };
 		F45700C41C02CD1A005FEB26 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45700C31C02CD1A005FEB26 /* UIColorExt.swift */; };
 		F457FFF81C02B361005FEB26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F457FFF71C02B361005FEB26 /* Assets.xcassets */; };
@@ -313,6 +314,8 @@
 		F43424E31C05806900E78F39 /* BaseDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDomain.swift; sourceTree = "<group>"; };
 		F43424E51C05810B00E78F39 /* LandArrayRespon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandArrayRespon.swift; sourceTree = "<group>"; };
 		F43424E71C05814200E78F39 /* LandDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDomain.swift; sourceTree = "<group>"; };
+		F436B33A1C15253F007B1F6F /* FuniLand-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FuniLand-Info.plist"; sourceTree = "<group>"; };
+		F436B33C1C157D41007B1F6F /* MapAnnotationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotationDetailsViewController.swift; sourceTree = "<group>"; };
 		F45474BB1C0BEC9D00ED344B /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
 		F45474BC1C0BEC9D00ED344B /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F45474BD1C0BEC9D00ED344B /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
@@ -353,7 +356,6 @@
 		F457005E1C02CAB9005FEB26 /* FuniDeviceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuniDeviceUtil.m; sourceTree = "<group>"; };
 		F45700611C02CAB9005FEB26 /* FuniBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuniBaseView.h; sourceTree = "<group>"; };
 		F45700621C02CAB9005FEB26 /* FuniBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuniBaseView.m; sourceTree = "<group>"; };
-		F45700BB1C02CB4B005FEB26 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F45700BE1C02CB53005FEB26 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F45700C31C02CD1A005FEB26 /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		F457FFED1C02B361005FEB26 /* funiLand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = funiLand.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -992,6 +994,7 @@
 				F419E9161C0304B9006A5815 /* MapViewController.swift */,
 				F42FBC9C1C0EE2220029A3FE /* MapSearchConditionTableViewController.swift */,
 				24D78B801C142D92007C17EF /* RimLandListViewController.swift */,
+				F436B33C1C157D41007B1F6F /* MapAnnotationDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1070,7 +1073,7 @@
 			children = (
 				F419E8CA1C02F89C006A5815 /* FuniLand-Bridging-Header.h */,
 				F419E8CB1C02F89C006A5815 /* FuniLand-Swift.h */,
-				F45700BB1C02CB4B005FEB26 /* Info.plist */,
+				F436B33A1C15253F007B1F6F /* FuniLand-Info.plist */,
 				F458E6031C1166920097AFB0 /* keychain-access-groups.plist */,
 			);
 			path = Config;
@@ -1246,7 +1249,7 @@
 			files = (
 				F419E8EC1C02FC4E006A5815 /* Login.storyboard in Resources */,
 				F458E6041C1166920097AFB0 /* keychain-access-groups.plist in Resources */,
-				F45700BC1C02CB4B005FEB26 /* Info.plist in Resources */,
+				F436B33B1C15253F007B1F6F /* FuniLand-Info.plist in Resources */,
 				F419E9191C0304C7006A5815 /* Map.storyboard in Resources */,
 				F419E9151C0301B3006A5815 /* Message.storyboard in Resources */,
 				F457FFFB1C02B361005FEB26 /* LaunchScreen.storyboard in Resources */,
@@ -1331,6 +1334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F419E9131C0301A3006A5815 /* MessageViewController.swift in Sources */,
+				F436B33D1C157D41007B1F6F /* MapAnnotationDetailsViewController.swift in Sources */,
 				F42FBC991C0EA0DB0029A3FE /* BaseCell.swift in Sources */,
 				F45700A81C02CAB9005FEB26 /* FuniBaseView.m in Sources */,
 				F43424D81C055B9000E78F39 /* JTCalendarSettings.m in Sources */,
@@ -1566,11 +1570,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
-				INFOPLIST_FILE = "$(SWIFT_MODULE_NAME)/Config/Info.plist";
+				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.funi.funiLand;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = funiLand;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/Config/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)/Config/$(SWIFT_MODULE_NAME)-Swift.h";
 			};
@@ -1582,11 +1586,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
-				INFOPLIST_FILE = "$(SWIFT_MODULE_NAME)/Config/Info.plist";
+				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.funi.funiLand;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = funiLand;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/Config/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)/Config/$(SWIFT_MODULE_NAME)-Swift.h";
 			};

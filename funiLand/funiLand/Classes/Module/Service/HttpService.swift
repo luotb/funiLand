@@ -10,10 +10,10 @@ import Foundation
 
 // magic.funi.com/magic/field/app/getFieldList.json?date=201512&type=0
 
-let tal = "IPHONE"
+let TERMINALTYPE = "IPHONE"
 //let baseURLString = "http://192.168.1.241:8090/rap/mockjs/1/"
 //let baseURLString = "http://rapapi.net/mockjs/302"
-let baseURLString = "magic.funi.com/magic/field/app/"
+let baseURLString = "http://magic.funi.com/field/app/"
 let loginURLString = "login.json"
 let getSupplyOrBargainListURL = "getFieldList.json"
 let getRimInfoURL = "getAroundData.json"
@@ -24,6 +24,7 @@ class HttpService {
     let sessionManager:ESPAFHTTPSessionManager;
     
     static let sharedInstance = HttpService()
+    var talId: String?
     
     class func setAppNetworkActivity(on: Bool) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = on;
@@ -46,12 +47,13 @@ class HttpService {
     }
     
     // login request
-    func login(loginName: String, pwd: String, success:(msg:String)->Void,faild:(error:String)->Void){
+    func login(account: Account, success:(msg:String)->Void,faild:(error:String)->Void){
         
         var params:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-        params["loginName"] = loginName;
-        params["passWord"] = pwd;
-        params["tal"] = tal;
+        params["loginName"] = account.loginName;
+        params["passWord"] = account.passWord;
+        params["tal"] = account.tal;
+        params["talId"] = self.talId;
         
         sessionManager.ESP_POST(self.buildUrl(loginURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
                 success(msg: String_LoginSuccess)

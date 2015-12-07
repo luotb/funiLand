@@ -11,17 +11,19 @@ import UIKit
 class Account: NSObject, NSCoding {
     
     var loginName:String?
-    var password: String?
+    var passWord: String?
+    var tal:String = TERMINALTYPE
+    var talId:String?
     
     func encodeWithCoder(aCoder: NSCoder){
         aCoder.encodeObject(self.loginName, forKey: "loginName")
-        aCoder.encodeObject(self.password, forKey: "password")
+        aCoder.encodeObject(self.passWord, forKey: "password")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init()
         self.loginName = aDecoder.decodeObjectForKey("loginName") as? String
-        self.password = aDecoder.decodeObjectForKey("password") as? String
+        self.passWord = aDecoder.decodeObjectForKey("password") as? String
     }
     
     override init() {
