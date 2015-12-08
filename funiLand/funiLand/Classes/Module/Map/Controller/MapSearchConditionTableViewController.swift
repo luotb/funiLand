@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias  SendValueClosure = (String) -> Int
+
 class MapSearchConditionTableViewController: UITableViewController {
     
     
@@ -18,11 +20,14 @@ class MapSearchConditionTableViewController: UITableViewController {
     @IBOutlet var switch3: UISwitch!
     @IBOutlet var distanceSegment: UISegmentedControl!
     
+    var sendValueClosure:SendValueClosure?
+    
     var rimInfoReqDomain: RimInfoReqDomain!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
+//        let a = self.sendValueClosure!("aaaa")
     }
     
     override func didReceiveMemoryWarning() {

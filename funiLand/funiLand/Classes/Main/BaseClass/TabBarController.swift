@@ -51,6 +51,11 @@ class TabBarViewController: UITabBarController {
         
         childController.title = title
         
+        let rightBarItem = childController.navigationItem.rightBarButtonItem
+        if rightBarItem != nil {
+            rightBarItem?.image = rightBarItem?.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        }
+        
         addChildViewController(navController)
         
     }

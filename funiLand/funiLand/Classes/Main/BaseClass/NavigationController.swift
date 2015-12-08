@@ -31,14 +31,9 @@ class NavigationController: UINavigationController {
         
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
         
-        let leftBarItem = viewController.navigationItem.leftBarButtonItem
-        if leftBarItem != nil {
-            
-        }
-        
         let rightBarItem = viewController.navigationItem.rightBarButtonItem
         if rightBarItem != nil {
-            rightBarItem?.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+            rightBarItem?.image = rightBarItem?.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         }
         
         super.pushViewController(viewController, animated: animated)
@@ -46,18 +41,7 @@ class NavigationController: UINavigationController {
     
     
     func back(){
-        self.popToRootViewControllerAnimated(true);
+        self.popViewControllerAnimated(true)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

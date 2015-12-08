@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
+class MapViewController: BaseViewController {
     
     
     @IBOutlet var myMapView: MKMapView!
@@ -94,6 +94,12 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.searchConditionContentView.view.frame = CGRectMake(0, 0, 300, 300)
         self.searchConditionContentView.rimInfoReqDomain = self.rimInfoReqDomain
         self.searchConditionView.addSubview(self.searchConditionContentView.view)
+        
+        self.searchConditionContentView.sendValueClosure = {
+            [unowned self](a:String) -> Int in
+            print(self)
+            return 1
+        }
     }
     
     // 加载标注土地详情VC
@@ -116,6 +122,17 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         searchBar.backgroundColor = UIColor.clearColor()
         searchBar.placeholder = "输入土地位置关键字"
         searchBar.delegate = self
+        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+//        searchBar.textInputMode = UITextInputMode
+        searchBar.tintColor = UIColor.whiteColor()
+        
+        // Get the instance of the UITextField of the search bar
+        let searchField: UITextField = searchBar.valueForKey("_searchField") as! UITextField
+        // Change search bar text color
+        searchField.textColor = UIColor.whiteColor()
+        
+        // Change the search bar placeholder text color
+        searchField.setValue(UIColor.colorFromHexString("#AAD2FD"), forKeyPath: "_placeholderLabel.textColor")
         
         let searchView = UIView(frame: CGRectMake(50, 0, 250, 44))
         searchView.backgroundColor = UIColor.clearColor()
@@ -185,6 +202,128 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.locationManager.startUpdatingLocation()
     }
     
+    
+    //默认定位到成都
+    func defLoadCDMap() {
+        
+        HttpService.setAppNetworkActivity(true)
+        
+        let searchRequest = MKLocalSearchRequest()
+        searchRequest.naturalLanguageQuery = "成都"
+        
+        if self.localSearch == nil {
+            self.localSearch = MKLocalSearch(request: searchRequest)
+        }
+        
+        self.localSearch?.startWithCompletionHandler({ (response:MKLocalSearchResponse?, error:NSError?) -> Void in
+            HttpService.setAppNetworkActivity(false)
+            
+            if error != nil {
+                
+            } else {
+                let pointAnnotation = FuniPointAnnotation()
+                pointAnnotation.coordinate = response!.boundingRegion.center
+                self.pointAnnotationArray.append(pointAnnotation)
+                
+                self.myMapView.setCenterCoordinate(response!.boundingRegion.center, animated: true)
+            }
+        })
+    }
+    
+    // 定位按钮点击
+    @IBAction func userLocationBtnClicked(sender: AnyObject) {
+        if self.centerCoordinate == nil {
+            self.startLocation()
+        } else {
+            //用户位置为地图中心点
+            self.myMapView.setCenterCoordinate(self.centerCoordinate, animated: true)
+        }
+    }
+    
+    // 查询条件按钮点击
+    @IBAction func searchConditionBtnClicked(sender: UIButton) {
+        self.timerRunning = !self.timerRunning;
+        sender.selected = self.timerRunning
+        
+        self.searchConditionView.alpha = 1.0
+        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
+        
+        if self.timerRunning == true {
+            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
+        }
+        else {
+            animation.toValue = NSValue(CGSize:CGSizeMake(5, 5))
+        }
+        animation.springBounciness = 10.0;
+        animation.springSpeed = 10.0;
+        
+        let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation2.property = _POPAnimatableProperty(name: kPOPLayerPosition)
+
+        if self.timerRunning == true {
+            animation2.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.searchBtn.frame) + 150))
+        }
+        else {
+            animation2.toValue = NSValue(CGSize:CGSizeMake(CGRectGetMidX(self.searchBtn.frame), CGRectGetMidY(self.searchBtn.frame)))
+        }
+        animation2.springBounciness = 10.0;
+        animation2.springSpeed = 10.0;
+        
+        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
+        _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.searchConditionView.layer)
+    }
+    
+    // 列表显示数据
+    @IBAction func showListBtnClicked(sender: AnyObject) {
+        
+        let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("RimLandListViewController") as! RimLandListViewController
+        rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
+//        rimLandListVC.landArray = self.rimLandArray
+        self.navigationController?.pushViewController(rimLandListVC, animated: true)
+
+    }
+    
+    
+    @IBAction func testBtnClicked(sender: AnyObject) {
+        self.landInfoRunning = !self.landInfoRunning
+        
+        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
+        
+        if self.landInfoRunning == true {
+            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 20))
+        }
+        else {
+            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
+        }
+        animation.springBounciness = 10.0;
+        animation.springSpeed = 10.0;
+        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
+        
+        UIView.transitionWithView(self.userLocationBtn, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
+            
+            self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
+            
+            }, completion: nil)
+    }
+    
+    // 土地类型按钮点击
+    @IBAction func landTypeBtnClicked(sender: UIButton) {
+        
+        self.showRimLandType = sender.tag
+                
+                let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+                rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
+                //        rimLandListVC.landArray = self.rimLandArray
+                self.navigationController?.pushViewController(rimLandListVC, animated: true)
+    }
+    
+}
+
+// MARK: CLLocationManagerDelegate
+extension MapViewController : CLLocationManagerDelegate {
+    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         switch (status) {
@@ -218,35 +357,11 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
             break;
         }
     }
-    
-    //默认定位到成都
-    func defLoadCDMap() {
-        
-        HttpService.setAppNetworkActivity(true)
-        
-        let searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = "成都"
-        
-        if self.localSearch == nil {
-            self.localSearch = MKLocalSearch(request: searchRequest)
-        }
-        
-        self.localSearch?.startWithCompletionHandler({ (response:MKLocalSearchResponse?, error:NSError?) -> Void in
-            HttpService.setAppNetworkActivity(false)
-            
-            if error != nil {
-                
-            } else {
-                let pointAnnotation = FuniPointAnnotation()
-                pointAnnotation.coordinate = response!.boundingRegion.center
-                self.pointAnnotationArray.append(pointAnnotation)
-                
-                self.myMapView.setCenterCoordinate(response!.boundingRegion.center, animated: true)
-            }
-        })
-    }
-    
-    // MARK: mapView delegate
+
+}
+
+// MARK: MKMapViewDelegate
+extension MapViewController : MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         
@@ -316,9 +431,9 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     // 地图标注点击
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
-//        let pointAnnatotion = view.annotation as! FuniPointAnnotation
-//        pointAnnatotion.rimLandInfoDomain
-       
+        //        let pointAnnatotion = view.annotation as! FuniPointAnnotation
+        //        pointAnnatotion.rimLandInfoDomain
+        
         if self.timerRunning {
             self.searchConditionBtnClicked(self.searchBtn)
         }
@@ -330,103 +445,10 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
             self.searchConditionBtnClicked(self.searchBtn)
         }
     }
-    
-    // 定位按钮点击
-    @IBAction func userLocationBtnClicked(sender: AnyObject) {
-        if self.centerCoordinate == nil {
-            self.startLocation()
-        } else {
-            //用户位置为地图中心点
-            self.myMapView.setCenterCoordinate(self.centerCoordinate, animated: true)
-        }
-    }
-    
-    // 查询条件按钮点击
-    @IBAction func searchConditionBtnClicked(sender: UIButton) {
-        self.timerRunning = !self.timerRunning;
-        sender.selected = self.timerRunning
-        
-        self.searchConditionView.alpha = 1.0
-        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
-        
-        if self.timerRunning == true {
-            animation.toValue =  NSValue(CGSize: CGSizeMake(300, 300))
-        }
-        else {
-            animation.toValue = NSValue(CGSize:CGSizeMake(5, 5))
-        }
-        animation.springBounciness = 10.0;
-        animation.springSpeed = 10.0;
-        
-        let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        animation2.property = _POPAnimatableProperty(name: kPOPLayerPosition)
+}
 
-        if self.timerRunning == true {
-            animation2.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.searchBtn.frame) + 150))
-        }
-        else {
-            animation2.toValue = NSValue(CGSize:CGSizeMake(CGRectGetMidX(self.searchBtn.frame), CGRectGetMidY(self.searchBtn.frame)))
-        }
-        animation2.springBounciness = 10.0;
-        animation2.springSpeed = 10.0;
-        
-//        animation2.completionBlock = {
-//            (anim:_POPAnimation, finished:Bool) -> void in
-//            
-//        }
-        
-        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
-        _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.searchConditionView.layer)
-    }
-    
-    // 列表显示数据
-    @IBAction func showListBtnClicked(sender: AnyObject) {
-        
-        let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("RimLandListViewController") as! RimLandListViewController
-        rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
-//        rimLandListVC.landArray = self.rimLandArray
-        self.navigationController?.pushViewController(rimLandListVC, animated: true)
-
-    }
-    
-    
-    @IBAction func testBtnClicked(sender: AnyObject) {
-        self.landInfoRunning = !self.landInfoRunning
-        
-        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
-        
-        if self.landInfoRunning == true {
-            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 20))
-        }
-        else {
-            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
-        }
-        animation.springBounciness = 10.0;
-        animation.springSpeed = 10.0;
-        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
-        
-        UIView.transitionWithView(self.userLocationBtn, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
-            
-            self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
-            
-            }, completion: nil)
-    }
-    
-    // 土地类型按钮点击
-    @IBAction func landTypeBtnClicked(sender: UIButton) {
-        
-        self.showRimLandType = sender.tag
-                
-                let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
-                rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
-                //        rimLandListVC.landArray = self.rimLandArray
-                self.navigationController?.pushViewController(rimLandListVC, animated: true)
-    }
-    
-    
-    // MARK UISearchBarDelegate
+// MARK: UISearchBarDelegate
+extension MapViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         print("999999")
@@ -434,15 +456,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         self.rimInfoReqDomain.keyword = searchBar.text
         self.queryData()
     }
+    
 }
-
-
-
-
-
-
-
-
-
 
 

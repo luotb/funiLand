@@ -49,31 +49,15 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
     func initSteup(){
         
         //这个是设置按下按钮时的颜色
-        self.dataTypeSegment.tintColor = UIColor.grayColor()
+        self.dataTypeSegment.tintColor = UIColor.colorFromHexString("#0C70D6")
         //默认选中的按钮索引
         self.dataTypeSegment.selectedSegmentIndex = 0
-        //下面的代码实同正常状态和按下状态的属性控制,比如字体的大小和颜色等
-        
-        var attributes:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-        attributes["UITextAttributeFont"] = UIFont.systemFontOfSize(12)
-        attributes["UITextAttributeTextColor"] = UIColor.whiteColor()
-//        attributes["UITextAttributeTextShadowColor"] = UIColor.clearColor()
-        attributes["NSForegroundColorAttributeName"] = UIColor.whiteColor()
-        self.dataTypeSegment.setTitleTextAttributes(attributes, forState: UIControlState.Normal)
-    
-        
-//        var highlightedAttributes:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-//        highlightedAttributes[NSForegroundColorAttributeName] = UIColor.redColor()
-//        self.dataTypeSegment.setTitleTextAttributes(highlightedAttributes, forState: UIControlState.Highlighted)
-    
         //修改字体的默认颜色与选中颜色
-//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor],UITextAttributeTextColor,  [UIFont fontWithName:Helvetica size:16.f],UITextAttributeFont ,[UIColor whiteColor],UITextAttributeTextShadowColor ,nil];
-//        [segmentedControl setTitleTextAttributes:dic forState:UIControlStateSelected];
+        let dictNormal = [NSForegroundColorAttributeName: UIColor.colorFromHexString("#1053A2"), NSFontAttributeName: UIFont.systemFontOfSize(14)]
+        self.dataTypeSegment.setTitleTextAttributes(dictNormal, forState: UIControlState.Normal)
         
-//        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:12],NSFontAttributeName,[UIColor redColor], NSForegroundColorAttributeName, nil];
-//        NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor redColor] forKey:NSForegroundColorAttributeName];
-//        [segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
-
+        let dictSelected = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont.systemFontOfSize(14)]
+       self.dataTypeSegment.setTitleTextAttributes(dictSelected, forState: UIControlState.Selected)
         
         //设置展示表格的数据源和代理
         self.myTableView.dataSource = self
@@ -290,5 +274,14 @@ class MessageViewController: BaseViewController, UITableViewDataSource, UITableV
         if judge == false {
             self.landArray = Array<LandDomain>()
         }
+    }
+    
+    
+    @IBAction func testBtnClicked(sender: AnyObject) {
+        let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
+        let rimInfoReqDomain = RimInfoReqDomain()
+        rimInfoReqDomain.lat = 30.6709490000
+        rimInfoReqDomain.lng = 104.0984620000
+        self.navigationController?.pushViewController(mapVC, animated: true)
     }
 }

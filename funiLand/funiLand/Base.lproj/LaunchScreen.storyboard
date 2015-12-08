@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <animations/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_circle" translatesAutoresizingMaskIntoConstraints="NO" id="mkl-Ft-eLz">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo_circle" translatesAutoresizingMaskIntoConstraints="NO" id="mkl-Ft-eLz">
                                 <rect key="frame" x="100" y="80" width="120" height="120"/>
                                 <animations/>
                                 <constraints>
@@ -41,6 +41,7 @@
                             <constraint firstItem="mkl-Ft-eLz" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="60" id="zeE-er-VSH"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

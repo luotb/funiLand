@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        self.setupWithStatusBar(application)
+        
         let tabController = TabBarViewController()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -30,6 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.makeKeyAndVisible()
         setup()
         return true
+    }
+    
+    func setupWithStatusBar(application: UIApplication) {
+        // 设置状态栏隐藏
+        application.setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide);
+        // 设置状态栏高亮
+        application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true);
     }
     
     private func setup() {
