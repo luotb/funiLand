@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: BaseViewController, UIAlertViewDelegate {
+class ProfileViewController: BaseViewController {
 
     
     
@@ -19,20 +19,36 @@ class ProfileViewController: BaseViewController, UIAlertViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    // 退出按钮点击
-    @IBAction func logoutBtnClicked(sender: UIButton) {
-        let alertView = UIAlertView(title: "提示", message: "确认退出!", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确认")
-        alertView.show()
-    }
-    
-    // MARK UIAlertViewDelegate
+
+}
+
+// MARK UIAlertViewDelegate
+extension ProfileViewController : UIAlertViewDelegate {
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         
         if buttonIndex == 1 {
             AccountTool.delAccount()
-            ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+//            ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+            
+            HttpService.sharedInstance.logout({ (msg: String) -> Void in
+                
+                AccountTool.delAccount()
+                ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+                
+                }, faild: { (error: String) -> Void in
+                    FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+            })
         }
+    }
+}
+
+// MARK: View EventHandler
+extension ProfileViewController {
+    
+    // 退出按钮点击
+    @IBAction func logoutBtnClicked(sender: UIButton) {
+        let alertView = UIAlertView(title: "提示", message: "确认退出!", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确认")
+        alertView.show()
     }
 }

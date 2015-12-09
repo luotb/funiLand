@@ -28,7 +28,7 @@ class RimLandInfoDomain: Mappable {
     // 挂牌时间
     var transferDate: String?
     // 0=招，1=挂，2=拍
-    var type: Int?
+    var type: String?
     // 最大容积率
     var cubagerateMax:Int?
 

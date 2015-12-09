@@ -12,8 +12,6 @@ class Account: NSObject, NSCoding {
     
     var loginName:String?
     var passWord: String?
-    var tal:String = TERMINALTYPE
-    var talId:String?
     
     func encodeWithCoder(aCoder: NSCoder){
         aCoder.encodeObject(self.loginName, forKey: "loginName")

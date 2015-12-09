@@ -67,4 +67,26 @@ extension String {
         }
     }
     
+    // 排除空
+    static func excludeEmpty(param: AnyObject?) -> String {
+        
+        if let p = param {
+            
+            switch p {
+            case let someInt as Int:
+                return String(someInt)
+            case let someDouble as Double where someDouble > 0:
+                return String(someDouble)
+            case is Double:
+                return String(p)
+            case let someString as String:
+                return someString
+            default:  
+                return String(p)
+            }
+        } else {
+            return ""
+        }
+    }
+    
 }

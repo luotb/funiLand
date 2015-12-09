@@ -11,10 +11,12 @@ import Foundation
 // magic.funi.com/magic/field/app/getFieldList.json?date=201512&type=0
 
 let TERMINALTYPE = "IPHONE"
-//let baseURLString = "http://192.168.1.241:8090/rap/mockjs/1/"
-//let baseURLString = "http://rapapi.net/mockjs/302"
-let baseURLString = "http://magic.funi.com/field/app/"
+
+let baseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/data/"
+//let accountBaseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/"
+let accountBaseURLString = "http://192.168.3.85/magic/field/app/"
 let loginURLString = "login.json"
+let logoutURLString = "logout.json"
 let getSupplyOrBargainListURL = "getFieldList.json"
 let getRimInfoURL = "getAroundData.json"
 let getLandInfoURL = "getFieldInfo.json"
@@ -25,6 +27,7 @@ class HttpService {
     
     static let sharedInstance = HttpService()
     var talId: String?
+    var loginUserInfo: FLUser?
     
     class func setAppNetworkActivity(on: Bool) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = on;
@@ -41,25 +44,49 @@ class HttpService {
     }
     
     
-    //URL拼装
+    // 数据URL拼装
     func buildUrl(postfixUrl:String) ->String{
         return baseURLString + postfixUrl
     }
     
+    // 账号URL拼装
+    func accountBuildUrl(postfixUrl:String) ->String{
+        return accountBaseURLString + postfixUrl
+    }
+    
     // login request
-    func login(account: Account, success:(msg:String)->Void,faild:(error:String)->Void){
+    func login(userInfo: FLUser, success:(msg:String)->Void,faild:(error:String)->Void){
         
-        var params:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-        params["loginName"] = account.loginName;
-        params["passWord"] = account.passWord;
-        params["tal"] = account.tal;
-        params["talId"] = self.talId;
+        self.talId = "qwertyuu"
+        userInfo.talId = self.talId
+        let params = Mapper<FLUser>().toJSON(userInfo)
+        self.loginUserInfo = userInfo
         
-        sessionManager.ESP_POST(self.buildUrl(loginURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
-                success(msg: String_LoginSuccess)
+        sessionManager.ESP_GET(self.accountBuildUrl(loginURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
+            
+            let userResp = Mapper<FLUser>().map(responseVO.data)
+            if let headUrl = userResp?.headUrl {
+                self.loginUserInfo?.headUrl = headUrl
+            }
+            success(msg: String_LoginSuccess)
+            
             }) { (error: String) -> Void in
                 faild(error: error)
         }
+    }
+    
+    // logout
+    func logout(success:(msg:String)->Void,faild:(error:String)->Void){
+        
+        var params:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
+        params["tal"] = TERMINALTYPE
+        
+        sessionManager.ESP_GET(self.accountBuildUrl(logoutURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
+            success(msg: String_LogoutSuccess)
+            }) { (error: String) -> Void in
+                faild(error: error)
+        }
+
     }
     
     //获取供应或成交土地数据

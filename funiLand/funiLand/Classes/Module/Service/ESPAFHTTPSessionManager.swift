@@ -73,10 +73,10 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
         }
         
         
-        if let data = result!.data{
+        if result!.code == Code_Success || result!.data != nil{
             successed(responseVO: result!)
         } else {
-            failured(error: result!.remark!);
+            failured(error: String_RequestError_Msg_1001)
         }
 
         
@@ -84,6 +84,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
 //            successed(responseVO: result!);
 //            
 //        }else if(result!.code == Code_SessionTimeOut){//session过期,直接跳回登陆页面
+//                AccountTool.delAccount()
 //            UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
 //        }else{
 //            if let message = result!.remark{

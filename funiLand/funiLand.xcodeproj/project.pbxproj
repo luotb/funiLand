@@ -135,6 +135,8 @@
 		F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */; };
 		F46776FE1AFC80DE002996B6 /* DashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46776FD1AFC80DE002996B6 /* DashedLineView.swift */; };
 		F46777011AFCC38F002996B6 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = F46777001AFCC38F002996B6 /* MKMapView+ZoomLevel.m */; };
+		F49171D91AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49171D81AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift */; };
+		F49171DE1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F49171DC1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a */; };
 		F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA21C07FDA500244201 /* NSDateExtension.swift */; };
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
@@ -374,6 +376,9 @@
 		F46776FD1AFC80DE002996B6 /* DashedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashedLineView.swift; sourceTree = "<group>"; };
 		F46776FF1AFCC38F002996B6 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		F46777001AFCC38F002996B6 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		F49171D81AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimLandListTableViewCell.swift; sourceTree = "<group>"; };
+		F49171DC1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.2.1.a; sourceTree = "<group>"; };
+		F49171DD1C17F422000DC7F0 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		F4977DA21C07FDA500244201 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		F4977DA41C0827D100244201 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -391,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDB50619F2D7A034F5069C6E /* libPods.a in Frameworks */,
+				F49171DE1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,6 +826,7 @@
 		F45700361C02CAB9005FEB26 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F49171DA1C17F422000DC7F0 /* UMeng */,
 				F458E5F91C1142200097AFB0 /* KeychainSwift */,
 				242B220B1C0F1D6E00CE2E76 /* POPSwift */,
 				F45474B91C0BEC9D00ED344B /* ObjectMapper */,
@@ -1022,6 +1029,7 @@
 			children = (
 				F419E9181C0304C7006A5815 /* Map.storyboard */,
 				F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */,
+				F49171D81AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1139,6 +1147,23 @@
 				F458E5FE1C1142200097AFB0 /* TegKeychainConstants.swift */,
 			);
 			path = KeychainSwift;
+			sourceTree = "<group>";
+		};
+		F49171DA1C17F422000DC7F0 /* UMeng */ = {
+			isa = PBXGroup;
+			children = (
+				F49171DB1C17F422000DC7F0 /* UMessage_Sdk_1.2.1 */,
+			);
+			path = UMeng;
+			sourceTree = "<group>";
+		};
+		F49171DB1C17F422000DC7F0 /* UMessage_Sdk_1.2.1 */ = {
+			isa = PBXGroup;
+			children = (
+				F49171DC1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a */,
+				F49171DD1C17F422000DC7F0 /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.2.1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1417,6 +1442,7 @@
 				F42CF1431C0D9C69008F0CCE /* LandInfoDomain.swift in Sources */,
 				F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */,
 				F419E8B91C02F20D006A5815 /* Helper.swift in Sources */,
+				F49171D91AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift in Sources */,
 				F43424E11C055B9000E78F39 /* JTHorizontalCalendarView.m in Sources */,
 				F42CF1451C0D9CE1008F0CCE /* FieldDomain.swift in Sources */,
 				F419E95C1C030C6F006A5815 /* MBProgressHUD.m in Sources */,
@@ -1585,6 +1611,10 @@
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/UMeng/UMessage_Sdk_1.2.1",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.funi.funiLand;
 				PRODUCT_NAME = funiLand;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/Config/$(SWIFT_MODULE_NAME)-Bridging-Header.h";
@@ -1602,6 +1632,10 @@
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/UMeng/UMessage_Sdk_1.2.1",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.funi.funiLand;
 				PRODUCT_NAME = funiLand;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/Config/$(SWIFT_MODULE_NAME)-Bridging-Header.h";

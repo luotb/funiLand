@@ -47,17 +47,19 @@ class LoginViewController: BaseViewController {
             account.loginName = loginName
             account.passWord = pwd
             
-            AccountTool.saveAccount(account)
-            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
+            let userInfo = FLUser(account: account)
             
-//            HttpService.sharedInstance.login(account, success: { (msg:String) -> Void in
-//                
-//                AccountTool.saveAccount(account)
-//                UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
-//                
-//                }, faild: { (error:String) -> Void in
-//                    FuniHUD.sharedHud().show(self.view, onlyMsg: error)
-//            })
+//            AccountTool.saveAccount(account)
+//            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
+            
+            HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
+                
+                AccountTool.saveAccount(account)
+                UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController();
+                
+                }, faild: { (error:String) -> Void in
+                    FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+            })
         }
     }
     

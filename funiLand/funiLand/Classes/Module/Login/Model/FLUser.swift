@@ -8,13 +8,34 @@
 
 import UIKit
 
-class FLUser: BaseDomain {
+class FLUser: Mappable {
 
     var loginName: NSString?
-    var password: NSString?
+    var passWord: NSString?
+    var tal:String = TERMINALTYPE
+    var talId:String?
+    var headUrl:String?
     
     init(name:NSString, pwd:NSString) {
         self.loginName = name
-        self.password = pwd
+        self.passWord = pwd
+    }
+    
+    init(account: Account) {
+        self.loginName = account.loginName
+        self.passWord = account.passWord
+        self.tal = TERMINALTYPE
+    }
+    
+    required init?(_ map: Map){
+        mapping(map)
+    }
+    
+    func mapping(map: Map) {
+        loginName <- map["loginName"]
+        passWord <- map["passWord"]
+        tal <- map["tal"]
+        talId <- map["talId"]
+        headUrl <- map["headUrl"]
     }
 }

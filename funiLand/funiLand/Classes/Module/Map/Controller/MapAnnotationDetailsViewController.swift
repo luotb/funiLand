@@ -19,11 +19,11 @@ class MapAnnotationDetailsViewController: BaseViewController {
     
     var rimLandInfoDomain:RimLandInfoDomain = RimLandInfoDomain(){
         willSet{
-            self.titleLabel.text = newValue.title!
-            self.areaLabel.text  = newValue.netAreaMu!
-            self.ratioLabel.text = String(newValue.cubagerateMax!)
-            self.sellDateLabel.text = newValue.transferDate!
-            self.landTypeLabel.text = newValue.fieldusageName!
+            self.titleLabel.text = String.excludeEmpty(newValue.title)
+            self.areaLabel.text  = String.excludeEmpty(newValue.netAreaMu)
+            self.ratioLabel.text = String.excludeEmpty(newValue.cubagerateMax)
+            self.sellDateLabel.text = String.excludeEmpty(newValue.transferDate)
+            self.landTypeLabel.text = String.excludeEmpty(newValue.fieldusageName)
         }
     }
     

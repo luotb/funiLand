@@ -8,18 +8,14 @@
 
 import UIKit
 
-class RimLandListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 
     @IBOutlet var myTableView: UITableView!
     
     // 周边请求数据
     var rimInfoReqDomain: RimInfoReqDomain!
     // 数据源
-    var landArray:Array<RimLandInfoDomain> = Array<RimLandInfoDomain>(){
-        willSet{
-            self.myTableView.reloadData()
-        }
-    }
+    var rimLandInfoArray:Array<RimLandInfoDomain>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,34 +48,24 @@ class RimLandListViewController: BaseViewController, UITableViewDataSource, UITa
         }
     }
     
-    //加载数据
-    func queryData(){
-        
-        HttpService.sharedInstance.getRimInfoList(self.rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
-            
-                self.landArray = rimInfoArray
-                self.myTableView.reloadData()
-            
-            }) { (error:String) -> Void in
-                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
-        }
-    }
-    
-    // MARK: - Table view data source and delegate
+}
+
+// MARK: - Table view data source and delegate
+extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return landArray.count;
+        return self.rimLandInfoArray.count;
     }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)
         -> UITableViewCell{
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("LandTableViewCell", forIndexPath: indexPath) as! LandTableViewCell
-//            cell.landDomain = landArray[indexPath.row]
+            let cell = tableView.dequeueReusableCellWithIdentifier("RimLandListTableViewCell", forIndexPath: indexPath) as! RimLandListTableViewCell
+            cell.rimLandDomain = self.rimLandInfoArray[indexPath.row]
             return cell;
             
     }
@@ -92,12 +78,31 @@ class RimLandListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let rimLandInfo: RimLandInfoDomain = landArray[indexPath.row]
-        let landDomain = LandDomain()
-        landDomain.id = rimLandInfo.id!
+//        let rimLandInfo: RimLandInfoDomain = self.rimLandInfoArray[indexPath.row]
+//        let landDomain = LandDomain()
+//        landDomain.id = rimLandInfo.id!
+//        
+//        let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
+//        landDetailVC.landDomain = landDomain
+//        self.navigationController?.pushViewController(landDetailVC, animated: true)
+    }
+    
+}
+
+
+// MARK: Service Request And Data Package
+extension RimLandListViewController {
+    
+    //加载数据
+    func queryData(){
         
-        let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
-        landDetailVC.landDomain = landDomain
-        self.navigationController?.pushViewController(landDetailVC, animated: true)
+        HttpService.sharedInstance.getRimInfoList(self.rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
+            
+            self.rimLandInfoArray = rimInfoArray
+            self.myTableView.reloadData()
+            
+            }) { (error:String) -> Void in
+                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+        }
     }
 }
