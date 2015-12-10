@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -94,45 +94,51 @@
                                     <constraint firstAttribute="height" constant="140" id="JGB-br-61C"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ot-da-yuI">
-                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ot-da-yuI">
+                                <rect key="frame" x="0.0" y="419" width="320" height="49"/>
                                 <subviews>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYp-YE-WzM">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYp-YE-WzM">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="49"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.1333333333" green="0.48627450979999998" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="OCg-3t-GPy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="30" minY="-15" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="-26" minY="30" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="28" minY="-15" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="土地" image="Territory_icon_normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="Territory_icon_click">
+                                        <state key="selected" image="Territory_icon_Click">
                                             <color key="titleColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <state key="highlighted" image="Territory_icon_click">
+                                        <state key="highlighted" image="Territory_icon_Click">
                                             <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="landTypeBtnClicked:" destination="h6H-ZW-5wM" eventType="touchUpInside" id="sWr-z5-FOp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oho-gA-Bhs">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oho-gA-Bhs">
                                         <rect key="frame" x="160" y="0.0" width="160" height="49"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.1333333333" green="0.48627450979999998" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="ohF-0o-IBG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="30" minY="-15" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="-26" minY="30" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="28" minY="-15" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="项目" image="Project_icon_normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="Project_icon_click">
+                                        <state key="selected" image="Project_icon_Click">
                                             <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <state key="highlighted" image="Project_icon_click">
+                                        <state key="highlighted" image="Project_icon_Click">
                                             <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -143,7 +149,16 @@
                                 <animations/>
                                 <color key="backgroundColor" red="0.13333333333333333" green="0.48627450980392156" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="oho-gA-Bhs" firstAttribute="width" secondItem="KYp-YE-WzM" secondAttribute="width" id="26U-8o-7aE"/>
+                                    <constraint firstItem="KYp-YE-WzM" firstAttribute="leading" secondItem="8Ot-da-yuI" secondAttribute="leading" id="6v0-uI-l9a"/>
+                                    <constraint firstItem="KYp-YE-WzM" firstAttribute="top" secondItem="8Ot-da-yuI" secondAttribute="top" id="Bgx-Jc-M4b"/>
+                                    <constraint firstItem="oho-gA-Bhs" firstAttribute="leading" secondItem="KYp-YE-WzM" secondAttribute="trailing" id="N2C-1f-uK5"/>
+                                    <constraint firstAttribute="trailing" secondItem="oho-gA-Bhs" secondAttribute="trailing" id="S6p-C2-dyn"/>
+                                    <constraint firstItem="oho-gA-Bhs" firstAttribute="top" secondItem="8Ot-da-yuI" secondAttribute="top" id="ZkY-cF-oBt"/>
                                     <constraint firstAttribute="height" constant="49" id="iQf-EW-ava"/>
+                                    <constraint firstAttribute="bottom" secondItem="oho-gA-Bhs" secondAttribute="bottom" id="kUd-3z-6ke"/>
+                                    <constraint firstAttribute="bottom" secondItem="KYp-YE-WzM" secondAttribute="bottom" id="rr2-Qz-f7r"/>
+                                    <constraint firstItem="oho-gA-Bhs" firstAttribute="leading" secondItem="KYp-YE-WzM" secondAttribute="trailing" id="tcr-vx-4H7"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -721,10 +736,10 @@
         <image name="Location_click" width="50" height="50"/>
         <image name="Location_normal" width="50" height="50"/>
         <image name="Mapset_normal" width="53" height="53"/>
-        <image name="Project_icon_click" width="29" height="29"/>
+        <image name="Project_icon_Click" width="29" height="29"/>
         <image name="Project_icon_normal" width="29" height="29"/>
         <image name="Satellitemap" width="130" height="80"/>
-        <image name="Territory_icon_click" width="29" height="29"/>
+        <image name="Territory_icon_Click" width="29" height="29"/>
         <image name="Territory_icon_normal" width="29" height="29"/>
     </resources>
 </document>

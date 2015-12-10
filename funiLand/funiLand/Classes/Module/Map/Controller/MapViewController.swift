@@ -59,6 +59,8 @@ class MapViewController: BaseViewController {
     var isKeyword: Bool = false
     // 是否是查看周边
     var isShowRim: Bool = false
+    //是否是从首页右上角附近按钮点击进入
+    var isHomePageRim: Bool = false
     //土地数据类型过滤
     var rimLandTypeVO: RimLandTypeVO?
     
@@ -68,6 +70,11 @@ class MapViewController: BaseViewController {
         self.initSteup()
         self.loadAnnoatationLandDetailsView()
         
+        if self.isHomePageRim == true {
+            
+        } else {
+            
+        }
         if self.isShowRim == true {
             // 查看周边
             self.userLocationBtn.hidden = true
@@ -238,7 +245,6 @@ class MapViewController: BaseViewController {
     func closeSearchConditionViewHandler() {
         
         if self.searchConditionContentView.currentDistance != self.rimInfoReqDomain.distance {
-            
             self.rimInfoReqDomain.distance = self.searchConditionContentView.currentDistance
             self.queryData()
         }

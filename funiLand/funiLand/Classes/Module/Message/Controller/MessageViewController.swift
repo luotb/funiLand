@@ -205,6 +205,16 @@ extension MessageViewController : JTCalendarDelegate {
     func calendar(calendar: JTCalendarManager!, canDisplayPageWithDate date: NSDate!) -> Bool {
         return self.calendarManager.dateHelper.date(date, isEqualOrAfter: minDate, andEqualOrBefore: maxDate)
     }
+    
+    func calendarDidLoadPreviousPage(calendar: JTCalendarManager!) {
+        self.reqMonth = NSDate.getTime(DateFormat.format4, date: calendar.date())
+         self.myTableView.header.beginRefreshing()
+    }
+    
+    func calendarDidLoadNextPage(calendar: JTCalendarManager!) {
+        self.reqMonth = NSDate.getTime(DateFormat.format4, date: calendar.date())
+        self.myTableView.header.beginRefreshing()
+    }
 }
 
 // MARK: - Table view data source and delegate
@@ -218,8 +228,16 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "共计 \(self.landArray.count) 宗土地"
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRectMake(0, 0, APPWIDTH, 40))
+        view.backgroundColor = UIColor.whiteColor()
+        
+        let label = UILabel(frame: CGRectMake(10, 11, APPWIDTH-20, 14))
+        label.textColor = UIColor.colorFromHexString("#ED6715")
+        label.text = "共计 \(self.landArray.count) 宗土地"
+        label.font = UIFont.systemFontOfSize(14)
+        view.addSubview(label)
+        return view
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -262,6 +280,13 @@ extension MessageViewController {
     @IBAction func segmentAction(segment:UISegmentedControl) {
         self.reqType = segment.selectedSegmentIndex
         self.myTableView.header.beginRefreshing()
+    }
+    
+    // 附近按钮点击
+    @IBAction func rimLandBtnClicked(sender: UIBarButtonItem) {
+        let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
+        mapVC.isHomePageRim = true
+        self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
     @IBAction func testBtnClicked(sender: AnyObject) {

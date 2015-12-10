@@ -70,22 +70,19 @@ extension LoginViewController {
     //login request
     func loginRequest(account: Account) {
         
-        FuniHUD.sharedHud().show(self.view)
-        
-        let userInfo = FLUser(account: account)
-        
+//              AccountTool.saveAccount(account)
+            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
+//        FuniHUD.sharedHud().show(self.view)
+//        let userInfo = FLUser(account: account)
+//        HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
+//            
 //            AccountTool.saveAccount(account)
 //            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
-        
-        HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
-            
-            AccountTool.saveAccount(account)
-            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
-            FuniHUD.sharedHud().hide(self.view)
-            }, faild: { (error:String) -> Void in
-                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
-                self.showMainView()
-        })
+//            FuniHUD.sharedHud().hide(self.view)
+//            }, faild: { (error:String) -> Void in
+//                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+//                self.showMainView()
+//        })
     }
 }
 
