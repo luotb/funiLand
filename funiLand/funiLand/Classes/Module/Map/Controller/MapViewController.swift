@@ -35,7 +35,6 @@ class MapViewController: BaseViewController {
     var timerRunning: Bool = false
     // 土地详情view动画是否执行
     var landInfoRunning: Bool = false
-    
     // 周边数据源
     var rimLandArray: Array<RimLandInfoDomain>!
     //所有标注
@@ -59,33 +58,31 @@ class MapViewController: BaseViewController {
     var isKeyword: Bool = false
     // 是否是查看周边
     var isShowRim: Bool = false
-    //是否是从首页右上角附近按钮点击进入
-    var isHomePageRim: Bool = false
+    // 是否是首页进入
+    var isHomeRim: Bool = false
     //土地数据类型过滤
     var rimLandTypeVO: RimLandTypeVO?
+    //最后一次点击的标注
+    var lastAnnotation: MKAnnotationView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadSearchBar()
         self.initSteup()
         self.loadAnnoatationLandDetailsView()
-//        self.addTapGesture()
-        
-        if self.isHomePageRim == true {
-            
-        } else {
-            
-        }
+
         if self.isShowRim == true {
             // 查看周边
             self.userLocationBtn.hidden = true
-            self.landType_LandBtn.selected = true
             self.queryData()
         } else {
             // 搜地
             self.rimInfoReqDomain = RimInfoReqDomain()
             startLocation()
         }
+        //默认选中土地按钮
+        self.landType_LandBtn.selected = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,7 +118,7 @@ class MapViewController: BaseViewController {
     //搜索框宽度缩小
     func searchBarWidthSetting() {
         
-        if APPWIDTH == APPWIDTH_4 && self.isShowRim == true {
+        if APPWIDTH == APPWIDTH_4 && (self.isShowRim == true || self.isHomeRim == true) {
             //4寸设备
             self.searchBar.width = self.rightBarItemBtn.hidden == true ? 250 : 220
             self.searchBar.x = self.rightBarItemBtn.hidden == true ? 0 : 10
@@ -211,10 +208,8 @@ class MapViewController: BaseViewController {
             
             dispatch_after(delay, dispatch_get_main_queue()) {
                 
-                self.myMapView.setCenterCoordinate(pointAnnatotion.coordinate, animated: true)
+                self.myMapView.setCenterCoordinate(pointAnnatotion.coordinate, zoomLevel: 13, animated: true)
             }
-            
-            self.myMapView.setCenterCoordinate(pointAnnatotion.coordinate, zoomLevel: 13, animated: true)
         }
     }
     
@@ -299,6 +294,23 @@ class MapViewController: BaseViewController {
             self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
             
             }, completion: nil)
+    }
+    
+    //重置标注图标
+    func resetAnnotationImg(view: MKAnnotationView, isSelected: Bool) {
+        
+        if let annotation = view.annotation {
+            let pointAnnatotion = annotation as! FuniPointAnnotation
+            let imageView = view.viewWithTag(10) as! UIImageView
+            
+            var imgName = isSelected == true ? "other_click" : "other_normal"
+            
+            if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
+                //土地
+                imgName = isSelected == true ? "Local_click" : "Local_normal"
+            }
+            imageView.image = UIImage(named: imgName)
+        }
     }
 }
 
@@ -418,14 +430,14 @@ extension MapViewController : MKMapViewDelegate {
             
             if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
                 //土地
-                imgName = "Loca_normal"
+                imgName = "Local_normal"
             }
             
             let imageView = UIImageView(image: UIImage(named: imgName))
             imageView.center = (pinView?.centerOffset)!
             imageView.y = imageView.y + 32
 //            imageView.x = imageView.x + 30
-
+            imageView.tag = 10
             pinView?.addSubview(imageView)
         }
         
@@ -441,6 +453,21 @@ extension MapViewController : MKMapViewDelegate {
             if self.landInfoRunning == false {
                 self.showLandInfo()
             }
+            
+            let imageView = view.viewWithTag(10) as! UIImageView
+            
+            var imgName = "other_click"
+            
+            if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
+                //土地
+                imgName = "Local_click"
+            }
+            imageView.image = UIImage(named: imgName)
+//            if self.lastAnnotation != nil {
+//                self.resetAnnotationImg(self.lastAnnotation, isSelected: false)
+//            }
+//            self.resetAnnotationImg(view, isSelected: true)
+            self.lastAnnotation = view
         }
     }
     
@@ -571,7 +598,7 @@ extension MapViewController {
             
             self.rimLandArray = rimInfoArray
             
-            self.testDataSourceTypeCount(rimInfoArray)
+//            self.testDataSourceTypeCount(rimInfoArray)
             
             self.packagePointAnnatotion()
             self.myMapView.addAnnotations(self.pointAnnotationArray)

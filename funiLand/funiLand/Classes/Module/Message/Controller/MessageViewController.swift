@@ -297,7 +297,7 @@ extension MessageViewController {
     // 附近按钮点击
     @IBAction func rimLandBtnClicked(sender: UIBarButtonItem) {
         let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
-        mapVC.isHomePageRim = true
+        mapVC.isHomeRim = true
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
