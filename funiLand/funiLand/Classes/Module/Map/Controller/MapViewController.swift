@@ -69,6 +69,7 @@ class MapViewController: BaseViewController {
         self.loadSearchBar()
         self.initSteup()
         self.loadAnnoatationLandDetailsView()
+//        self.addTapGesture()
         
         if self.isHomePageRim == true {
             
@@ -120,7 +121,7 @@ class MapViewController: BaseViewController {
     //搜索框宽度缩小
     func searchBarWidthSetting() {
         
-        if APPWIDTH == APPWIDTH_4 {
+        if APPWIDTH == APPWIDTH_4 && self.isShowRim == true {
             //4寸设备
             self.searchBar.width = self.rightBarItemBtn.hidden == true ? 250 : 220
             self.searchBar.x = self.rightBarItemBtn.hidden == true ? 0 : 10
@@ -147,7 +148,6 @@ class MapViewController: BaseViewController {
         self.searchConditionContentView.mapDataFilterClosure = {
             (rimLandTypeVO: RimLandTypeVO) -> Void in
             self.rimLandTypeVO = rimLandTypeVO
-            self.testDataSourceTypeCount(self.rimLandArray)
             self.packagePointAnnatotion()
             self.myMapView.addAnnotations(self.pointAnnotationArray)
         }
@@ -159,6 +159,19 @@ class MapViewController: BaseViewController {
         self.annoatationDetailsView.view.frame = CGRectMake(0, 0, self.landInfoView.width, self.landInfoView.height)
         self.annoatationDetailsView.isShowRim = self.isShowRim
         self.landInfoView.addSubview(self.annoatationDetailsView.view)
+        
+        self.annoatationDetailsView.rimBtnClickedClosure = {
+            (rimLandInfo: RimLandInfoDomain) -> Void in
+            
+            let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
+            
+            let tempRimInfoReqDomain = RimInfoReqDomain()
+            tempRimInfoReqDomain.lat = rimLandInfo.lat
+            tempRimInfoReqDomain.lng = rimLandInfo.lng
+            mapVC.rimInfoReqDomain = tempRimInfoReqDomain
+            mapVC.isShowRim = true
+            self.navigationController?.pushViewController(mapVC, animated: true)
+        }
     }
     
     // 加载搜索输入框
@@ -250,6 +263,57 @@ class MapViewController: BaseViewController {
         }
         
     }
+    
+    
+    //添加手势
+    func addTapGesture() {
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: "singleTap")
+        singleTapGesture.delegate = self;
+        singleTapGesture.numberOfTapsRequired = 1;
+        singleTapGesture.cancelsTouchesInView = false;
+        self.view.addGestureRecognizer(singleTapGesture)
+    }
+    
+    //show landInfoDetail
+    func showLandInfo() {
+        
+        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
+        animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
+        
+        let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)
+        
+        if landInfoViewY < 49 {
+            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 21))
+            self.landInfoRunning = true
+        }
+        else {
+            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
+            self.landInfoRunning =  false
+        }
+        animation.springBounciness = 10.0;
+        animation.springSpeed = 10.0;
+        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
+        
+        UIView.transitionWithView(self.userLocationBtn, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
+            
+            self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
+            
+            }, completion: nil)
+    }
+}
+
+// MARK: UIGestureRecognizerDelegate
+extension MapViewController : UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        
+        if touch.view is MKAnnotationView ||
+           touch.view is UIButton ||
+           touch.view!.isKindOfClass(MapSearchConditionTableViewController) {
+            return false
+        }
+        return true;
+    }
 }
 
 // MARK: CLLocationManagerDelegate
@@ -321,7 +385,7 @@ extension MapViewController : MKMapViewDelegate {
     
     //可以打印经纬度的跨度，用来测试当前视图下地经纬度跨度是多少，然后用于上面的MKCoordinateSpanMake方法中
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print("\(mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta)")
+//        print("\(mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta)")
     }
     
     //地图标注
@@ -334,10 +398,12 @@ extension MapViewController : MKMapViewDelegate {
         let reuseId = "pin"
         
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+//        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
-            pinView!.animatesDrop = true
+//            pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = false
+            pinView!.animatesDrop = false
             pinView!.pinColor = .Purple
         }
         else {
@@ -347,13 +413,20 @@ extension MapViewController : MKMapViewDelegate {
         let pointAnnatotion = annotation as! FuniPointAnnotation
         
         if pointAnnatotion.rimLandInfoDomain != nil {
+            
+            var imgName = "other_normal"
+            
             if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
                 //土地
-                pinView?.image = UIImage(named: "Loca_normal")
-            } else {
-                //项目
-                pinView?.image = UIImage(named: "other_normal")
+                imgName = "Loca_normal"
             }
+            
+            let imageView = UIImageView(image: UIImage(named: imgName))
+            imageView.center = (pinView?.centerOffset)!
+            imageView.y = imageView.y + 32
+//            imageView.x = imageView.x + 30
+
+            pinView?.addSubview(imageView)
         }
         
         return pinView
@@ -362,40 +435,23 @@ extension MapViewController : MKMapViewDelegate {
     // 地图标注点击
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
-        let pointAnnatotion = view.annotation as! FuniPointAnnotation
-        
-        self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
-        
-//        self.landInfoRunning = !self.landInfoRunning
-        
-        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
-        
-        let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.landInfoView.frame)
-        
-        if CGRectGetMaxY(self.landInfoView.frame) >= landInfoViewY {
-            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 20))
-            self.landInfoRunning = true
+        if let annotation = view.annotation {
+            let pointAnnatotion = annotation as! FuniPointAnnotation
+            self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
+            if self.landInfoRunning == false {
+                self.showLandInfo()
+            }
         }
-        else {
-            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
-            self.landInfoRunning =  false
-        }
-        animation.springBounciness = 10.0;
-        animation.springSpeed = 10.0;
-        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
-        
-        UIView.transitionWithView(self.userLocationBtn, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
-            
-            self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
-            
-            }, completion: nil)
     }
     
     // 在通过双指捏拢、放大、缩小地图的时候回调
     func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         if self.timerRunning {
             self.searchConditionBtnClicked(self.searchBtn)
+        }
+        
+        if self.landInfoRunning {
+            self.showLandInfo()
         }
     }
 }
@@ -428,14 +484,12 @@ extension MapViewController {
     
     // 查询条件按钮点击
     @IBAction func searchConditionBtnClicked(sender: UIButton) {
-//        self.timerRunning = !self.timerRunning;
         sender.selected = !self.timerRunning
         
         self.searchConditionView.alpha = 1.0
         let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
         animation.property = _POPAnimatableProperty(name: kPOPLayerSize)
         
-//        if self.timerRunning == true {
         if self.searchConditionView.width <= 5 {
             animation.toValue =  NSValue(CGSize: CGSizeMake(300, 340))
             self.timerRunning = true
@@ -450,7 +504,6 @@ extension MapViewController {
         let animation2 = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
         animation2.property = _POPAnimatableProperty(name: kPOPLayerPosition)
         
-//        if self.timerRunning == true {
         if self.searchConditionView.width <= 5 {
             animation2.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.searchBtn.frame) + 180))
         }
@@ -484,28 +537,9 @@ extension MapViewController {
         
     }
     
-    
-    @IBAction func testBtnClicked(sender: AnyObject) {
-        self.landInfoRunning = !self.landInfoRunning
-        
-        let animation = _POPSpringAnimation(tension: 100, friction: 10, mass: 1)
-        animation.property = _POPAnimatableProperty(name: kPOPLayerPosition)
-        
-        if self.landInfoRunning == true {
-            animation.toValue =  NSValue(CGPoint: CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) - CGRectGetHeight(self.landInfoView.frame) + 20))
-        }
-        else {
-            animation.toValue = NSValue(CGPoint:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame) + 20))
-        }
-        animation.springBounciness = 10.0;
-        animation.springSpeed = 10.0;
-        _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.landInfoView.layer)
-        
-        UIView.transitionWithView(self.userLocationBtn, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
-            
-            self.userLocationBtn.alpha = self.landInfoRunning == true ? 0 : 1
-            
-            }, completion: nil)
+    //单击响应
+    func singleTap() {
+        print("090909")
     }
     
     // 土地类型按钮点击
@@ -596,14 +630,11 @@ extension MapViewController {
         for rimInfoDomain: RimLandInfoDomain in tempRimArray {
             
             let pointAnnatotion = FuniPointAnnotation()
-            pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat!, rimInfoDomain.lng!)
+            pointAnnatotion.coordinate = CLLocationCoordinate2DMake(rimInfoDomain.lat! - Number_Lat, rimInfoDomain.lng! - Number_Lng)
             pointAnnatotion.rimLandInfoDomain = rimInfoDomain
             pointAnnatotion.title = rimInfoDomain.title!
             self.pointAnnotationArray.append(pointAnnatotion)
         }
-        
-        
-        print("rimArray=\(rimArray.count)")
     }
     
     

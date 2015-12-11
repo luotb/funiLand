@@ -140,6 +140,9 @@
 		F49171DE1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F49171DC1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a */; };
 		F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA21C07FDA500244201 /* NSDateExtension.swift */; };
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
+		F4A8A9DD1B00855900618FDE /* MLEmojiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */; };
+		F4A8A9DE1B00855900618FDE /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */; };
+		F4E903711B00888000EF74DF /* LandDetailsCellVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -383,6 +386,11 @@
 		F49171DD1C17F422000DC7F0 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		F4977DA21C07FDA500244201 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		F4977DA41C0827D100244201 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		F4A8A9D91B00855900618FDE /* MLEmojiLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLEmojiLabel.h; sourceTree = "<group>"; };
+		F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEmojiLabel.m; sourceTree = "<group>"; };
+		F4A8A9DB1B00855900618FDE /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsCellVO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -828,6 +836,7 @@
 		F45700361C02CAB9005FEB26 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F4A8A9D81B00855900618FDE /* MLEmojiLabel */,
 				F49171DA1C17F422000DC7F0 /* UMeng */,
 				F458E5F91C1142200097AFB0 /* KeychainSwift */,
 				242B220B1C0F1D6E00CE2E76 /* POPSwift */,
@@ -1064,6 +1073,7 @@
 				F42CF1421C0D9C69008F0CCE /* LandInfoDomain.swift */,
 				F42CF1441C0D9CE1008F0CCE /* FieldDomain.swift */,
 				F42CF1461C0D9D38008F0CCE /* FieldGroupDomain.swift */,
+				F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1167,6 +1177,17 @@
 				F49171DD1C17F422000DC7F0 /* UMessage.h */,
 			);
 			path = UMessage_Sdk_1.2.1;
+			sourceTree = "<group>";
+		};
+		F4A8A9D81B00855900618FDE /* MLEmojiLabel */ = {
+			isa = PBXGroup;
+			children = (
+				F4A8A9D91B00855900618FDE /* MLEmojiLabel.h */,
+				F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */,
+				F4A8A9DB1B00855900618FDE /* TTTAttributedLabel.h */,
+				F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */,
+			);
+			path = MLEmojiLabel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1409,6 +1430,7 @@
 				F45474CB1C0BEC9D00ED344B /* FromJSON.swift in Sources */,
 				F419E8E31C02FB09006A5815 /* AFNetworkReachabilityManager.m in Sources */,
 				F419E8BC1C02F62B006A5815 /* HttpService.swift in Sources */,
+				F4E903711B00888000EF74DF /* LandDetailsCellVO.swift in Sources */,
 				F419E9511C030B9B006A5815 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				F45474DC1C0BF05600ED344B /* BaseRespDomain.swift in Sources */,
 				F419E9531C030B9B006A5815 /* IQTextView.m in Sources */,
@@ -1469,6 +1491,7 @@
 				F45474CD1C0BEC9D00ED344B /* Mapper.swift in Sources */,
 				F42CF13B1C0D8DB1008F0CCE /* RimLandInfoDomain.swift in Sources */,
 				247DD0B61C0DE01800A1BDB1 /* UIAlertViewExtension.swift in Sources */,
+				F4A8A9DD1B00855900618FDE /* MLEmojiLabel.m in Sources */,
 				F46777011AFCC38F002996B6 /* MKMapView+ZoomLevel.m in Sources */,
 				24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */,
 				F45474CF1C0BEC9D00ED344B /* ToJSON.swift in Sources */,
@@ -1476,6 +1499,7 @@
 				F419E8E61C02FB09006A5815 /* AFURLRequestSerialization.m in Sources */,
 				F45700BF1C02CB53005FEB26 /* AppDelegate.swift in Sources */,
 				24C49EE91C0734190065D9B6 /* MJRefreshGifHeader.m in Sources */,
+				F4A8A9DE1B00855900618FDE /* TTTAttributedLabel.m in Sources */,
 				F419E94C1C030B9B006A5815 /* IQUITextFieldView+Additions.m in Sources */,
 				F419E8E71C02FB09006A5815 /* AFURLResponseSerialization.m in Sources */,
 				F45474D61C0BEC9D00ED344B /* TransformOf.swift in Sources */,

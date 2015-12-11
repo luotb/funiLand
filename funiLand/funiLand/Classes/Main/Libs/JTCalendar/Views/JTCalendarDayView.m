@@ -99,7 +99,7 @@
     _circleView.layer.cornerRadius = sizeCircle / 2.;
     
     _dotView.frame = CGRectMake(0, 0, sizeDot, sizeDot);
-    _dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) +sizeDot * 2.5);
+    _dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) +sizeDot * 2.5 + 3);
     _dotView.layer.cornerRadius = sizeDot / 2.;
 }
 

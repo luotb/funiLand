@@ -12,6 +12,7 @@ class FieldDomain: Mappable {
 
     var name: String?
     var value: String?
+    var height: CGFloat?
     
     init(){}
     

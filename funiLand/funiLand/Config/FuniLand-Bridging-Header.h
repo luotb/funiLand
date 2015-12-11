@@ -20,3 +20,4 @@
 #import "POPSwiftWrapper.h"
 #import "MKMapView+ZoomLevel.h"
 #import "UMessage.h"
+#import "MLEmojiLabel.h"

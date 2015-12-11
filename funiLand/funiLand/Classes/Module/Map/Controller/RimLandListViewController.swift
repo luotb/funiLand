@@ -78,13 +78,6 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        let rimLandInfo: RimLandInfoDomain = self.rimLandInfoArray[indexPath.row]
-//        let landDomain = LandDomain()
-//        landDomain.id = rimLandInfo.id!
-//        
-//        let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
-//        landDetailVC.landDomain = landDomain
-//        self.navigationController?.pushViewController(landDetailVC, animated: true)
     }
     
 }

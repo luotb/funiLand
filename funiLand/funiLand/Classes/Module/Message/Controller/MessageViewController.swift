@@ -101,7 +101,7 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         var judge : Bool = false
         
         for landRespon : LandArrayRespon in self.landResponArray! {
-            let responDate = NSDate.getDateByDateStr(landRespon.date!, format: DateFormat.format2)
+            let responDate = NSDate.getDateByDateStr(landRespon.date!, format: DateFormat.format1)
             if self.calendarManager.dateHelper.date(responDate, isTheSameDayThan: date) {
                 judge = true
                 break
@@ -141,7 +141,7 @@ extension MessageViewController : JTCalendarDelegate {
         // Today
         if self.calendarManager.dateHelper.date(NSDate(), isTheSameDayThan: tempDayView.date) {
             tempDayView.circleView.hidden = false
-            tempDayView.circleView.backgroundColor = UIColor.blueColor()
+            tempDayView.circleView.backgroundColor = UIColor.colorFromHexString("#07308F")
             tempDayView.dotView.backgroundColor = UIColor.whiteColor()
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
@@ -149,23 +149,23 @@ extension MessageViewController : JTCalendarDelegate {
         else if self.calendarManager.dateHelper.date(self.dateSelected, isTheSameDayThan: tempDayView.date) == true {
             tempDayView.circleView.hidden = false
             tempDayView.circleView.backgroundColor = UIColor.redColor()
-            tempDayView.dotView.backgroundColor = UIColor.colorFromHexString("#07308F")
-            tempDayView.textLabel.textColor = UIColor.colorFromHexString("#07308F")
+            tempDayView.dotView.backgroundColor = UIColor.whiteColor()
+            tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
             // Other month
         else if self.calendarManager.dateHelper.date(self.calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
             tempDayView.circleView.hidden = true
-            tempDayView.dotView.backgroundColor = UIColor.redColor()
+            tempDayView.dotView.backgroundColor = UIColor.colorFromHexString("#07308F")
             tempDayView.textLabel.textColor = UIColor.lightGrayColor()
         }
             // Another day of the current month
         else {
             tempDayView.circleView.hidden = true
-            tempDayView.dotView.backgroundColor = UIColor.redColor()
+            tempDayView.dotView.backgroundColor = UIColor.colorFromHexString("#07308F")
             tempDayView.textLabel.textColor = UIColor.colorFromHexString("#07308F")
         }
         
-        if self.landResponArray != nil && self.landResponArray?.isEmpty != false {
+        if self.landResponArray != nil {
             if self.haveEventForDay(tempDayView.date) {
                 tempDayView.dotView.hidden = false
             } else {
@@ -201,7 +201,6 @@ extension MessageViewController : JTCalendarDelegate {
         self.myTableView.reloadData()
     }
     
-    
     func calendar(calendar: JTCalendarManager!, canDisplayPageWithDate date: NSDate!) -> Bool {
         return self.calendarManager.dateHelper.date(date, isEqualOrAfter: minDate, andEqualOrBefore: maxDate)
     }
@@ -232,11 +231,24 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
         let view = UIView(frame: CGRectMake(0, 0, APPWIDTH, 40))
         view.backgroundColor = UIColor.whiteColor()
         
-        let label = UILabel(frame: CGRectMake(10, 11, APPWIDTH-20, 14))
-        label.textColor = UIColor.colorFromHexString("#ED6715")
-        label.text = "共计 \(self.landArray.count) 宗土地"
-        label.font = UIFont.systemFontOfSize(14)
-        view.addSubview(label)
+        let label1 = UILabel(frame: CGRectMake(10, 11, 30, 14))
+        label1.textColor = UIColor.colorFromHexString("#546180")
+        label1.text = "共计"
+        label1.font = UIFont.systemFontOfSize(14)
+        view.addSubview(label1)
+        
+        let label2 = UILabel(frame: CGRectMake(40, 11, 15, 14))
+        label2.textColor = UIColor.colorFromHexString("#28A4FF")
+        label2.text = "\(self.landArray.count)"
+        label2.font = UIFont.systemFontOfSize(14)
+        label2.textAlignment = NSTextAlignment.Center
+        view.addSubview(label2)
+        
+        let label3 = UILabel(frame: CGRectMake(55, 11, 45, 14))
+        label3.textColor = UIColor.colorFromHexString("#546180")
+        label3.text = "宗土地"
+        label3.font = UIFont.systemFontOfSize(14)
+        view.addSubview(label3)
         return view
     }
     
@@ -287,6 +299,16 @@ extension MessageViewController {
         let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
         mapVC.isHomePageRim = true
         self.navigationController?.pushViewController(mapVC, animated: true)
+    }
+    
+    // 上一月按钮点击
+    @IBAction func previousPageCalendartnClicked(sender: UIButton) {
+        self.calendarContentView.loadPreviousPageWithAnimation()
+    }
+    
+    // 下一月按钮点击
+    @IBAction func nextPageCalendarBtnClicked(sender: UIButton) {
+        self.calendarContentView.loadNextPageWithAnimation()
     }
     
     @IBAction func testBtnClicked(sender: AnyObject) {

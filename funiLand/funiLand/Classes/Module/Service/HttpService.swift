@@ -12,9 +12,11 @@ import Foundation
 
 let TERMINALTYPE = "IPHONE"
 
-let baseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/data/"
-let accountBaseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/"
-//let accountBaseURLString = "http://192.168.3.85/magic/field/app/"
+let baseURLString = "http://magic.drmst.com/field/app/data/"
+//let accountBaseURLString = "http://magic.drmst.com/field/app/"
+//let baseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/data/"
+//let accountBaseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/"
+let accountBaseURLString = "http://192.168.3.85/magic/field/app/"
 let loginURLString = "login.json"
 let logoutURLString = "logout.json"
 let getSupplyOrBargainListURL = "getFieldList.json"
@@ -57,12 +59,12 @@ class HttpService {
     // login request
     func login(userInfo: FLUser, success:(msg:String)->Void,faild:(error:String)->Void){
         
-        self.talId = "qwertyuu"
+//        self.talId = "qwertyuu"
         userInfo.talId = self.talId
         let params = Mapper<FLUser>().toJSON(userInfo)
         self.loginUserInfo = userInfo
         
-        sessionManager.ESP_GET(self.accountBuildUrl(loginURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
+        sessionManager.ESP_POST(self.accountBuildUrl(loginURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             
             if responseVO.data != nil {
                 let userResp = Mapper<FLUser>().map(responseVO.data)

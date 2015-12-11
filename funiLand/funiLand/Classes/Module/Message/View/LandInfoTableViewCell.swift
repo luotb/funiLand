@@ -13,11 +13,19 @@ class LandInfoTableViewCell: BaseCell {
     
     @IBOutlet var keyLabel: UILabel!
     @IBOutlet var valueLabel: UILabel!
+    @IBOutlet var valueLabelTopConstraint: NSLayoutConstraint!
+    var isSettingTop: Bool = false
     
     var fieldDomain:FieldDomain = FieldDomain(){
         willSet{
             self.keyLabel.text = newValue.name
             self.valueLabel.text = newValue.value
+            if newValue.height > 25 {
+                self.valueLabel.height = newValue.height!
+                self.valueLabel.numberOfLines = 0
+                self.isSettingTop = true
+                self.valueLabelTopConstraint.constant = 0
+            }
         }
     }
     

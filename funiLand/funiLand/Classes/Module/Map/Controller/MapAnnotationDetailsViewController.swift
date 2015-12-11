@@ -8,6 +8,9 @@
 
 import UIKit
 
+//周边按钮点击闭包
+typealias  SendRimBtnClickedClosure = (rimLandInfoDomain:RimLandInfoDomain) -> Void
+
 class MapAnnotationDetailsViewController: BaseViewController {
 
     
@@ -17,6 +20,8 @@ class MapAnnotationDetailsViewController: BaseViewController {
     @IBOutlet var sellDateLabel: UILabel!
     @IBOutlet var landTypeLabel: UILabel!
     @IBOutlet var rimBtn: UIButton!
+    
+    var rimBtnClickedClosure: SendRimBtnClickedClosure?
     
     // 是否是查看周边
     var isShowRim: Bool = Bool() {
@@ -52,5 +57,8 @@ extension MapAnnotationDetailsViewController {
     
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
+        if self.rimBtnClickedClosure != nil {
+            self.rimBtnClickedClosure!(rimLandInfoDomain: self.rimLandInfoDomain)
+        }
     }
 }

@@ -68,8 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         token = token.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         HttpService.sharedInstance.talId = token
         
-        print(deviceToken)
-        print(token)
+//        print(token)
         UMessage.registerDeviceToken(deviceToken)
     }
     

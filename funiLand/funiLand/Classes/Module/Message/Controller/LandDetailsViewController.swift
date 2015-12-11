@@ -8,11 +8,16 @@
 
 import UIKit
 
+let BUILDSTR = "建筑密度"
+let BUILDSTR2 = "建筑高度"
+
 class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     @IBOutlet var myTableView: UITableView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabel: UILabel!
+    //需要加高的cell记录
+    var customCellVOArray: Array<LandDetailsCellVO>?
     
     var landDomain: LandDomain!
     
@@ -54,6 +59,20 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
         myTableView.emptyDataSetSource = self
     }
     
+    // 返回Cell需要的height
+    func getTableViewCellHeight(indexPath: NSIndexPath) ->CGFloat {
+        
+        if self.customCellVOArray != nil {
+            
+            for vo: LandDetailsCellVO in self.customCellVOArray! {
+                if vo.section == indexPath.section && vo.row == indexPath.row {
+                    return vo.height!
+                }
+            }
+        }
+        return 25
+    }
+    
     // 画虚线
     func drawDottedLine(imageView: UIImageView) {
         UIGraphicsBeginImageContext(imageView.size)
@@ -86,7 +105,8 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
 extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 25
+        
+        return self.getTableViewCellHeight(indexPath)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -129,7 +149,9 @@ extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate
             let cell = tableView.dequeueReusableCellWithIdentifier("LandInfoTableViewCell", forIndexPath: indexPath) as! LandInfoTableViewCell
             let groupDomain: FieldGroupDomain = self.landInfoObj.fieldList![indexPath.section]
             let fieldDomain: FieldDomain = groupDomain.groupFields![indexPath.row]
+            fieldDomain.height = self.getTableViewCellHeight(indexPath)
             cell.fieldDomain = fieldDomain
+            
             return cell;
             
     }
@@ -180,10 +202,49 @@ extension LandDetailsViewController {
                 self.landInfoObj = LandInfoDomain()
             }
             
+            self.packageDataSource()
             self.myTableView.reloadData()
             
             }) { (error: String) -> Void in
                 FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
+        }
+    }
+    
+    //数据组装
+    func packageDataSource() {
+        
+        if let fieldList = self.landInfoObj.fieldList {
+            let emojilabel = MLEmojiLabel(frame: CGRectZero)
+            let labelWidth = CGRectGetWidth(self.view.frame) - 140
+            
+            for var i=0; i<fieldList.count; i++ {
+                
+                let group: FieldGroupDomain = fieldList[i]
+                
+                if let fieldGroupList = group.groupFields {
+                    
+                    for var j=0; j<fieldGroupList.count; j++ {
+                        
+                        let field: FieldDomain = fieldGroupList[j]
+                        
+                        let size: CGSize = emojilabel.boundingRectWithSize(field.value!, w: labelWidth, font: 14)
+                        
+                        if size.height > 25 {
+                            let cellVO = LandDetailsCellVO()
+                            cellVO.section = i
+                            cellVO.row = j
+                            cellVO.height = size.height
+                            
+                            if self.customCellVOArray == nil {
+                                self.customCellVOArray = Array<LandDetailsCellVO>()
+                            }
+                            
+                            self.customCellVOArray?.append(cellVO)
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }
