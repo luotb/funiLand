@@ -54,6 +54,21 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
         //空值代理和数据源
         myTableView.emptyDataSetDelegate = self
         myTableView.emptyDataSetSource = self
+        
+        //集成下拉刷新
+        setupDownRefresh()
+    }
+    
+    //重写父类加载数据
+    override func queryData() {
+        self.myTableView.header.beginRefreshing()
+    }
+    
+    //下拉刷新
+    func setupDownRefresh(){
+        self.myTableView.addLegendHeaderWithRefreshingBlock { () -> Void in
+            self.requestData()
+        }
     }
     
     // 返回Cell需要的height
@@ -190,7 +205,7 @@ extension LandDetailsViewController {
 extension LandDetailsViewController {
     
     //加载数据
-    override func queryData(){
+    func requestData(){
         
         HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
             if landInfo != nil {

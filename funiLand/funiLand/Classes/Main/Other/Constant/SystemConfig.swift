@@ -16,6 +16,8 @@ let APPHEIGHT = ((UIApplication.sharedApplication().delegate) as! AppDelegate).w
 let APPWIDTH_4 = CGFloat(320)
 
 let UMengAppKey = "565d0d2f67e58e39d4001770"
+let TENCENT_BUGLY = "900014227"
+let APPCHANNEL = "APP Store"
 
 // String
 let String_RequestError_Msg_1001          = "网络错误,请稍后再试!"

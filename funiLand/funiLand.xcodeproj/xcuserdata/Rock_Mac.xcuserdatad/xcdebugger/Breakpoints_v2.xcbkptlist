@@ -17,6 +17,38 @@
             endingLineNumber = "324"
             landmarkName = "-setDate:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JTVerticalCalendarView setDate:]"
+                  moduleName = "funiLand"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Main/Libs/JTCalendar/Views/JTVerticalCalendarView.m"
+                  timestampString = "453208296.345847"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "324"
+                  endingLineNumber = "324"
+                  offsetFromSymbolStart = "45">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JTVerticalCalendarView setDate:]"
+                  moduleName = "funiLand"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Main/Libs/JTCalendar/Views/JTVerticalCalendarView.m"
+                  timestampString = "453208296.346172"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "324"
+                  endingLineNumber = "324"
+                  offsetFromSymbolStart = "66">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,7 +74,7 @@
                   moduleName = "funiLand"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Message/Model/LandArrayRespon.swift"
-                  timestampString = "471626085.915769"
+                  timestampString = "453208296.347627"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "37"
@@ -57,7 +89,7 @@
                   moduleName = "funiLand"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Message/Model/LandArrayRespon.swift"
-                  timestampString = "471626085.916093"
+                  timestampString = "453208296.347882"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"

@@ -41,6 +41,11 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
         setupDownRefresh()
     }
     
+    //加载数据
+    override func queryData(){
+        self.requestDate()
+    }
+    
     //下拉刷新
     func setupDownRefresh(){
         self.myTableView.addLegendHeaderWithRefreshingBlock { () -> Void in
@@ -85,11 +90,6 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
 
 // MARK: Service Request And Data Package
 extension RimLandListViewController {
-    
-    //加载数据
-    override func queryData(){
-        self.requestDate()
-    }
     
     func requestDate() {
         HttpService.sharedInstance.getRimInfoList(self.rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in

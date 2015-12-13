@@ -14,15 +14,17 @@ let  NOTIFICATION_APPCOMEBACK = "notification_appcomeback"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var baseViewController: BaseViewController?
     var isFirstLoadApp: Bool = false
+    var currentViewContrller: BaseViewController?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
         self.setupWithStatusBar(application)
         self.registerUMessageNotification(launchOptions)
-        self.registerAPPActiveNotification()
+        self.umengTrack()
+        //bugly
+        self.settingBugly()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
@@ -46,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         print("第一次加载")
+        
         return true
     }
     
@@ -77,38 +80,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("回来了")
         if self.isFirstLoadApp == true {
             print("回来了嘛")
-            NSNotificationCenter.defaultCenter().postNotificationName(NOTIFICATION_APPCOMEBACK, object: nil)
+            self.appBecomeActive()
         }
         self.isFirstLoadApp = true
     }
-   
+
 }
 
 // MARK: app session 相关
 extension AppDelegate {
     
-    /**
-     注册通知
-     */
-    func registerAPPActiveNotification() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appActiveNotification:", name: NOTIFICATION_APPCOMEBACK, object: nil)
-    }
-    
-    func appActiveNotification(notification: NSNotification)
+    func appBecomeActive()
     {
         let date: NSDate = APPSessionManage.getOutAppDate()
         let second = NSDate().timeIntervalSinceDate(date)
         print(second)
+        self.currentViewContrller!.queryData()
         //转换分钟数
-        if second > 10 {
-            self.baseViewController!.queryData()
-        }
 //        let minute = second / 60
-//        if minute >= 1 && minute <= 2 && self.baseViewController != nil {
-//            self.baseViewController!.queryData()
+//        if minute >= 10 && minute <= 25 {
+//            self.currentViewContrller!.queryData()
 //        } else
-//            if minute > 2 {
-//               self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+//            if minute > 28 {
+//                self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
 //        }
     }
 }
@@ -202,6 +196,30 @@ extension AppDelegate {
             let alertView = UIAlertView(title: "提示", message: msg, delegate: nil, cancelButtonTitle: "忽略", otherButtonTitles: "查看", "")
             alertView.show()
         }
+    }
+}
+
+// MARK UMeng 统计相关
+extension AppDelegate {
+    
+    func umengTrack() {
+        // 如果不需要捕捉异常，注释掉此行
+//        MobClick.setCrashReportEnabled(false)
+        // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
+        MobClick.setLogEnabled(true)
+        //   reportPolicy为枚举类型,可以为 REALTIME, BATCH,SENDDAILY,SENDWIFIONLY几种
+        //   channelId 为NSString * 类型，channelId 为nil或@""时,默认会被被当作@"App Store"渠道
+        MobClick.startWithAppkey(UMengAppKey, reportPolicy: BATCH, channelId: nil)
+    }
+}
+
+// MARK buly
+extension AppDelegate {
+    
+    func settingBugly() {
+        CrashReporter.sharedInstance().enableLog(true)
+        CrashReporter.sharedInstance().installWithAppId(TENCENT_BUGLY)
+        CrashReporter.sharedInstance().setChannel(APPCHANNEL)
     }
 }
 

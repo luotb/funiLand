@@ -26,6 +26,12 @@
 		24C49EEF1C0734190065D9B6 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49EE31C0734190065D9B6 /* UIView+MJExtension.m */; };
 		24C49EF21C0736690065D9B6 /* LandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C49EF01C0736690065D9B6 /* LandTableViewCell.swift */; };
 		24D78B811C142D92007C17EF /* RimLandListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78B801C142D92007C17EF /* RimLandListViewController.swift */; };
+		24DD1A941C1D31FD00B63DAB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DD1A911C1D31FD00B63DAB /* libMobClickLibrary.a */; };
+		24DD1A971C1D43C400B63DAB /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DD1A961C1D43C400B63DAB /* Bugly.framework */; };
+		24DD1A991C1D43F100B63DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DD1A981C1D43F100B63DAB /* SystemConfiguration.framework */; };
+		24DD1A9B1C1D43FD00B63DAB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DD1A9A1C1D43FD00B63DAB /* Security.framework */; };
+		24DD1A9D1C1D440C00B63DAB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DD1A9C1C1D440C00B63DAB /* libz.tbd */; };
+		24DD1A9F1C1D441900B63DAB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DD1A9E1C1D441900B63DAB /* libc++.tbd */; };
 		24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E6A3671C072D09002AD03B /* SystemConfig.swift */; };
 		EDB50619F2D7A034F5069C6E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC6D63499291C9E6AAA6539 /* libPods.a */; };
 		F40912BE1C195DBA00E6E4A6 /* RimLandTypeVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40912BD1C195DBA00E6E4A6 /* RimLandTypeVO.swift */; };
@@ -196,6 +202,14 @@
 		24C49EE31C0734190065D9B6 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		24C49EF01C0736690065D9B6 /* LandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandTableViewCell.swift; sourceTree = "<group>"; };
 		24D78B801C142D92007C17EF /* RimLandListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RimLandListViewController.swift; sourceTree = "<group>"; };
+		24DD1A911C1D31FD00B63DAB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		24DD1A921C1D31FD00B63DAB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		24DD1A931C1D31FD00B63DAB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		24DD1A961C1D43C400B63DAB /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		24DD1A981C1D43F100B63DAB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		24DD1A9A1C1D43FD00B63DAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		24DD1A9C1C1D440C00B63DAB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		24DD1A9E1C1D441900B63DAB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		24E6A3671C072D09002AD03B /* SystemConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		3803A32673801F750E3E3E0B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7F165950CD3C16BA00F52C8A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -407,7 +421,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24DD1A9F1C1D441900B63DAB /* libc++.tbd in Frameworks */,
+				24DD1A9D1C1D440C00B63DAB /* libz.tbd in Frameworks */,
+				24DD1A9B1C1D43FD00B63DAB /* Security.framework in Frameworks */,
+				24DD1A991C1D43F100B63DAB /* SystemConfiguration.framework in Frameworks */,
+				24DD1A941C1D31FD00B63DAB /* libMobClickLibrary.a in Frameworks */,
 				EDB50619F2D7A034F5069C6E /* libPods.a in Frameworks */,
+				24DD1A971C1D43C400B63DAB /* Bugly.framework in Frameworks */,
 				F49171DE1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,9 +452,31 @@
 			path = POPSwift;
 			sourceTree = "<group>";
 		};
+		24DD1A901C1D31FD00B63DAB /* UMAnalytics_Sdk_3.6.7 */ = {
+			isa = PBXGroup;
+			children = (
+				24DD1A911C1D31FD00B63DAB /* libMobClickLibrary.a */,
+				24DD1A921C1D31FD00B63DAB /* MobClick.h */,
+				24DD1A931C1D31FD00B63DAB /* MobClickSocialAnalytics.h */,
+			);
+			path = UMAnalytics_Sdk_3.6.7;
+			sourceTree = "<group>";
+		};
+		24DD1A951C1D43C400B63DAB /* Tencent */ = {
+			isa = PBXGroup;
+			children = (
+				24DD1A961C1D43C400B63DAB /* Bugly.framework */,
+			);
+			path = Tencent;
+			sourceTree = "<group>";
+		};
 		443BE328926ACEF528DBAE42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24DD1A9E1C1D441900B63DAB /* libc++.tbd */,
+				24DD1A9C1C1D440C00B63DAB /* libz.tbd */,
+				24DD1A9A1C1D43FD00B63DAB /* Security.framework */,
+				24DD1A981C1D43F100B63DAB /* SystemConfiguration.framework */,
 				9FC6D63499291C9E6AAA6539 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -839,6 +881,7 @@
 		F45700361C02CAB9005FEB26 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				24DD1A951C1D43C400B63DAB /* Tencent */,
 				F4A8A9D81B00855900618FDE /* MLEmojiLabel */,
 				F49171DA1C17F422000DC7F0 /* UMeng */,
 				F458E5F91C1142200097AFB0 /* KeychainSwift */,
@@ -1168,6 +1211,7 @@
 		F49171DA1C17F422000DC7F0 /* UMeng */ = {
 			isa = PBXGroup;
 			children = (
+				24DD1A901C1D31FD00B63DAB /* UMAnalytics_Sdk_3.6.7 */,
 				F49171DB1C17F422000DC7F0 /* UMessage_Sdk_1.2.1 */,
 			);
 			path = UMeng;
@@ -1242,6 +1286,7 @@
 				F457FFEB1C02B360005FEB26 /* Resources */,
 				F174CCDD030CEA688DB175F5 /* Embed Pods Frameworks */,
 				25137178976E3DCCC3612F88 /* Copy Pods Resources */,
+				24DD1AA01C1D49E400B63DAB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1334,6 +1379,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		24DD1AA01C1D49E400B63DAB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n# Copyright 2014-2015 Bugly @Tencent. All rights reserved.\n#\n# V 1.1\n#\n################################################################################\n# 注意: 请配置下面的信息\n################################################################################\nBUGLY_APP_ID=\"900014227\"\nBUGLY_APP_KEY=\"kVEG6hb9Uzf8HY0E\"\nBUNDLE_IDENTIFIER=\"com.funi.funiLand\"\n################################################################################\n# 自定义配置\n################################################################################\n# Debug模式编译是否上传，1＝上传 0＝不上传，默认不上传\nUPLOAD_DEBUG_SYMBOLS=1\n#\n# 模拟器编译是否上传，1=上传 0=不上传，默认不上传\nUPLOAD_SIMULATOR_SYMBOLS=1\n#\n# # 脚本默认配置的版本格式为CFBundleShortVersionString(CFBundleVersion),  如果你修改默认的版本格式, 请设置此变量, 如果不想修改, 请忽略此设置\n# CUSTOMIZED_APP_VERSION=\"\"\n#\n#\n#\n# This script will extract symbols from the .dSYM and generate .symbol file(Bugly supported) and upload to server.\n# You could visit http://bugly.qq.com to get more details about Bugly.\n#\n# Usage:\n#   * The instructions assume you have copyed this script into your project int Xcode.\n#   * Copy the \"buglySymbolIOS.jar\" file into the \"~/bin\" folder.\n#   * Open the project editor, select your build target.\n#   * Click \"Build Phases\" at the top of the project editor.\n#   * Click \"+\" button in the top left corner and select \"New Run Script Phase\".\n#   * Click \"Run Script\".\n#   * Paste the following script into the dark text box. You will have to uncomment the lines (remove the #) of course.\n#\n# --- SCRIPT BEGINS ON NEXT LINE, COPY AND EDIT FROM THERE ---\n#\n#\n#\n# --- END OF SCRIPT ---\n\n\n################################################################################\n# 注意: 如果你不知道此脚本的执行流程和用法，请不要随便修改！\n################################################################################\n\n# 退出执行并打印提示信息\nexitWithMessage() {\n    echo \"--------------------------------\"\n    echo -e \"${1}\"\n    echo \"--------------------------------\"\n    echo \"No upload and exit.\"\n    echo \"----------------------------------------------------------------\"\n    exit ${2}\n}\n\necho \"----------------------------------------------------------------\"\necho \"Copyright 2014-2015 Bugly @Tencent. All rights reserved.\"\n\necho \"This script will extract symbols from the .dSYM file and generate .symbol file(Bugly supported) and upload to server.\"\necho \"You could visit http://bugly.qq.com to get more details about Bugly.\"\necho \"----------------------------------------------------------------\"\n\necho \"Uploading dSYM to Bugly.\"\necho \"\"\n\n# Bugly服务域名\nDSYM_UPLOAD_DOMAIN=\"bugly.qq.com\"\n\n# 读取Info.plist文件中的版本信息\necho \"Info.Plist : ${INFOPLIST_FILE}\"\n\nBUNDLE_VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' \"${INFOPLIST_FILE}\")\nBUNDLE_SHORT_VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' \"${INFOPLIST_FILE}\")\n\n# 组装Bugly默认识别的版本信息(格式为CFBundleShortVersionString(CFBundleVersion), 例如: 1.0(1))\nif [ ! \"${CUSTOMIZED_APP_VERSION}\" ]; then\nBUGLY_APP_VERSION=\"${BUNDLE_SHORT_VERSION}(${BUNDLE_VERSION})\"\nelse\nBUGLY_APP_VERSION=\"${CUSTOMIZED_APP_VERSION}\"\nfi\n\n# Bugly符号提取工具路径, 请确保已经把对应的buglySymboliOS.jar拷贝到目录~/bin\nBUGLY_SYMBOL_JAR_PATH=\"$HOME/bin/buglySymboliOS.jar\"\n\necho \"--------------------------------\"\necho \"Step 1: Prepare application information.\"\necho \"--------------------------------\"\n\necho \"Product Name: ${PRODUCT_NAME}\"\necho \"Bundle Identifier: ${BUNDLE_IDENTIFIER}\"\necho \"Version: ${BUNDLE_SHORT_VERSION}\"\necho \"Build: ${BUNDLE_VERSION}\"\n\necho \"Bugly App ID: ${BUGLY_APP_ID}\"\necho \"Bugly App key: ${BUGLY_APP_KEY}\"\necho \"Bugly App Version: ${BUGLY_APP_VERSION}\"\n\necho \"--------------------------------\"\necho \"Step 2: Check the arguments ...\"\n\n# 检查模拟器编译是否允许上传符号\nif [ \"$EFFECTIVE_PLATFORM_NAME\" == \"-iphonesimulator\" ]; then\nif [ $UPLOAD_SIMULATOR_SYMBOLS -eq 0 ]; then\nexitWithMessage \"Warning: Build for simulator and skipping to upload. \\nYou can modify 'UPLOAD_SIMULATOR_SYMBOLS' to 1 in the script.\" 0\nfi\nfi\n\nif [ \"${CONFIGURATION=}\" == \"Debug\" ]; then\nif [ $UPLOAD_DEBUG_SYMBOLS -eq 0 ]; then\nexitWithMessage \"Warning: Build for debug mode and skipping to upload. \\nYou can modify 'UPLOAD_DEBUG_SYMBOLS' to 1 in the script.\" 0\nfi\nfi\n\n# 检查必须参数是否设置\nif [ ! \"${BUGLY_APP_ID}\" ]; then\nexitWithMessage \"Error: Bugly App ID not defined.\" 1\nfi\n\nif [ ! \"${BUGLY_APP_KEY}\" ]; then\nexitWithMessage \"Error: Bugly APP Key not defined.\" 1\nfi\n\nif [ ! \"${BUNDLE_IDENTIFIER}\" ]; then\nexitWithMessage \"Error: Bundle Identifier not defined.\" 1\nfi\n\nfunction uploadDSYM {\n    DSYM_SRC=\"$1\"\n    echo \".dSYM file: ${DSYM_SRC}\"\n    if [ ! -d \"$DSYM_SRC\" ]; then\n    exitWithMessage \"dSYM source not found: ${DSYM_SRC}\" 1\n    fi\n    DSYM_FILE_NAME=${DSYM_SRC##*/}\n        DSYM_SYMBOL_OUT_ZIP_NAME=\"${DSYM_FILE_NAME}.bSymbol.zip\"\n        # 替换空格\n        DSYM_SYMBOL_OUT_ZIP_NAME=\"${DSYM_SYMBOL_OUT_ZIP_NAME// /_}\"\n        DSYM_ZIP_FPATH=\"${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}\"\n        \n        DSYM_SYMBOL_BACKUP_DIR=${BUILD_DIR}/Symbols\n        \n        if [ ! -e \"${DSYM_SYMBOL_BACKUP_DIR}\" ]; then\n        mkdir ${DSYM_SYMBOL_BACKUP_DIR}\n        fi\n        \n        # 备份并清理\n        find ${BUILT_PRODUCTS_DIR} -name \"*.zip\" -print0 | xargs -0 -I {} mv {} ${DSYM_SYMBOL_BACKUP_DIR}\n        /bin/rm -rf \"${BUILT_PRODUCTS_DIR}/*.zip\"\n        \n        echo \"Extract symbols from dSYM to ${DSYM_ZIP_FPATH}.\"\n        \n        echo \"--------------------------------\"\n        (/usr/bin/java -jar \"${BUGLY_SYMBOL_JAR_PATH}\" -i \"${DSYM_SRC}\" -o \"${DSYM_ZIP_FPATH}\" ) || exitWithMessage \"Error: Failed to extract symbols.\" 1\n        echo \"--------------------------------\"\n        \n        if [ ! -e \"${DSYM_ZIP_FPATH}\" ]; then\n        DSYM_SYMBOL_OUT_ZIP_NAME=$(ls ${BUILT_PRODUCTS_DIR} | grep \".zip\")\n        DSYM_ZIP_FPATH=\"${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}\"\n        DSYM_SYMBOL_OUT_ZIP_NAME=${DSYM_SYMBOL_OUT_ZIP_NAME//&/_}\n            fi\n            \n            if [ ! -e \"${DSYM_ZIP_FPATH}\" ] ; then\n            exitWithMessage \"no symbol file zip archive generated: ${DSYM_ZIP_FPATH}\" 1\n            fi\n            \n            # 提取符号信息\n            echo \"--------------------------------\"\n            echo \"Step 3: Extract symbol info from .dSYM file.\"\n            \n            if [ ! -e \"$BUGLY_SYMBOL_JAR_PATH\" ]; then\n            exitWithMessage \"Error: Jar file '${BUGLY_SYMBOL_JAR_PATH}' was not found. \\nPlease copy the jar file into ~/bin folder.\" 1\n            fi\n            \n            echo \"Step 4: Upload the symbols of dSYM.\"\n            echo \"--------------------------------\"\n            echo \"zip : ${DSYM_SYMBOL_OUT_ZIP_NAME}\"\n            echo \"dir : ${DSYM_ZIP_FPATH}\"\n            \n            echo \"dSYM upload domain: ${DSYM_UPLOAD_DOMAIN}\"\n            DSYM_UPLOAD_URL=\"http://${DSYM_UPLOAD_DOMAIN}/upload/dsym?app=${BUGLY_APP_ID}&pid=2&ver=${BUGLY_APP_VERSION}&n=${DSYM_SYMBOL_OUT_ZIP_NAME}&key=${BUGLY_APP_KEY}&bid=${BUNDLE_IDENTIFIER}\"\n            echo \"dSYM upload url: ${DSYM_UPLOAD_URL}\"\n            \n            # Upload dSYM to Bugly\n            echo \"curl --header \"Content-Type:application/zip\" --data-binary \"@${DSYM_ZIP_FPATH}\" \"${DSYM_UPLOAD_URL}\" --verbose\"\n            \n            echo \"--------------------------------\"\n            STATUS=$(/usr/bin/curl --header \"Content-Type:application/zip\" --data-binary \"@${DSYM_ZIP_FPATH}\" \"${DSYM_UPLOAD_URL}\" --verbose)\n            echo \"--------------------------------\"\n            \n            UPLOAD_RESULT=\"FAILTURE\"\n            echo \"Bugly server response: ${STATUS}\"\n            if [ ! \"${STATUS}\" ]; then\n            echo \"Error: Failed to upload the zip archive file.\"\n            elif [[ \"${STATUS}\" == *\":true\"* ]]; then\n            echo \"Success to upload the dSYM for the app [${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION}]\"\n            UPLOAD_RESULT=\"SUCCESS\"\n            else\n            echo \"Error: Failed to upload the zip archive file to Bugly.\"\n            fi\n            \n            #Remove temp dSYM archive\n            echo \"Remove temporary zip archive: ${DSYM_ZIP_FPATH}\"\n            #/bin/rm -f \"${DSYM_ZIP_FPATH}\"\n            \n            if [ \"$?\" -ne 0 ]; then\n            exitWithMessage \"Error: Failed to remove temporary zip archive.\" 1\n            fi\n            \n            echo \"--------------------------------\"\n            echo \"${UPLOAD_RESULT} - dSYM upload complete.\"\n            \n            if [[ \"${UPLOAD_RESULT}\" == \"FAILTURE\" ]]; then\n            echo \"--------------------------------\"\n            echo \"Failed to upload the dSYM\"\n            echo \"Please check the script and try it again.\"\n            fi\n            \n            echo \"----------------------------------------------------------------\"\n        }\n        \n        # .dSYM文件信息\n        \n        echo \"DSYM FOLDER ${DWARF_DSYM_FOLDER_PATH}\"\n        \n        DSYM_FOLDER=\"${DWARF_DSYM_FOLDER_PATH}\"\n        \n        IFS=$'\\n'\n        \n        for dsymFile in $(find \"$DSYM_FOLDER\" -name '*.dSYM'); do\n        echo \"Found dSYM file: $dsymFile\"\n        uploadDSYM $dsymFile\n        done\n        \n";
+		};
 		25137178976E3DCCC3612F88 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1640,12 +1698,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/Tencent",
+				);
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/UMeng/UMessage_Sdk_1.2.1",
+					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/UMeng/UMAnalytics_Sdk_3.6.7",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.funi.funiLand;
 				PRODUCT_NAME = funiLand;
@@ -1661,12 +1724,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/Tencent",
+				);
 				INFOPLIST_FILE = "$(PRODUCT_NAME)/Config/FuniLand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/UMeng/UMessage_Sdk_1.2.1",
+					"$(PROJECT_DIR)/funiLand/Classes/Main/Libs/UMeng/UMAnalytics_Sdk_3.6.7",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.funi.funiLand;
 				PRODUCT_NAME = funiLand;

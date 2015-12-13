@@ -37,10 +37,11 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//         HttpService.sharedInstance.subclassViewController = self
         self.initSteup()
         self.loadCalendar()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -71,6 +72,10 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         self.queryData()
     }
     
+    //重写父类加载数据
+    override func queryData() {
+        self.myTableView.header.beginRefreshing()
+    }
     
     //加载日历
     func loadCalendar () {
@@ -317,11 +322,6 @@ extension MessageViewController {
 extension MessageViewController {
     
     //加载数据
-    override func queryData() {
-        self.myTableView.header.beginRefreshing()
-    }
-    
-    
     func requestData() {
         self.reqMonth = "2015-05"
         HttpService.sharedInstance.getSupplyOrBargainList(self.reqType, months: self.reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in

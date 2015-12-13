@@ -96,6 +96,11 @@ class MapViewController: BaseViewController {
         }
     }
     
+    //重写父类加载数据
+    override func queryData() {
+        self.requestData()
+    }
+    
     //状态栏按钮设置
     func navBarItemSetting() {
         if self.rimLandArray != nil {
@@ -592,7 +597,7 @@ extension MapViewController {
 extension MapViewController {
     
     //请求数据
-    override func queryData() {
+    func requestData() {
         FuniHUD.sharedHud().show(self.view)
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             

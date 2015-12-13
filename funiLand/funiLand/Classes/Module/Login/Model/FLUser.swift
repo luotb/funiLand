@@ -10,13 +10,13 @@ import UIKit
 
 class FLUser: Mappable {
 
-    var loginName: NSString?
-    var passWord: NSString?
+    var loginName: String?
+    var passWord: String?
     var tal:String = TERMINALTYPE
     var talId:String?
     var headUrl:String?
     
-    init(name:NSString, pwd:NSString) {
+    init(name:String, pwd:String) {
         self.loginName = name
         self.passWord = pwd
     }

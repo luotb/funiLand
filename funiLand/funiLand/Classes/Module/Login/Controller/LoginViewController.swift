@@ -79,7 +79,7 @@ extension LoginViewController {
         FuniHUD.sharedHud().show(self.view, msg: "请稍等")
         let userInfo = FLUser(account: account)
         HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
-            
+            CrashReporter.sharedInstance().setUserId(userInfo.loginName)
             AccountTool.saveAccount(account)
             UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
             FuniHUD.sharedHud().hide(self.view)
