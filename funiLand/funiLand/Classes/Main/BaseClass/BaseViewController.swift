@@ -16,10 +16,21 @@ class BaseViewController: UIViewController {
         view.backgroundColor = UIColor.whiteColor()
         //禁用自动调整位置
         self.automaticallyAdjustsScrollViewInsets = false
+         ((UIApplication.sharedApplication().delegate) as! AppDelegate).baseViewController = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    /**
+     加载数据子类重写
+     */
+    func queryData() {
+    }
+   
 }

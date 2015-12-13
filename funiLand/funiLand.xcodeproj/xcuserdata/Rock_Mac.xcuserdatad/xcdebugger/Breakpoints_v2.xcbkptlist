@@ -22,22 +22,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/Module/Message/Controller/MessageViewController.swift"
-            timestampString = "471271262.634026"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "calendar(_:prepareDayView:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -49,6 +33,38 @@
             endingLineNumber = "35"
             landmarkName = "FuniDateTransform"
             landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "funiLand.FuniDateTransform.transformFromJSON (funiLand.FuniDateTransform)(Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; Swift.Optional&lt;__ObjC.NSDate&gt;"
+                  moduleName = "funiLand"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Message/Model/LandArrayRespon.swift"
+                  timestampString = "471626085.915769"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for funiLand.TransformType.transformFromJSON &lt;A where A: funiLand.TransformType&gt; (A)(Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; Swift.Optional&lt;A.Object&gt; in conformance funiLand.FuniDateTransform : funiLand.TransformType in funiLand"
+                  moduleName = "funiLand"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Message/Model/LandArrayRespon.swift"
+                  timestampString = "471626085.916093"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "11">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

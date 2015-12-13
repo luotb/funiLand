@@ -592,7 +592,7 @@ extension MapViewController {
 extension MapViewController {
     
     //请求数据
-    func queryData() {
+    override func queryData() {
         FuniHUD.sharedHud().show(self.view)
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             

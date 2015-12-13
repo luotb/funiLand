@@ -11,6 +11,7 @@
 		242B220F1C0F1D6E00CE2E76 /* POPProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242B220C1C0F1D6E00CE2E76 /* POPProperty.swift */; };
 		242B22101C0F1D6E00CE2E76 /* POPSwiftWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 242B220E1C0F1D6E00CE2E76 /* POPSwiftWrapper.m */; };
 		247DD0B61C0DE01800A1BDB1 /* UIAlertViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247DD0B51C0DE01800A1BDB1 /* UIAlertViewExtension.swift */; };
+		249879CE1C1C57CC0094B1BD /* APPSessionManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249879CD1C1C57CC0094B1BD /* APPSessionManage.swift */; };
 		24C49EE41C0734190065D9B6 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 24C49ECC1C0734190065D9B6 /* MJRefresh.bundle */; };
 		24C49EE51C0734190065D9B6 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49ECF1C0734190065D9B6 /* MJRefreshComponent.m */; };
 		24C49EE61C0734190065D9B6 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C49ED11C0734190065D9B6 /* MJRefreshConst.m */; };
@@ -168,6 +169,7 @@
 		242B220D1C0F1D6E00CE2E76 /* POPSwiftWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPSwiftWrapper.h; sourceTree = "<group>"; };
 		242B220E1C0F1D6E00CE2E76 /* POPSwiftWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POPSwiftWrapper.m; sourceTree = "<group>"; };
 		247DD0B51C0DE01800A1BDB1 /* UIAlertViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtension.swift; sourceTree = "<group>"; };
+		249879CD1C1C57CC0094B1BD /* APPSessionManage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPSessionManage.swift; sourceTree = "<group>"; };
 		24C49ECC1C0734190065D9B6 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		24C49ECD1C0734190065D9B6 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		24C49ECE1C0734190065D9B6 /* MJRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshComponent.h; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				F419E8B31C02F20D006A5815 /* Account.swift */,
 				F419E8B41C02F20D006A5815 /* AccountTool.swift */,
 				F419E8B51C02F20D006A5815 /* Helper.swift */,
+				249879CD1C1C57CC0094B1BD /* APPSessionManage.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1462,6 +1465,7 @@
 				F43424DF1C055B9000E78F39 /* JTCalendarWeekDayView.m in Sources */,
 				F419E8B11C02F1C3006A5815 /* BaseViewController.swift in Sources */,
 				242B22101C0F1D6E00CE2E76 /* POPSwiftWrapper.m in Sources */,
+				249879CE1C1C57CC0094B1BD /* APPSessionManage.swift in Sources */,
 				F43424D91C055B9000E78F39 /* JTDateHelper.m in Sources */,
 				F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */,
 				24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */,

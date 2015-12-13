@@ -68,7 +68,7 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         
         //集成下拉刷新
         setupDownRefresh()
-        self.myTableView.header.beginRefreshing()
+        self.queryData()
     }
     
     
@@ -92,7 +92,7 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
     //下拉刷新
     func setupDownRefresh(){
         self.myTableView.addLegendHeaderWithRefreshingBlock { () -> Void in
-            self.queryData()
+            self.requestData()
         }
     }
     
@@ -207,12 +207,12 @@ extension MessageViewController : JTCalendarDelegate {
     
     func calendarDidLoadPreviousPage(calendar: JTCalendarManager!) {
         self.reqMonth = NSDate.getTime(DateFormat.format4, date: calendar.date())
-         self.myTableView.header.beginRefreshing()
+         self.queryData()
     }
     
     func calendarDidLoadNextPage(calendar: JTCalendarManager!) {
         self.reqMonth = NSDate.getTime(DateFormat.format4, date: calendar.date())
-        self.myTableView.header.beginRefreshing()
+        self.queryData()
     }
 }
 
@@ -291,7 +291,7 @@ extension MessageViewController {
     //选择器回调
     @IBAction func segmentAction(segment:UISegmentedControl) {
         self.reqType = segment.selectedSegmentIndex
-        self.myTableView.header.beginRefreshing()
+        self.queryData()
     }
     
     // 附近按钮点击
@@ -311,21 +311,18 @@ extension MessageViewController {
         self.calendarContentView.loadNextPageWithAnimation()
     }
     
-    @IBAction func testBtnClicked(sender: AnyObject) {
-        let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
-        let rimInfoReqDomain = RimInfoReqDomain()
-        rimInfoReqDomain.lat = 30.6709490000
-        rimInfoReqDomain.lng = 104.0984620000
-        self.navigationController?.pushViewController(mapVC, animated: true)
-    }
 }
 
 // MARK: Service Request And Data Package
 extension MessageViewController {
     
     //加载数据
-    func queryData(){
-        
+    override func queryData() {
+        self.myTableView.header.beginRefreshing()
+    }
+    
+    
+    func requestData() {
         self.reqMonth = "2015-05"
         HttpService.sharedInstance.getSupplyOrBargainList(self.reqType, months: self.reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
             self.landResponArray = landArray

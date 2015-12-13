@@ -87,8 +87,11 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
 extension RimLandListViewController {
     
     //加载数据
-    func queryData(){
-        
+    override func queryData(){
+        self.requestDate()
+    }
+    
+    func requestDate() {
         HttpService.sharedInstance.getRimInfoList(self.rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             
             self.rimLandInfoArray = rimInfoArray

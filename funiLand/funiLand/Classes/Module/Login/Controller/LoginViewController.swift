@@ -18,6 +18,7 @@ class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //本地有存储账户信息则自动登录
         if let account: Account = AccountTool.getAccount() {
             self.loginRequest(account)
         } else {
@@ -29,6 +30,9 @@ class LoginViewController: BaseViewController {
         super.didReceiveMemoryWarning()
     }
     
+    /**
+     显示登录输入框
+     */
     func showMainView() {
         UIView.transitionWithView(self.mainView, duration: 0.3, options: UIViewAnimationOptions.LayoutSubviews, animations: { () -> Void in
             self.mainView.alpha = 1
@@ -71,18 +75,18 @@ extension LoginViewController {
     func loginRequest(account: Account) {
         
 //              AccountTool.saveAccount(account)
-            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
-//        FuniHUD.sharedHud().show(self.view)
-//        let userInfo = FLUser(account: account)
-//        HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
-//            
-//            AccountTool.saveAccount(account)
 //            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
-//            FuniHUD.sharedHud().hide(self.view)
-//            }, faild: { (error:String) -> Void in
-//                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
-//                self.showMainView()
-//        })
+        FuniHUD.sharedHud().show(self.view, msg: "请稍等")
+        let userInfo = FLUser(account: account)
+        HttpService.sharedInstance.login(userInfo, success: { (msg:String) -> Void in
+            
+            AccountTool.saveAccount(account)
+            UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarViewController()
+            FuniHUD.sharedHud().hide(self.view)
+            }, faild: { (error:String) -> Void in
+                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+                self.showMainView()
+        })
     }
 }
 

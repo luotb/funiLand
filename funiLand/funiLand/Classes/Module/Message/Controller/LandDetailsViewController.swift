@@ -8,9 +8,6 @@
 
 import UIKit
 
-let BUILDSTR = "建筑密度"
-let BUILDSTR2 = "建筑高度"
-
 class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     @IBOutlet var myTableView: UITableView!
@@ -193,7 +190,7 @@ extension LandDetailsViewController {
 extension LandDetailsViewController {
     
     //加载数据
-    func queryData(){
+    override func queryData(){
         
         HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
             if landInfo != nil {
