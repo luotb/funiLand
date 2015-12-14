@@ -15,9 +15,9 @@ let APPWIDTH = ((UIApplication.sharedApplication().delegate) as! AppDelegate).wi
 let APPHEIGHT = ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.frame.size.height
 let APPWIDTH_4 = CGFloat(320)
 
-let UMengAppKey = "565d0d2f67e58e39d4001770"
+let UMengAppKey   = "565d0d2f67e58e39d4001770"
 let TENCENT_BUGLY = "900014227"
-let APPCHANNEL = "APP Store"
+let APPCHANNEL    = "APP Store"
 
 // String
 let String_RequestError_Msg_1001          = "网络错误,请稍后再试!"
@@ -26,3 +26,6 @@ let String_LoginSuccess                            = "登录成功!"
 let String_LogoutSuccess                            = "登出成功!"
 let Number_Lat        =        0.006471
 let Number_Lng        =        0.005992
+let CD_Lat            = 104.072254
+let CD_Lng            = 30.663558
+

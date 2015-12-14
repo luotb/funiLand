@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/Main/Libs/AFNetworking/AFURLRequestSerialization.m"
-            timestampString = "471337305.992722"
+            filePath = "funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
+            timestampString = "471755113.51958"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1312"
-            endingLineNumber = "1312"
-            landmarkName = "-requestBySerializingRequest:withParameters:error:"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "ESP_POST(_:parameters:taskSuccessed:taskFailured:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "funiLand/Classes/Module/Map/Controller/MapViewController.swift"
+            timestampString = "471776154.779292"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

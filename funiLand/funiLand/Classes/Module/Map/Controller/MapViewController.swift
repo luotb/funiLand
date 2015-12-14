@@ -9,12 +9,16 @@
 import UIKit
 import MapKit
 
+let MAPZOOMLEVEL: UInt = 13
+
 class MapViewController: BaseViewController {
     
     
     @IBOutlet var myMapView: MKMapView!
     var locationManager:CLLocationManager!
     var centerCoordinate:CLLocationCoordinate2D!
+    //中心点   1.定位：当前位置； 2.关键词搜索：结果第一条数据； 3.周边：查询参数的经纬度
+    var mapCenterCoordinate:CLLocationCoordinate2D!
     //搜索框
     var searchBar: UISearchBar!
     // 定位按钮
@@ -208,12 +212,23 @@ class MapViewController: BaseViewController {
             
             let pointAnnatotion: FuniPointAnnotation = self.pointAnnotationArray[0]
             
+            if self.isKeyword == true {
+                //关键词搜索 结果第一条数据为中心点
+                self.mapCenterCoordinate = pointAnnatotion.coordinate
+            } else if self.isShowRim == true {
+                //周边为中心点
+                self.mapCenterCoordinate = CLLocationCoordinate2D(latitude: self.rimInfoReqDomain.lat! - Number_Lat, longitude: self.rimInfoReqDomain.lng! - Number_Lng)
+            } else if self.isUserLocationSuccess == true {
+                //定位为中心点
+                self.mapCenterCoordinate = self.centerCoordinate
+            }
+            
             let time: NSTimeInterval = 2.0
             let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
             
             dispatch_after(delay, dispatch_get_main_queue()) {
                 
-                self.myMapView.setCenterCoordinate(pointAnnatotion.coordinate, zoomLevel: 13, animated: true)
+                self.myMapView.setCenterCoordinate(self.mapCenterCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
             }
         }
     }
@@ -229,8 +244,18 @@ class MapViewController: BaseViewController {
     
     //默认定位到成都
     func defLoadCDMap() {
-        
+//        let pointAnnotation = FuniPointAnnotation()
+//        pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lat - Number_Lat, longitude: CD_Lng - Number_Lng)
+//        self.pointAnnotationArray.append(pointAnnotation)
+//        self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
         HttpService.setAppNetworkActivity(true)
+        
+        
+//        let geocoder = CLGeocoder()
+//        geocoder.geocodeAddressString("成都市") { ([mark: CLPlacemark]?, error: NSError?) -> Void in
+//            
+//        }
+        
         
         let searchRequest = MKLocalSearchRequest()
         searchRequest.naturalLanguageQuery = "成都"
@@ -246,10 +271,12 @@ class MapViewController: BaseViewController {
                 
             } else {
                 let pointAnnotation = FuniPointAnnotation()
-                pointAnnotation.coordinate = response!.boundingRegion.center
+//                pointAnnotation.coordinate = response!.boundingRegion.center
+                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lat - Number_Lat, longitude: CD_Lng - Number_Lng)
                 self.pointAnnotationArray.append(pointAnnotation)
                 
-                self.myMapView.setCenterCoordinate(response!.boundingRegion.center, animated: true)
+//                self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
+//                self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, animated: true)
             }
         })
     }
@@ -264,15 +291,6 @@ class MapViewController: BaseViewController {
         
     }
     
-    
-    //添加手势
-    func addTapGesture() {
-        let singleTapGesture = UITapGestureRecognizer(target: self, action: "singleTap")
-        singleTapGesture.delegate = self;
-        singleTapGesture.numberOfTapsRequired = 1;
-        singleTapGesture.cancelsTouchesInView = false;
-        self.view.addGestureRecognizer(singleTapGesture)
-    }
     
     //show landInfoDetail
     func showLandInfo() {
@@ -319,19 +337,6 @@ class MapViewController: BaseViewController {
     }
 }
 
-// MARK: UIGestureRecognizerDelegate
-extension MapViewController : UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        
-        if touch.view is MKAnnotationView ||
-           touch.view is UIButton ||
-           touch.view!.isKindOfClass(MapSearchConditionTableViewController) {
-            return false
-        }
-        return true;
-    }
-}
 
 // MARK: CLLocationManagerDelegate
 extension MapViewController : CLLocationManagerDelegate {
@@ -356,12 +361,12 @@ extension MapViewController : CLLocationManagerDelegate {
             break;
             
         case CLAuthorizationStatus.Denied :
-            UIAlertView().alertViewWithTitle("请在设置-隐私-定位服务中开启定位功能!")
+//            UIAlertView().alertViewWithTitle("请在设置-隐私-定位服务中开启定位功能!")
             self.defLoadCDMap()
             break
             
         case CLAuthorizationStatus.Restricted :
-            UIAlertView().alertViewWithTitle("定位服务无法使用!")
+//            UIAlertView().alertViewWithTitle("定位服务无法使用!")
             self.defLoadCDMap()
             break
         default:
@@ -379,7 +384,7 @@ extension MapViewController : MKMapViewDelegate {
         
         //定位成功记录位置
         self.centerCoordinate = userLocation.location!.coordinate
-                
+        
         //让地图显示用户的位置（iOS8一打开地图会默认转到用户所在位置的地图），该方法不能设置地图精度
         //    [mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
         
@@ -510,7 +515,7 @@ extension MapViewController {
             self.startLocation()
         } else {
             //用户位置为地图中心点
-            self.myMapView.setCenterCoordinate(self.centerCoordinate, animated: true)
+            self.myMapView.setCenterCoordinate(self.centerCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
         }
     }
     
@@ -567,11 +572,6 @@ extension MapViewController {
         rimLandListVC.rimLandInfoArray = self.rimLandArray
         self.navigationController?.pushViewController(rimLandListVC, animated: true)
         
-    }
-    
-    //单击响应
-    func singleTap() {
-        print("090909")
     }
     
     // 土地类型按钮点击

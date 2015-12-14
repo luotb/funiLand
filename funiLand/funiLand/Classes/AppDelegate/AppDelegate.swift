@@ -27,27 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.settingBugly()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-        window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
-        
-//        if AccountTool.getAccount() == nil {
-//            window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
-//        }else{
-//            let tabController = TabBarViewController()
-//            window!.rootViewController = tabController
-//        }
-        
+        self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
         window!.backgroundColor = UIColor.whiteColor()
+        window!.tintColor = UIColor(hue: 1, saturation: 0.67, brightness: 0.93, alpha: 1)
         window!.makeKeyAndVisible()
         setup()
-        
-        if launchOptions?.isEmpty == true {
-            let tempOptions:Dictionary<String, AnyObject> = launchOptions as! Dictionary<String, AnyObject>
-            if let localNotification:UILocalNotification = tempOptions[UIApplicationLaunchOptionsRemoteNotificationKey] as? UILocalNotification {
-                self.handleNotification(application, notification: nil, remoteNotification: localNotification)
-            }
-        }
-        print("第一次加载")
+        self.notificationBarOpenAppHandler(launchOptions)
         
         return true
     }
@@ -60,29 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setup() {
-        
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
-        
-        window!.tintColor = UIColor(hue: 1, saturation: 0.67, brightness: 0.93, alpha: 1)
-    }
-    
-    func applicationDidEnterBackground(application: UIApplication) {
-        print("后台运行")
-    }
-
-    func applicationWillResignActive(application: UIApplication) {
-        print("按HOME")
-        APPSessionManage.saveWillOutAppDate()
-    }
-    
-    func applicationDidBecomeActive(application: UIApplication) {
-        print("回来了")
-        if self.isFirstLoadApp == true {
-            print("回来了嘛")
-            self.appBecomeActive()
-        }
-        self.isFirstLoadApp = true
     }
 
 }
@@ -90,20 +54,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: app session 相关
 extension AppDelegate {
     
+    func applicationWillResignActive(application: UIApplication) {
+        APPSessionManage.saveWillOutAppDate()
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        if self.isFirstLoadApp == true {
+//            self.appBecomeActive()
+            self.currentViewContrller!.queryData()
+        }
+        self.isFirstLoadApp = true
+    }
+    
+    //app刚刚处于活动状态
     func appBecomeActive()
     {
-        let date: NSDate = APPSessionManage.getOutAppDate()
-        let second = NSDate().timeIntervalSinceDate(date)
-        print(second)
-        self.currentViewContrller!.queryData()
-        //转换分钟数
-//        let minute = second / 60
-//        if minute >= 10 && minute <= 25 {
+        var isLogin = true
+        if let date: NSDate = APPSessionManage.getOutAppDate() {
+            let second = NSDate().timeIntervalSinceDate(date)
+//            print(second)
 //            self.currentViewContrller!.queryData()
-//        } else
-//            if minute > 28 {
-//                self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
-//        }
+            
+            //转换分钟数
+            let minute = second / 60
+            if minute >= 10 && minute <= 25 {
+                isLogin = false
+            }
+        }
+        
+        if isLogin == true {
+            self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+        } else {
+            self.currentViewContrller!.queryData()
+        }
     }
 }
 
@@ -126,7 +109,7 @@ extension AppDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        self.handleNotification(application, notification: userInfo, remoteNotification: UILocalNotification())
+        self.handleNotification(userInfo)
     }
     
     //注册友盟的消息推送
@@ -170,6 +153,23 @@ extension AppDelegate {
         
     }
     
+    ///通知栏打开app
+    func notificationBarOpenAppHandler(launchOptions: [NSObject: AnyObject]?) {
+        
+        if let options: [NSObject: AnyObject] = launchOptions {
+            
+            if let localNotification = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject: AnyObject] {
+                
+                let time: NSTimeInterval = 5
+                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                
+                dispatch_after(delay, dispatch_get_main_queue()) {
+                    self.handleNotification(localNotification)
+                }
+            }
+        }
+    }
+    
     /**
      push消息处理
      
@@ -177,7 +177,7 @@ extension AppDelegate {
      - parameter notification:       <#notification description#>
      - parameter remoteNotification: <#remoteNotification description#>
      */
-    func handleNotification(application:UIApplication, notification:[NSObject : AnyObject]?, remoteNotification:UILocalNotification) {
+    func handleNotification(notification:[NSObject : AnyObject]?) {
         
         //        let not = notification
         //        if remoteNotification != nil {
@@ -195,6 +195,8 @@ extension AppDelegate {
         if msg.isEmpty == false {
             let alertView = UIAlertView(title: "提示", message: msg, delegate: nil, cancelButtonTitle: "忽略", otherButtonTitles: "查看", "")
             alertView.show()
+            
+//            UIAlertView(title: <#T##String#>, message: <#T##String#>, delegate: <#T##UIAlertViewDelegate?#>, cancelButtonTitle: <#T##String?#>, otherButtonTitles: <#T##String#>, nil)
         }
     }
 }
@@ -206,7 +208,7 @@ extension AppDelegate {
         // 如果不需要捕捉异常，注释掉此行
 //        MobClick.setCrashReportEnabled(false)
         // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
-        MobClick.setLogEnabled(true)
+        MobClick.setLogEnabled(false)
         //   reportPolicy为枚举类型,可以为 REALTIME, BATCH,SENDDAILY,SENDWIFIONLY几种
         //   channelId 为NSString * 类型，channelId 为nil或@""时,默认会被被当作@"App Store"渠道
         MobClick.startWithAppkey(UMengAppKey, reportPolicy: BATCH, channelId: nil)
@@ -217,7 +219,7 @@ extension AppDelegate {
 extension AppDelegate {
     
     func settingBugly() {
-        CrashReporter.sharedInstance().enableLog(true)
+        CrashReporter.sharedInstance().enableLog(false)
         CrashReporter.sharedInstance().installWithAppId(TENCENT_BUGLY)
         CrashReporter.sharedInstance().setChannel(APPCHANNEL)
     }
