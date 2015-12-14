@@ -244,41 +244,25 @@ class MapViewController: BaseViewController {
     
     //默认定位到成都
     func defLoadCDMap() {
-//        let pointAnnotation = FuniPointAnnotation()
-//        pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lat - Number_Lat, longitude: CD_Lng - Number_Lng)
-//        self.pointAnnotationArray.append(pointAnnotation)
-//        self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
-        HttpService.setAppNetworkActivity(true)
-        
-        
 //        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString("成都市") { ([mark: CLPlacemark]?, error: NSError?) -> Void in
+//        geocoder.geocodeAddressString("成都市") {
+//            (marks: [CLPlacemark]?, error: NSError?) -> Void in
 //            
-//        }
-        
-        
-        let searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = "成都"
-        
-        if self.localSearch == nil {
-            self.localSearch = MKLocalSearch(request: searchRequest)
-        }
-        
-        self.localSearch?.startWithCompletionHandler({ (response:MKLocalSearchResponse?, error:NSError?) -> Void in
-            HttpService.setAppNetworkActivity(false)
-            
-            if error != nil {
-                
-            } else {
-                let pointAnnotation = FuniPointAnnotation()
-//                pointAnnotation.coordinate = response!.boundingRegion.center
-                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lat - Number_Lat, longitude: CD_Lng - Number_Lng)
-                self.pointAnnotationArray.append(pointAnnotation)
-                
+//            if marks != nil {
+//                let placemark: CLPlacemark = marks![0]
+//                let pointAnnotation = FuniPointAnnotation()
+////                pointAnnotation.coordinate = (placemark.location?.coordinate)!
+//                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lng - Number_Lat, longitude: CD_Lat - Number_Lng)
+//                self.pointAnnotationArray.append(pointAnnotation)
+//                self.myMapView.addAnnotations(self.pointAnnotationArray)
 //                self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
-//                self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, animated: true)
-            }
-        })
+//            }
+//        }
+        let pointAnnotation = FuniPointAnnotation()
+        pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lat - Number_Lat, longitude: CD_Lng - Number_Lng)
+        self.pointAnnotationArray.append(pointAnnotation)
+        self.myMapView.addAnnotations(self.pointAnnotationArray)
+        self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, zoomLevel: 10, animated: true)
     }
     
     //关闭条件弹窗后的处理
@@ -290,7 +274,6 @@ class MapViewController: BaseViewController {
         }
         
     }
-    
     
     //show landInfoDetail
     func showLandInfo() {
@@ -396,7 +379,7 @@ extension MapViewController : MKMapViewDelegate {
         if self.isUserLocationSuccess == false {
             self.queryData()
         }
-        
+        self.locationManager = nil
         self.isUserLocationSuccess = true
     }
     
@@ -433,23 +416,22 @@ extension MapViewController : MKMapViewDelegate {
         }
         
         let pointAnnatotion = annotation as! FuniPointAnnotation
-        
+        var imgName = "other_normal"
         if pointAnnatotion.rimLandInfoDomain != nil {
-            
-            var imgName = "other_normal"
-            
             if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
                 //土地
                 imgName = "Local_normal"
             }
-            
-            let imageView = UIImageView(image: UIImage(named: imgName))
-            imageView.center = (pinView?.centerOffset)!
-            imageView.y = imageView.y + 32
-//            imageView.x = imageView.x + 30
-            imageView.tag = 10
-            pinView?.addSubview(imageView)
+        } else {
+            imgName = "Local_normal"
         }
+        
+        let imageView = UIImageView(image: UIImage(named: imgName))
+        imageView.center = (pinView?.centerOffset)!
+        imageView.y = imageView.y + 32
+//            imageView.x = imageView.x + 30
+        imageView.tag = 10
+        pinView?.addSubview(imageView)
         
         return pinView
     }

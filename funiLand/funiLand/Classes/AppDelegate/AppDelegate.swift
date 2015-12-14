@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var isFirstLoadApp: Bool = false
     var currentViewContrller: BaseViewController?
+    //完全退出app  点击通知栏打开app 保存通知数据 每次使用后需要置空
+    var localNotification:[NSObject: AnyObject]?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -32,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.tintColor = UIColor(hue: 1, saturation: 0.67, brightness: 0.93, alpha: 1)
         window!.makeKeyAndVisible()
         setup()
-        self.notificationBarOpenAppHandler(launchOptions)
+        self.localNotification = launchOptions
         
         return true
     }
@@ -154,19 +156,16 @@ extension AppDelegate {
     }
     
     ///通知栏打开app
-    func notificationBarOpenAppHandler(launchOptions: [NSObject: AnyObject]?) {
+    func notificationBarOpenAppHandler() {
         
-        if let options: [NSObject: AnyObject] = launchOptions {
+        if let options: [NSObject: AnyObject] = self.localNotification {
             
             if let localNotification = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject: AnyObject] {
                 
-                let time: NSTimeInterval = 5
-                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-                
-                dispatch_after(delay, dispatch_get_main_queue()) {
-                    self.handleNotification(localNotification)
-                }
+                self.handleNotification(localNotification)
             }
+            
+            self.localNotification = nil
         }
     }
     
@@ -193,10 +192,8 @@ extension AppDelegate {
         
         let msg: String = (notification!["aps"] as! Dictionary)["alert"]!
         if msg.isEmpty == false {
-            let alertView = UIAlertView(title: "提示", message: msg, delegate: nil, cancelButtonTitle: "忽略", otherButtonTitles: "查看", "")
+            let alertView = UIAlertView(title: "提示", message: msg, delegate: nil, cancelButtonTitle: "忽略", otherButtonTitles: "查看")
             alertView.show()
-            
-//            UIAlertView(title: <#T##String#>, message: <#T##String#>, delegate: <#T##UIAlertViewDelegate?#>, cancelButtonTitle: <#T##String?#>, otherButtonTitles: <#T##String#>, nil)
         }
     }
 }

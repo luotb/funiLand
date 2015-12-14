@@ -17,6 +17,7 @@ class BaseViewController: UIViewController {
         //禁用自动调整位置
         self.automaticallyAdjustsScrollViewInsets = false
         ((UIApplication.sharedApplication().delegate) as! AppDelegate).currentViewContrller = self
+        ((UIApplication.sharedApplication().delegate) as! AppDelegate).notificationBarOpenAppHandler()
     }
     
     override func viewDidAppear(animated: Bool) {
