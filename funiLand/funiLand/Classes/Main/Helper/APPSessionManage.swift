@@ -9,6 +9,7 @@
 import UIKit
 
 let DATEKEY = "defaultDateKey"
+let TALONLYUUID = "talOnlyUUID"
 
 class APPSessionManage: NSObject {
 
@@ -26,5 +27,29 @@ class APPSessionManage: NSObject {
     static func getOutAppDate() ->NSDate {
         let userDefault = NSUserDefaults.standardUserDefaults()
         return userDefault.objectForKey(DATEKEY) as! NSDate
+    }
+    
+    /**
+     保存一个UUID到钥匙串
+     */
+    static func saveUUIDToKeychain(str: String) {
+        let uuidData: NSData = str.dataUsingEncoding(NSUTF8StringEncoding)!
+        KeychainSwift().set(uuidData, forKey: TALONLYUUID)
+    }
+    
+    /**
+     获得UUID
+     
+     - returns: <#return value description#>
+     */
+    static func getUUIDByKeychain() -> String {
+        if let tempData = KeychainSwift().getData(TALONLYUUID) {
+            let uuid = String(data: tempData, encoding: NSUTF8StringEncoding)
+            return uuid!
+        } else {
+            let uuid: String = String.randomTalId()
+            APPSessionManage.saveUUIDToKeychain(uuid)
+            return uuid
+        }
     }
 }

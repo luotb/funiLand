@@ -51,5 +51,69 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "funiLand/Classes/Module/Service/HttpService.swift"
+            timestampString = "471865608.155255"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "login(_:success:faild:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "funiLand.HttpService.login (funiLand.HttpService)(funiLand.FLUser, success : (msg : Swift.String) -&gt; (), faild : (error : Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "funiLand"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Simon/Documents/workspace/iOS/Project/Land_git/funiLand/funiLand/Classes/Module/Service/HttpService.swift"
+                  timestampString = "471865608.281819"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "funiLand.HttpService.(login (funiLand.HttpService) -&gt; (funiLand.FLUser, success : (msg : Swift.String) -&gt; (), faild : (error : Swift.String) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "funiLand"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Simon/Documents/workspace/iOS/Project/Land_git/funiLand/funiLand/Classes/Module/Service/HttpService.swift"
+                  timestampString = "471865608.282146"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "funiLand/Classes/Main/Helper/APPSessionManage.swift"
+            timestampString = "471865225.721992"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "getUUIDByKeychain()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

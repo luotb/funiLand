@@ -1317,7 +1317,7 @@
 					};
 					F457FFEC1C02B360005FEB26 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 7T5L24LUF6;
+						DevelopmentTeam = T9FW97NDZK;
 					};
 				};
 			};

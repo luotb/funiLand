@@ -15,9 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var isFirstLoadApp: Bool = false
+    //记录当前app加载的vc
     var currentViewContrller: BaseViewController?
     //完全退出app  点击通知栏打开app 保存通知数据 每次使用后需要置空
     var localNotification:[NSObject: AnyObject]?
+    //通知里面的objId
+    var landId: String?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -46,6 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true);
     }
     
+    /**
+     键盘管理
+     */
     private func setup() {
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
@@ -62,8 +68,8 @@ extension AppDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         if self.isFirstLoadApp == true {
-//            self.appBecomeActive()
-            self.currentViewContrller!.queryData()
+            self.appBecomeActive()
+//            self.currentViewContrller!.queryData()
         }
         self.isFirstLoadApp = true
     }
@@ -99,7 +105,6 @@ extension AppDelegate {
         
         var token = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
         token = token.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        HttpService.sharedInstance.talId = token
         
        print(token)
         UMessage.registerDeviceToken(deviceToken)
@@ -162,7 +167,12 @@ extension AppDelegate {
             
             if let localNotification = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject: AnyObject] {
                 
-                self.handleNotification(localNotification)
+                let time: NSTimeInterval = 0.5
+                let delay = dispatch_time(DISPATCH_TIME_NOW,
+                    Int64(time * Double(NSEC_PER_SEC)))
+                dispatch_after(delay, dispatch_get_main_queue()) {
+                    self.handleNotification(localNotification)
+                }
             }
             
             self.localNotification = nil
@@ -178,22 +188,19 @@ extension AppDelegate {
      */
     func handleNotification(notification:[NSObject : AnyObject]?) {
         
-        //        let not = notification
-        //        if remoteNotification != nil {
-        //            notification = remoteNotification as! [NSObject : AnyObject]
-        //        }
-        
         //关闭友盟自带的弹出框
         UMessage.setAutoAlert(false)
         //        UMessage.didReceiveRemoteNotification(userInfo)
         UMessage.sendClickReportForRemoteNotification(notification)
         
         print(notification)
-        
-        let msg: String = (notification!["aps"] as! Dictionary)["alert"]!
-        if msg.isEmpty == false {
-            let alertView = UIAlertView(title: "提示", message: msg, delegate: nil, cancelButtonTitle: "忽略", otherButtonTitles: "查看")
-            alertView.show()
+        if notification != nil {
+            if let param = notification!["param"] {
+                self.landId = param["objId"] as? String
+                let alertView = UIAlertView(title: "提示", message: String(param["title"]), delegate: self, cancelButtonTitle: "忽略", otherButtonTitles: "查看")
+                alertView.show()
+            }
+            
         }
     }
 }
@@ -219,6 +226,25 @@ extension AppDelegate {
         CrashReporter.sharedInstance().enableLog(false)
         CrashReporter.sharedInstance().installWithAppId(TENCENT_BUGLY)
         CrashReporter.sharedInstance().setChannel(APPCHANNEL)
+    }
+}
+
+// MARK UIAlertViewDelegate
+extension AppDelegate : UIAlertViewDelegate {
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            if HttpService.sharedInstance.loginUserInfo != nil {
+                let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
+                let landInfoDomain = LandDomain()
+                landInfoDomain.id = self.landId
+                landDetailVC.landDomain = landInfoDomain
+                self.currentViewContrller?.navigationController!.pushViewController(landDetailVC, animated: true)
+            } else {
+                UIAlertView().alertViewWithTitle("请先登录!")
+            }
+            
+        }
     }
 }
 

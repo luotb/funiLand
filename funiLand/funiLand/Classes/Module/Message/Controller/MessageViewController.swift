@@ -35,11 +35,17 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
     //选中的土地数据
     var landInfoDomain: LandDomain!
     
+    
+    //重写父类加载数据
+    override func queryData() {
+        self.myTableView.header.beginRefreshing()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//         HttpService.sharedInstance.subclassViewController = self
         self.initSteup()
         self.loadCalendar()
+        ((UIApplication.sharedApplication().delegate) as! AppDelegate).notificationBarOpenAppHandler()
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,11 +76,6 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         //集成下拉刷新
         setupDownRefresh()
         self.queryData()
-    }
-    
-    //重写父类加载数据
-    override func queryData() {
-        self.myTableView.header.beginRefreshing()
     }
     
     //加载日历

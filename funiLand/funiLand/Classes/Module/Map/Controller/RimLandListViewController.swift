@@ -17,6 +17,11 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
     // 数据源
     var rimLandInfoArray:Array<RimLandInfoDomain>!
     
+    //加载数据
+    override func queryData(){
+        self.requestDate()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
@@ -39,11 +44,6 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
         
         //集成下拉刷新
         setupDownRefresh()
-    }
-    
-    //加载数据
-    override func queryData(){
-        self.requestDate()
     }
     
     //下拉刷新

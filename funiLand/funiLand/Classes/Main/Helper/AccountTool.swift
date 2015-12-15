@@ -17,14 +17,18 @@ class AccountTool: NSObject {
     // 保存账号信息到钥匙串
     class func saveAccount(account: Account){
         let tempData = NSKeyedArchiver.archivedDataWithRootObject(account)
-        KeychainSwift().set(tempData, forKey: keychainKEY)
+//        KeychainSwift().set(tempData, forKey: keychainKEY)
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        userDefault.setValue(tempData, forKey: keychainKEY)
     }
     
     // 从钥匙串获取账户信息
     class func getAccount() -> Account? {
-       let tempData = KeychainSwift().getData(keychainKEY)
-        if tempData != nil {
-            let account = NSKeyedUnarchiver.unarchiveObjectWithData(tempData!)
+        //       let tempData = KeychainSwift().getData(keychainKEY)
+        //       let account = NSKeyedUnarchiver.unarchiveObjectWithData(tempData!)
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if let tempData = userDefault.objectForKey(keychainKEY) {
+            let account = NSKeyedUnarchiver.unarchiveObjectWithData(tempData as! NSData)
             return account as? Account
         } else {
             return nil

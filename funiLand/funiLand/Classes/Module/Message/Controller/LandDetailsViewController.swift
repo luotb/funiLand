@@ -34,6 +34,11 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
         }
     }
     
+    //重写父类加载数据
+    override func queryData() {
+        self.myTableView.header.beginRefreshing()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
@@ -57,11 +62,6 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
         
         //集成下拉刷新
         setupDownRefresh()
-    }
-    
-    //重写父类加载数据
-    override func queryData() {
-        self.myTableView.header.beginRefreshing()
     }
     
     //下拉刷新

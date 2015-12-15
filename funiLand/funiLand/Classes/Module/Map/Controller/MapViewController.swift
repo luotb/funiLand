@@ -70,6 +70,11 @@ class MapViewController: BaseViewController {
     var lastAnnotation: MKAnnotationView!
     
     
+    //重写父类加载数据
+    override func queryData() {
+        self.requestData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadSearchBar()
@@ -98,11 +103,6 @@ class MapViewController: BaseViewController {
         if self.locationManager != nil {
             self.locationManager.stopUpdatingLocation()
         }
-    }
-    
-    //重写父类加载数据
-    override func queryData() {
-        self.requestData()
     }
     
     //状态栏按钮设置
@@ -251,6 +251,7 @@ class MapViewController: BaseViewController {
 //            if marks != nil {
 //                let placemark: CLPlacemark = marks![0]
 //                let pointAnnotation = FuniPointAnnotation()
+                    //定位处理的标注点在天府广场往北
 ////                pointAnnotation.coordinate = (placemark.location?.coordinate)!
 //                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lng - Number_Lat, longitude: CD_Lat - Number_Lng)
 //                self.pointAnnotationArray.append(pointAnnotation)
@@ -344,12 +345,12 @@ extension MapViewController : CLLocationManagerDelegate {
             break;
             
         case CLAuthorizationStatus.Denied :
-//            UIAlertView().alertViewWithTitle("请在设置-隐私-定位服务中开启定位功能!")
+            UIAlertView().alertViewWithTitle("请在设置-隐私-定位服务中开启定位功能!")
             self.defLoadCDMap()
             break
             
         case CLAuthorizationStatus.Restricted :
-//            UIAlertView().alertViewWithTitle("定位服务无法使用!")
+            UIAlertView().alertViewWithTitle("定位服务无法使用!")
             self.defLoadCDMap()
             break
         default:

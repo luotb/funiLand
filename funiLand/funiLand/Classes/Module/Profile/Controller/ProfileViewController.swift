@@ -32,7 +32,7 @@ extension ProfileViewController : UIAlertViewDelegate {
 //            ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
             
             HttpService.sharedInstance.logout({ (msg: String) -> Void in
-                
+                HttpService.sharedInstance.loginUserInfo = nil
                 AccountTool.delAccount()
                 ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
                 

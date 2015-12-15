@@ -25,6 +25,7 @@ class FLUser: Mappable {
         self.loginName = account.loginName
         self.passWord = account.passWord
         self.tal = TERMINALTYPE
+        self.talId = APPSessionManage.getUUIDByKeychain()
     }
     
     required init?(_ map: Map){
