@@ -45,7 +45,8 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         super.viewWillAppear(animated)
         if ((UIApplication.sharedApplication().delegate) as! AppDelegate).isIgnoreNotification == true {
             ((UIApplication.sharedApplication().delegate) as! AppDelegate).resetMessageRead()
-            self.calendarManager.reload()
+            self.calendarManager.setDate(NSDate())
+            self.queryData()
         }
     }
     

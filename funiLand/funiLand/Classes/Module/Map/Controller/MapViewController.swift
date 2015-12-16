@@ -77,6 +77,13 @@ class MapViewController: BaseViewController {
         self.requestData()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        if (self.isShowRim == false || self.isHomeRim == true)  && self.isKeyword != true {
+//            self.myMapView.showsUserLocation = true
+//        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadSearchBar()
@@ -106,6 +113,7 @@ class MapViewController: BaseViewController {
         if self.locationManager != nil {
             self.locationManager.stopUpdatingLocation()
         }
+//        self.myMapView.showsUserLocation = false
     }
     
     //状态栏按钮设置
@@ -425,21 +433,23 @@ extension MapViewController : MKMapViewDelegate {
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
         if let annotation = view.annotation {
-            let pointAnnatotion = annotation as! FuniPointAnnotation
-            if pointAnnatotion.isUserLocation == false {
-                self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
-                
-                let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)
-                
-                if landInfoViewY < 49 {
-                    self.showLandInfo()
+            if annotation is FuniPointAnnotation {
+                let pointAnnatotion = annotation as! FuniPointAnnotation
+                if pointAnnatotion.isUserLocation == false {
+                    self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
+                    
+                    let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)
+                    
+                    if landInfoViewY < 49 {
+                        self.showLandInfo()
+                    }
+                    
+                    if self.lastPointAnnotation != nil {
+                        self.resetAnnotationImg(self.lastPointAnnotation, isSelected: false)
+                    }
+                    self.resetAnnotationImg(pointAnnatotion, isSelected: true)
+                    self.lastPointAnnotation = pointAnnatotion
                 }
-                
-                if self.lastPointAnnotation != nil {
-                    self.resetAnnotationImg(self.lastPointAnnotation, isSelected: false)
-                }
-                self.resetAnnotationImg(pointAnnatotion, isSelected: true)
-                self.lastPointAnnotation = pointAnnatotion
             }
         }
     }

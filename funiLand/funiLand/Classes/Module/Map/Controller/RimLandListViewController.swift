@@ -35,12 +35,14 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
     func initSteup(){
         
         //设置展示表格的数据源和代理
-        myTableView.dataSource = self
-        myTableView.delegate = self
-//        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
+        self.myTableView.separatorInset = UIEdgeInsetsZero
+        
+        
         //空值代理和数据源
-        myTableView.emptyDataSetDelegate = self
-        myTableView.emptyDataSetSource = self
+        self.myTableView.emptyDataSetDelegate = self
+        self.myTableView.emptyDataSetSource = self
         
         //集成下拉刷新
         setupDownRefresh()
