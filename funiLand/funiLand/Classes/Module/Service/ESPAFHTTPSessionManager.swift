@@ -8,8 +8,9 @@
 
 import UIKit
 
-let Code_Success = "FAPP00010"
+let Code_Success  = "FAPP00010"
 let Code_Success2 = "FAPP00000"
+let Code_Success3 = "FAPP00001"
 let Code_SessionTimeOut = "SEC20000"
 
 class ESPAFHTTPSessionManager: AFHTTPSessionManager {
@@ -51,7 +52,6 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
             }) { (task:NSURLSessionDataTask?, error:NSError!) -> Void in
                 taskFailured(error: String_RequestError_Msg_1001)
         }
-        
     }
     
     // 封装顶层返回
@@ -74,28 +74,30 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
         }
         
         
-        if result!.code == Code_Success ||
-            result!.code == Code_Success2 ||
-            result!.code == "FAPP00030 " ||
-            result!.data != nil{
-            successed(responseVO: result!)
-        } else {
-            failured(error: String_RequestError_Msg_1001)
-        }
+//        if result!.code == Code_Success ||
+//            result!.code == Code_Success2 ||
+//            result!.code == "FAPP00030 " ||
+//            result!.data != nil{
+//            successed(responseVO: result!)
+//        } else {
+//            failured(error: String_RequestError_Msg_1001)
+//        }
 
         
-//        if(result!.code == Code_Success){//成功
-//            successed(responseVO: result!);
-//            
-//        }else if(result!.code == Code_SessionTimeOut){//session过期,直接跳回登陆页面
-//                AccountTool.delAccount()
-//            UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
-//        }else{
-//            if let message = result!.remark{
-//                failured(error: message);
-//            } else {
-//                failured(error: String_RequestError_Msg_1001)
-//            }
-//        }
+        if(result!.code == Code_Success ||
+            result!.code == Code_Success2){
+            //成功
+            successed(responseVO: result!);
+            
+        }else if(result!.code == Code_SessionTimeOut){//session过期,直接跳回登陆页面
+                AccountTool.delAccount()
+            UIApplication.sharedApplication().keyWindow!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+        }else{
+            if let message = result!.remark{
+                failured(error: message);
+            } else {
+                failured(error: String_RequestError_Msg_1001)
+            }
+        }
     }
 }

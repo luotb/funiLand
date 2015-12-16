@@ -12,4 +12,8 @@ import MapKit
 class FuniPointAnnotation: MKPointAnnotation {
 
     var rimLandInfoDomain:RimLandInfoDomain?
+    //是否是定位点
+    var isUserLocation: Bool = false
+    //标注点图片
+    var imageView: UIImageView?
 }

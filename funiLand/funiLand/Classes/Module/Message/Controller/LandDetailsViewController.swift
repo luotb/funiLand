@@ -13,6 +13,7 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
     @IBOutlet var myTableView: UITableView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabel: UILabel!
+    @IBOutlet var rimBtn: UIButton!
     //需要加高的cell记录
     var customCellVOArray: Array<LandDetailsCellVO>?
     
@@ -42,7 +43,6 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
-        self.queryData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,6 +62,7 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
         
         //集成下拉刷新
         setupDownRefresh()
+        self.myTableView.header.beginRefreshing()
     }
     
     //下拉刷新
@@ -83,6 +84,13 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
             }
         }
         return 25
+    }
+    
+    //显示周边按钮
+    func showRimBtn() {
+        FuniCommon.asynExecuteCode(0.5, code: { () -> Void in
+            self.rimBtn.alpha = 1.0
+        })
     }
     
     // 画虚线
@@ -186,8 +194,8 @@ extension LandDetailsViewController {
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
         
-        self.landInfoObj.lat = 30.6709490000
-        self.landInfoObj.lng = 104.0984620000
+//        self.landInfoObj.lat = 30.6709490000
+//        self.landInfoObj.lng = 104.0984620000
         if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
             let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
             
@@ -210,15 +218,18 @@ extension LandDetailsViewController {
         HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
             if landInfo != nil {
                 self.landInfoObj = landInfo!
+                self.showRimBtn()
             } else {
                 self.landInfoObj = LandInfoDomain()
             }
             
             self.packageDataSource()
             self.myTableView.reloadData()
+            self.myTableView.header.endRefreshing()
             
             }) { (error: String) -> Void in
                 FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
+                self.myTableView.header.endRefreshing()
         }
     }
     

@@ -15,7 +15,8 @@ let TERMINALTYPE = "IPHONE"
 let baseURLString = "http://magic.drmst.com/field/app/data/"
 let accountBaseURLString = "http://magic.drmst.com/field/app/"
 //let baseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/data/"
-//let accountBaseURLString = "http://192.168.1.224/funi-app-magic/field/app/"
+//let accountBaseURLString = "http://192.168.1.241:8380/funi-app-magic/field/app/"
+//let baseURLString = "http://192.168.1.224/magic/field/app/data/"
 //let accountBaseURLString = "http://192.168.1.224/magic/field/app/"
 let loginURLString = "login.json"
 let logoutURLString = "logout.json"
@@ -85,6 +86,8 @@ class HttpService {
         params["tal"] = TERMINALTYPE
         
         sessionManager.ESP_GET(self.accountBuildUrl(logoutURLString), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
+            
+            self.loginUserInfo = nil
             success(msg: String_LogoutSuccess)
             }) { (error: String) -> Void in
                 faild(error: error)
@@ -95,9 +98,11 @@ class HttpService {
     //获取供应或成交土地数据
     func getSupplyOrBargainList(type:Int, months:String,success:(landArray:Array<LandArrayRespon>?) -> Void,faild: (error:String) -> Void) {
         
-        var params:Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-        params["type"] = type;
-        params["date"] = months;
+        let landListReqVO = LandListReq()
+        landListReqVO.date = months
+        landListReqVO.tal = TERMINALTYPE
+        landListReqVO.fieldType = type
+        let params:Dictionary = Mapper<LandListReq>().toJSON(landListReqVO)
         
         sessionManager.ESP_GET(self.buildUrl(getSupplyOrBargainListURL), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             

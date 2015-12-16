@@ -37,7 +37,7 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
         //设置展示表格的数据源和代理
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+//        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         //空值代理和数据源
         myTableView.emptyDataSetDelegate = self
         myTableView.emptyDataSetSource = self
@@ -64,6 +64,10 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rimLandInfoArray.count;
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 139
     }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)

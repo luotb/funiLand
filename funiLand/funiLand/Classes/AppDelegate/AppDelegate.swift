@@ -14,6 +14,7 @@ let  NOTIFICATION_APPCOMEBACK = "notification_appcomeback"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var tabBarViewController: TabBarViewController?
     var isFirstLoadApp: Bool = false
     //记录当前app加载的vc
     var currentViewContrller: BaseViewController?
@@ -21,7 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var localNotification:[NSObject: AnyObject]?
     //通知里面的objId
     var landId: String?
+    //是否有忽略消息
+    var isIgnoreNotification: Bool = false
 
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
@@ -167,12 +171,9 @@ extension AppDelegate {
             
             if let localNotification = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject: AnyObject] {
                 
-                let time: NSTimeInterval = 0.5
-                let delay = dispatch_time(DISPATCH_TIME_NOW,
-                    Int64(time * Double(NSEC_PER_SEC)))
-                dispatch_after(delay, dispatch_get_main_queue()) {
+                FuniCommon.asynExecuteCode(0.5, code: { () -> Void in
                     self.handleNotification(localNotification)
-                }
+                })
             }
             
             self.localNotification = nil
@@ -244,7 +245,37 @@ extension AppDelegate : UIAlertViewDelegate {
                 UIAlertView().alertViewWithTitle("请先登录!")
             }
             
+        } else {
+            self.ignoreNotificationHandler()
         }
+    }
+    
+    /**
+     忽略通知处理
+     */
+    func ignoreNotificationHandler() {
+        if HttpService.sharedInstance.loginUserInfo != nil {
+            //已经登录
+            if self.currentViewContrller is MessageViewController {
+                //当前页为消息 自动加载 当天数据
+            } else {
+                //当前页非消息 tabbar消息item加载红点 并记录有消息
+                let vc: UIViewController = (self.tabBarViewController?.childViewControllers[0])!
+                vc.tabBarItem.image = UIImage(named: "Newshave_icon_normal")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+                self.isIgnoreNotification = true
+            }
+        } else {
+            //未登录 忽略 不处理
+        }
+    }
+    
+    /**
+     设置消息item为已读
+     */
+    func resetMessageRead() {
+        let vc: UIViewController = (self.tabBarViewController?.childViewControllers[0])!
+        vc.tabBarItem.image = UIImage(named: "News_icon_normal")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.isIgnoreNotification = false
     }
 }
 

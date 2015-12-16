@@ -43,7 +43,7 @@ class MapAnnotationDetailsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
     }
 
     override func didReceiveMemoryWarning() {

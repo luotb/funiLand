@@ -41,6 +41,14 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         self.myTableView.header.beginRefreshing()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if ((UIApplication.sharedApplication().delegate) as! AppDelegate).isIgnoreNotification == true {
+            ((UIApplication.sharedApplication().delegate) as! AppDelegate).resetMessageRead()
+            self.calendarManager.reload()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
@@ -270,7 +278,9 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
         -> UITableViewCell{
             
             let cell = tableView.dequeueReusableCellWithIdentifier("LandTableViewCell", forIndexPath: indexPath) as! LandTableViewCell
-            cell.landDomain = self.landArray[indexPath.row]
+            if self.landArray.count > 0 {
+                cell.landDomain = self.landArray[indexPath.row]
+            }
             return cell;
             
     }
@@ -283,11 +293,13 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.landInfoDomain = self.landArray[indexPath.row]
-        
-        let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
-        landDetailVC.landDomain = self.landInfoDomain
-        self.navigationController?.pushViewController(landDetailVC, animated: true)
+        if self.landArray.count > 0 {
+            self.landInfoDomain = self.landArray[indexPath.row]
+            
+            let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
+            landDetailVC.landDomain = self.landInfoDomain
+            self.navigationController?.pushViewController(landDetailVC, animated: true)
+        }
     }
 }
 
@@ -324,7 +336,7 @@ extension MessageViewController {
     
     //加载数据
     func requestData() {
-        self.reqMonth = "2015-05"
+//        self.reqMonth = "2015-05"
         HttpService.sharedInstance.getSupplyOrBargainList(self.reqType, months: self.reqMonth, success: { (landArray: Array<LandArrayRespon>?) -> Void in
             self.landResponArray = landArray
             self.getSelectedDataLandArray()

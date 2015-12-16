@@ -37,6 +37,10 @@ class AccountTool: NSObject {
     
     // 删除信息
     class func delAccount(){
-        KeychainSwift().delete(keychainKEY)
+//        KeychainSwift().delete(keychainKEY)
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if userDefault.objectForKey(keychainKEY) != nil {
+            userDefault.removeObjectForKey(keychainKEY)
+        }
     }
 }

@@ -29,16 +29,12 @@ extension ProfileViewController : UIAlertViewDelegate {
         
         if buttonIndex == 1 {
             AccountTool.delAccount()
-//            ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
-            
             HttpService.sharedInstance.logout({ (msg: String) -> Void in
-                HttpService.sharedInstance.loginUserInfo = nil
-                AccountTool.delAccount()
+               
                 ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
                 
                 }, faild: { (error: String) -> Void in
-                    FuniHUD.sharedHud().show(self.view, onlyMsg: error)
-                    AccountTool.delAccount()
+                    ((UIApplication.sharedApplication().delegate) as! AppDelegate).window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
             })
         }
     }

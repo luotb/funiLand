@@ -41,6 +41,8 @@ class MapViewController: BaseViewController {
     var landInfoRunning: Bool = false
     // 周边数据源
     var rimLandArray: Array<RimLandInfoDomain>!
+    // 过滤后的周边数据源
+    var filterRimLandArray: Array<RimLandInfoDomain>!
     //所有标注
     var pointAnnotationArray = Array<FuniPointAnnotation>()
     //地图搜索
@@ -67,7 +69,7 @@ class MapViewController: BaseViewController {
     //土地数据类型过滤
     var rimLandTypeVO: RimLandTypeVO?
     //最后一次点击的标注
-    var lastAnnotation: MKAnnotationView!
+    var lastPointAnnotation: FuniPointAnnotation!
     
     
     //重写父类加载数据
@@ -88,6 +90,7 @@ class MapViewController: BaseViewController {
         } else {
             // 搜地
             self.rimInfoReqDomain = RimInfoReqDomain()
+            self.myMapView.showsUserLocation = true
             startLocation()
         }
         //默认选中土地按钮
@@ -139,7 +142,6 @@ class MapViewController: BaseViewController {
         
         self.myMapView.delegate = self
         self.myMapView.mapType = MKMapType.Standard
-        self.myMapView.showsUserLocation = true
         
         self.searchConditionView.setBorderWithWidth(0, color: UIColor.whiteColor(), radian: 5)
         self.searchConditionContentView = self.storyboard?.instantiateViewControllerWithIdentifier("MapSearchConditionTableViewController") as! MapSearchConditionTableViewController
@@ -154,7 +156,9 @@ class MapViewController: BaseViewController {
         self.searchConditionContentView.mapDataFilterClosure = {
             (rimLandTypeVO: RimLandTypeVO) -> Void in
             self.rimLandTypeVO = rimLandTypeVO
+            self.searchConditionBtnClicked(self.searchBtn)
             self.packagePointAnnatotion()
+            self.appendUserLocation()
             self.myMapView.addAnnotations(self.pointAnnotationArray)
         }
     }
@@ -210,10 +214,9 @@ class MapViewController: BaseViewController {
         
         if self.pointAnnotationArray.count > 0 {
             
-            let pointAnnatotion: FuniPointAnnotation = self.pointAnnotationArray[0]
-            
             if self.isKeyword == true {
                 //关键词搜索 结果第一条数据为中心点
+                let pointAnnatotion: FuniPointAnnotation = self.pointAnnotationArray[0]
                 self.mapCenterCoordinate = pointAnnatotion.coordinate
             } else if self.isShowRim == true {
                 //周边为中心点
@@ -223,13 +226,9 @@ class MapViewController: BaseViewController {
                 self.mapCenterCoordinate = self.centerCoordinate
             }
             
-            let time: NSTimeInterval = 2.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-            
-            dispatch_after(delay, dispatch_get_main_queue()) {
-                
+            FuniCommon.asynExecuteCode(0.5, code: { () -> Void in
                 self.myMapView.setCenterCoordinate(self.mapCenterCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
-            }
+            })
         }
     }
     
@@ -244,21 +243,6 @@ class MapViewController: BaseViewController {
     
     //默认定位到成都
     func defLoadCDMap() {
-//        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString("成都市") {
-//            (marks: [CLPlacemark]?, error: NSError?) -> Void in
-//            
-//            if marks != nil {
-//                let placemark: CLPlacemark = marks![0]
-//                let pointAnnotation = FuniPointAnnotation()
-                    //定位处理的标注点在天府广场往北
-////                pointAnnotation.coordinate = (placemark.location?.coordinate)!
-//                pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lng - Number_Lat, longitude: CD_Lat - Number_Lng)
-//                self.pointAnnotationArray.append(pointAnnotation)
-//                self.myMapView.addAnnotations(self.pointAnnotationArray)
-//                self.myMapView.setCenterCoordinate(pointAnnotation.coordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
-//            }
-//        }
         let pointAnnotation = FuniPointAnnotation()
         pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: CD_Lat - Number_Lat, longitude: CD_Lng - Number_Lng)
         self.pointAnnotationArray.append(pointAnnotation)
@@ -304,19 +288,16 @@ class MapViewController: BaseViewController {
     }
     
     //重置标注图标
-    func resetAnnotationImg(view: MKAnnotationView, isSelected: Bool) {
+    func resetAnnotationImg(pointAnnotation: FuniPointAnnotation, isSelected: Bool) {
         
-        if let annotation = view.annotation {
-            let pointAnnatotion = annotation as! FuniPointAnnotation
-            let imageView = view.viewWithTag(10) as! UIImageView
+        if let annotationImageView = pointAnnotation.imageView {
+            var imgName = isSelected == true ? "xuanzhong" : "other_normal"
             
-            var imgName = isSelected == true ? "other_click" : "other_normal"
-            
-            if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
+            if pointAnnotation.rimLandInfoDomain?.dataType == 1 {
                 //土地
-                imgName = isSelected == true ? "Local_click" : "Local_normal"
+                imgName = isSelected == true ? "xuanzhong" : "Local_normal"
             }
-            imageView.image = UIImage(named: imgName)
+            annotationImageView.image = UIImage(named: imgName)
         }
     }
 }
@@ -379,8 +360,9 @@ extension MapViewController : MKMapViewDelegate {
         
         if self.isUserLocationSuccess == false {
             self.queryData()
+            self.locationManager = nil
+//            self.myMapView.showsUserLocation = false
         }
-        self.locationManager = nil
         self.isUserLocationSuccess = true
     }
     
@@ -404,10 +386,8 @@ extension MapViewController : MKMapViewDelegate {
         let reuseId = "pin"
         
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
-//        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-//            pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = false
             pinView!.animatesDrop = false
             pinView!.pinColor = .Purple
@@ -423,6 +403,8 @@ extension MapViewController : MKMapViewDelegate {
                 //土地
                 imgName = "Local_normal"
             }
+        } else if pointAnnatotion.isUserLocation == true {
+            imgName = "Fixed"
         } else {
             imgName = "Local_normal"
         }
@@ -432,7 +414,9 @@ extension MapViewController : MKMapViewDelegate {
         imageView.y = imageView.y + 32
 //            imageView.x = imageView.x + 30
         imageView.tag = 10
+        
         pinView?.addSubview(imageView)
+        pointAnnatotion.imageView = imageView
         
         return pinView
     }
@@ -442,25 +426,21 @@ extension MapViewController : MKMapViewDelegate {
         
         if let annotation = view.annotation {
             let pointAnnatotion = annotation as! FuniPointAnnotation
-            self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
-            if self.landInfoRunning == false {
-                self.showLandInfo()
+            if pointAnnatotion.isUserLocation == false {
+                self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
+                
+                let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)
+                
+                if landInfoViewY < 49 {
+                    self.showLandInfo()
+                }
+                
+                if self.lastPointAnnotation != nil {
+                    self.resetAnnotationImg(self.lastPointAnnotation, isSelected: false)
+                }
+                self.resetAnnotationImg(pointAnnatotion, isSelected: true)
+                self.lastPointAnnotation = pointAnnatotion
             }
-            
-            let imageView = view.viewWithTag(10) as! UIImageView
-            
-            var imgName = "other_click"
-            
-            if pointAnnatotion.rimLandInfoDomain?.dataType == 1 {
-                //土地
-                imgName = "Local_click"
-            }
-            imageView.image = UIImage(named: imgName)
-//            if self.lastAnnotation != nil {
-//                self.resetAnnotationImg(self.lastAnnotation, isSelected: false)
-//            }
-//            self.resetAnnotationImg(view, isSelected: true)
-            self.lastAnnotation = view
         }
     }
     
@@ -470,7 +450,10 @@ extension MapViewController : MKMapViewDelegate {
             self.searchConditionBtnClicked(self.searchBtn)
         }
         
-        if self.landInfoRunning {
+        let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)
+        
+        if landInfoViewY >= 49 {
+//        if self.landInfoRunning {
             self.showLandInfo()
         }
     }
@@ -481,10 +464,14 @@ extension MapViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
-        self.isKeyword = true
-        self.rimInfoReqDomain.keyword = searchBar.text
-        self.rimInfoReqDomain.keyword = "东城"
-        self.queryData()
+        if let searchKeyword = searchBar.text {
+            self.isKeyword = true
+            self.rimInfoReqDomain.keyword = searchKeyword
+            self.queryData()
+        } else {
+            FuniHUD.sharedHud().show(self.view, onlyMsg: "请输入关键词!")
+        }
+        
     }
     
 }
@@ -494,11 +481,15 @@ extension MapViewController {
     
     // 定位按钮点击
     @IBAction func userLocationBtnClicked(sender: AnyObject) {
+        self.isKeyword = false
         if self.centerCoordinate == nil {
+            self.isUserLocationSuccess = false
             self.startLocation()
+            self.myMapView.showsUserLocation = true
         } else {
             //用户位置为地图中心点
             self.myMapView.setCenterCoordinate(self.centerCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
+            self.queryData()
         }
     }
     
@@ -512,6 +503,7 @@ extension MapViewController {
         
         if self.searchConditionView.width <= 5 {
             animation.toValue =  NSValue(CGSize: CGSizeMake(300, 340))
+            self.searchConditionContentView.view.size = CGSizeMake(300, 300)
             self.timerRunning = true
         }
         else {
@@ -536,11 +528,7 @@ extension MapViewController {
         _POPAnimation.addAnimation(animation, key: animation.property.name, obj: self.searchConditionView.layer)
         _POPAnimation.addAnimation(animation2, key: animation2.property.name, obj: self.searchConditionView.layer)
         
-        let time: NSTimeInterval = 0.5
-        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-        
-        dispatch_after(delay, dispatch_get_main_queue()) {
-            
+        FuniCommon.asynExecuteCode(0.5) { () -> Void in
             if self.timerRunning == false {
                 self.closeSearchConditionViewHandler()
             }
@@ -552,9 +540,11 @@ extension MapViewController {
         
         let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("RimLandListViewController") as! RimLandListViewController
         rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
-        rimLandListVC.rimLandInfoArray = self.rimLandArray
+        rimLandListVC.rimLandInfoArray = self.filterRimLandArray
         self.navigationController?.pushViewController(rimLandListVC, animated: true)
-        
+//        let vc: UIViewController = (((UIApplication.sharedApplication().delegate) as! AppDelegate).tabBarViewController?.childViewControllers[0])!
+//        vc.tabBarItem.image = UIImage(named: "Newshave_icon_normal")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+//        ((UIApplication.sharedApplication().delegate) as! AppDelegate).isIgnoreNotification = true
     }
     
     // 土地类型按钮点击
@@ -562,6 +552,7 @@ extension MapViewController {
         
         self.showRimLandType = sender.tag
         self.packagePointAnnatotion()
+        self.appendUserLocation()
         self.myMapView.addAnnotations(self.pointAnnotationArray)
         self.keywordSearchDefFirstDataCenter()
         
@@ -581,20 +572,20 @@ extension MapViewController {
     
     //请求数据
     func requestData() {
+        self.rimInfoReqDomain.keyword = self.searchBar.text
         FuniHUD.sharedHud().show(self.view)
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             
             self.rimLandArray = rimInfoArray
-            
-//            self.testDataSourceTypeCount(rimInfoArray)
-            
             self.packagePointAnnatotion()
+            self.appendUserLocation()
             self.myMapView.addAnnotations(self.pointAnnotationArray)
             self.keywordSearchDefFirstDataCenter()
             self.navBarItemSetting()
             FuniHUD.sharedHud().hide(self.view)
             
             }) { (error:String) -> Void in
+                self.appendUserLocation()
                 FuniHUD.sharedHud().show(self.view, onlyMsg: error)
         }
     }
@@ -642,6 +633,8 @@ extension MapViewController {
             tempRimArray.appendContentsOf(rimArray)
         }
         
+        self.filterRimLandArray = tempRimArray
+        
         for rimInfoDomain: RimLandInfoDomain in tempRimArray {
             
             let pointAnnatotion = FuniPointAnnotation()
@@ -663,6 +656,17 @@ extension MapViewController {
         }
         
         return Array<RimLandInfoDomain>()
+    }
+    
+    //追加定位坐标
+    func appendUserLocation() {
+//        if (self.isHomeRim == true || self.isShowRim == false) && self.centerCoordinate != nil
+//        {
+//            let pointAnnatotion = FuniPointAnnotation()
+//            pointAnnatotion.coordinate = CLLocationCoordinate2DMake(self.centerCoordinate.latitude - Number_Lat, self.centerCoordinate.longitude - Number_Lng)
+//            pointAnnatotion.isUserLocation = true
+//            self.pointAnnotationArray.append(pointAnnatotion)
+//        }
     }
     
     
