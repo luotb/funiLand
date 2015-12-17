@@ -81,7 +81,6 @@ extension AppDelegate {
     //app刚刚处于活动状态
     func appBecomeActive()
     {
-        var isLogin = true
         if let date: NSDate = APPSessionManage.getOutAppDate() {
             let second = NSDate().timeIntervalSinceDate(date)
 //            print(second)
@@ -90,14 +89,11 @@ extension AppDelegate {
             //转换分钟数
             let minute = second / 60
             if minute >= 10 && minute <= 25 {
-                isLogin = false
+                self.currentViewContrller!.queryData()
             }
-        }
-        
-        if isLogin == true {
-            self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
-        } else {
-            self.currentViewContrller!.queryData()
+            if minute > 25 && HttpService.sharedInstance.loginUserInfo != nil {
+                self.window!.rootViewController = Helper.getViewControllerFromStoryboard("Login", storyboardID: "LoginNavigationController") as! NavigationController
+            }
         }
     }
 }
