@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var landId: String?
     //是否有忽略消息
     var isIgnoreNotification: Bool = false
+    var landDetailNavController: UINavigationController!
 
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -60,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
     }
-
+    
 }
 
 // MARK: app session 相关
@@ -116,7 +117,13 @@ extension AppDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        self.handleNotification(userInfo)
+        
+        print("11__\(application.applicationState)   \n 222_\(UIApplication.sharedApplication().applicationState)")
+        if application.applicationState == UIApplicationState.Background {
+            self.showMessageVC()
+        } else {
+            self.handleNotification(userInfo)
+        }
     }
     
     //注册友盟的消息推送
@@ -229,23 +236,38 @@ extension AppDelegate {
 }
 
 // MARK UIAlertViewDelegate
-extension AppDelegate : UIAlertViewDelegate {
+extension AppDelegate : UIAlertViewDelegate  {
+    
+    func showMessageVC() {
+        if HttpService.sharedInstance.loginUserInfo != nil {
+            let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
+            let landInfoDomain = LandDomain()
+            landInfoDomain.id = self.landId
+            landDetailVC.landDomain = landInfoDomain
+            landDetailVC.isShowRim  = true
+            
+            self.landDetailNavController = NavigationController(rootViewController: landDetailVC)
+            self.landDetailNavController.navigationBar.barTintColor = UIColor.navBarBgColor()
+            landDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
+            self.tabBarViewController?.presentViewController(self.landDetailNavController, animated: true, completion: { () -> Void in
+                
+            })
+        } else {
+            UIAlertView().alertViewWithTitle("请先登录!")
+        }
+    }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == 1 {
-            if HttpService.sharedInstance.loginUserInfo != nil {
-                let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
-                let landInfoDomain = LandDomain()
-                landInfoDomain.id = self.landId
-                landDetailVC.landDomain = landInfoDomain
-                landDetailVC.isShowRim  = true
-                self.currentViewContrller?.navigationController!.pushViewController(landDetailVC, animated: true)
-            } else {
-                UIAlertView().alertViewWithTitle("请先登录!")
-            }
-            
+            self.showMessageVC()
         } else {
             self.ignoreNotificationHandler()
+        }
+    }
+    
+    func back() {
+        self.tabBarViewController?.dismissViewControllerAnimated(true) { () -> Void in
+            
         }
     }
     

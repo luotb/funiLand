@@ -26,7 +26,7 @@
                   moduleName = "funiLand"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
-                  timestampString = "471970261.133712"
+                  timestampString = "472049937.025387"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "39"
@@ -41,7 +41,7 @@
                   moduleName = "funiLand"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
-                  timestampString = "471970261.134078"
+                  timestampString = "472049937.02563"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "39"
@@ -56,7 +56,7 @@
                   moduleName = "funiLand"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Rock_Mac/Documents/workspace/land_git/funiLand/funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
-                  timestampString = "471970261.134328"
+                  timestampString = "472049937.025923"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "40"
@@ -89,13 +89,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "funiLand/Classes/AppDelegate/AppDelegate.swift"
-            timestampString = "471791571.028545"
+            timestampString = "472049936.945322"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "application(_:didReceiveRemoteNotification:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

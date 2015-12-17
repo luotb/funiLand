@@ -90,6 +90,7 @@ class HttpService {
             self.loginUserInfo = nil
             success(msg: String_LogoutSuccess)
             }) { (error: String) -> Void in
+                self.loginUserInfo = nil
                 faild(error: error)
         }
 

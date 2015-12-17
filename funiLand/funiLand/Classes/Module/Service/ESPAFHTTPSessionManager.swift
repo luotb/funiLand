@@ -73,19 +73,9 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
             result!.remark = String_RequestError_Msg_1001
         }
         
-        
-//        if result!.code == Code_Success ||
-//            result!.code == Code_Success2 ||
-//            result!.code == "FAPP00030 " ||
-//            result!.data != nil{
-//            successed(responseVO: result!)
-//        } else {
-//            failured(error: String_RequestError_Msg_1001)
-//        }
-
-        
         if(result!.code == Code_Success ||
-            result!.code == Code_Success2){
+            result!.code == Code_Success2 ||
+            result!.code == Code_Success3){
             //成功
             successed(responseVO: result!);
             
