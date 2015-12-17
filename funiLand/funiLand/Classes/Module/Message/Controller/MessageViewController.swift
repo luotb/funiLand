@@ -318,6 +318,7 @@ extension MessageViewController {
     @IBAction func rimLandBtnClicked(sender: UIBarButtonItem) {
         let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
         mapVC.isHomeRim = true
+        mapVC.showRimLandType = 1
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
     

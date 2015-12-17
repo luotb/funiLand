@@ -59,7 +59,7 @@ class MapViewController: BaseViewController {
     // 项目类型按钮
     @IBOutlet var landType_ProBtn: UIButton!
     // 查看周边数据类型  1=土地, 2=项目
-    var showRimLandType: Int = 1
+    var showRimLandType: Int = 0
     // 是否是关键词搜索
     var isKeyword: Bool = false
     // 是否是查看周边
@@ -79,9 +79,6 @@ class MapViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        if (self.isShowRim == false || self.isHomeRim == true)  && self.isKeyword != true {
-//            self.myMapView.showsUserLocation = true
-//        }
     }
     
     override func viewDidLoad() {
@@ -91,17 +88,10 @@ class MapViewController: BaseViewController {
         self.loadAnnoatationLandDetailsView()
 
         if self.isShowRim == true {
-            // 查看周边
-            self.userLocationBtn.hidden = true
-            self.queryData()
+            self.showRimLandModel()
         } else {
-            // 搜地
-            self.rimInfoReqDomain = RimInfoReqDomain()
-            self.myMapView.showsUserLocation = true
-            startLocation()
+            self.showSearchLandModel()
         }
-        //默认选中土地按钮
-        self.landType_LandBtn.selected = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -188,6 +178,7 @@ class MapViewController: BaseViewController {
                 tempRimInfoReqDomain.lat = rimLandInfo.lat! + Number_Lat
                 tempRimInfoReqDomain.lng = rimLandInfo.lng! + Number_Lng
             }
+            mapVC.showRimLandType = rimLandInfo.dataType!
             mapVC.rimInfoReqDomain = tempRimInfoReqDomain
             mapVC.isShowRim = true
             self.navigationController?.pushViewController(mapVC, animated: true)
@@ -318,6 +309,34 @@ class MapViewController: BaseViewController {
         self.rimInfoReqDomain.lat = self.centerCoordinate.latitude + Number_Lat
         self.rimInfoReqDomain.lng = self.centerCoordinate.longitude + Number_Lng
         self.queryData()
+    }
+    
+    //查看周边
+    func showRimLandModel() {
+        // 查看周边
+        self.userLocationBtn.hidden = true
+        self.setLandDataTypeBtnSelectedStatus()
+        self.queryData()
+    }
+    
+    //搜地模式
+    func showSearchLandModel() {
+        // 搜地
+        self.rimInfoReqDomain = RimInfoReqDomain()
+        if self.isHomeRim == true {
+            self.setLandDataTypeBtnSelectedStatus()
+        }
+        self.myMapView.showsUserLocation = true
+        startLocation()
+    }
+    
+    //设置数据类型按钮选中状态
+    func setLandDataTypeBtnSelectedStatus() {
+        if self.showRimLandType == 1 {
+            self.landType_LandBtn.selected = true
+        } else {
+            self.landType_ProBtn.selected = true
+        }
     }
 }
 
@@ -563,19 +582,12 @@ extension MapViewController {
         rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
         rimLandListVC.rimLandInfoArray = self.filterRimLandArray
         self.navigationController?.pushViewController(rimLandListVC, animated: true)
-//        let vc: UIViewController = (((UIApplication.sharedApplication().delegate) as! AppDelegate).tabBarViewController?.childViewControllers[0])!
-//        vc.tabBarItem.image = UIImage(named: "Newshave_icon_normal")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-//        ((UIApplication.sharedApplication().delegate) as! AppDelegate).isIgnoreNotification = true
     }
     
     // 土地类型按钮点击
     @IBAction func landTypeBtnClicked(sender: UIButton) {
         
         self.showRimLandType = sender.tag
-        self.packagePointAnnatotion()
-        self.appendUserLocation()
-        self.myMapView.addAnnotations(self.pointAnnotationArray)
-        self.keywordSearchDefFirstDataCenter()
         
         if self.showRimLandType == 1 {
             self.landType_LandBtn.selected = true
@@ -584,6 +596,10 @@ extension MapViewController {
             self.landType_LandBtn.selected = false
             self.landType_ProBtn.selected = true
         }
+        self.packagePointAnnatotion()
+        self.appendUserLocation()
+        self.myMapView.addAnnotations(self.pointAnnotationArray)
+        self.keywordSearchDefFirstDataCenter()
     }
     
 }
@@ -621,22 +637,28 @@ extension MapViewController {
             
             var tempRimArray: Array<RimLandInfoDomain> = Array<RimLandInfoDomain>()
             
-            for rimInfoDomain: RimLandInfoDomain in rimArray {
-                
-                if rimInfoDomain.lat > 0 &&
-                    rimInfoDomain.lng > 0 &&
-                    rimInfoDomain.dataType == self.showRimLandType {
-                        
-                        tempRimArray.append(rimInfoDomain)
-                }
-            }
+            tempRimArray.appendContentsOf(rimArray.filter({ (tempRimLandInfoDomain: RimLandInfoDomain) -> Bool in
+                return tempRimLandInfoDomain.lng > 0 &&  tempRimLandInfoDomain.lng > 0
+            }))
             
-            self.rimLandInfoDataFilter(tempRimArray)
+            self.rimLandInfoDataSecondFilter(tempRimArray)
         }
     }
     
-    //数据二次过滤
-    func rimLandInfoDataFilter(rimArray: Array<RimLandInfoDomain>) {
+    //数据釞第二次过滤
+    func rimLandInfoDataSecondFilter(rimArray: Array<RimLandInfoDomain>) {
+        var dataSource = rimArray
+        if self.showRimLandType != 0 {
+            dataSource = rimArray.filter({ (tempRimLandInfoDomain: RimLandInfoDomain) -> Bool in
+                return tempRimLandInfoDomain.dataType == self.showRimLandType
+            })
+        }
+        
+        self.rimLandInfoDataThreeFilter(dataSource)
+    }
+    
+    //数据三次过滤
+    func rimLandInfoDataThreeFilter(rimArray: Array<RimLandInfoDomain>) {
         
         var tempRimArray: Array<RimLandInfoDomain> = Array<RimLandInfoDomain>()
         

@@ -204,6 +204,7 @@ extension LandDetailsViewController {
             let rimInfoReqDomain   = RimInfoReqDomain()
             rimInfoReqDomain.lat   = self.landInfoObj.lat!
             rimInfoReqDomain.lng   = self.landInfoObj.lng!
+            mapVC.showRimLandType  = 1
             mapVC.rimInfoReqDomain = rimInfoReqDomain
             mapVC.isShowRim        = true
             self.navigationController?.pushViewController(mapVC, animated: true)

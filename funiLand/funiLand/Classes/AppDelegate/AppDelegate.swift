@@ -194,8 +194,10 @@ extension AppDelegate {
         if notification != nil {
             if let param = notification!["param"] {
                 self.landId = param["objId"] as? String
-                let alertView = UIAlertView(title: "提示", message: String(param["title"]), delegate: self, cancelButtonTitle: "忽略", otherButtonTitles: "查看")
-                alertView.show()
+                if let title = param["title"] {
+                    let alertView = UIAlertView(title: "提示", message: title as! String, delegate: self, cancelButtonTitle: "忽略", otherButtonTitles: "查看")
+                    alertView.show()
+                }
             }
             
         }
@@ -236,6 +238,7 @@ extension AppDelegate : UIAlertViewDelegate {
                 let landInfoDomain = LandDomain()
                 landInfoDomain.id = self.landId
                 landDetailVC.landDomain = landInfoDomain
+                landDetailVC.isShowRim  = true
                 self.currentViewContrller?.navigationController!.pushViewController(landDetailVC, animated: true)
             } else {
                 UIAlertView().alertViewWithTitle("请先登录!")
