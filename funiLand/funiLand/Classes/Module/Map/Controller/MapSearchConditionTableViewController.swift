@@ -66,14 +66,14 @@ extension MapSearchConditionTableViewController {
         if sender.tag == 10 {
             // 卫星
             self.mapType2DBtn.selected = false
-            self.mapTypeMoonBtn.setBorderWithWidth(2, color: UIColor.colorFromHexString("#00A2FF"), radian: 5)
-            self.mapType2DBtn.setBorderWithWidth(1, color: UIColor.colorFromHexString("#858585"), radian: 5)
+            self.mapTypeMoonBtn.setBorderWithWidth(2, color: UIColor.borderColor1(), radian: 5)
+            self.mapType2DBtn.setBorderWithWidth(1, color: UIColor.borderColor2(), radian: 5)
             self.mapTypeCallBack(MKMapType.Satellite)
         } else {
             // 2D
             self.mapTypeMoonBtn.selected = false
-            self.mapTypeMoonBtn.setBorderWithWidth(1, color: UIColor.colorFromHexString("#858585"), radian: 5)
-            self.mapType2DBtn.setBorderWithWidth(2, color: UIColor.colorFromHexString("#00A2FF"), radian: 5)
+            self.mapTypeMoonBtn.setBorderWithWidth(1, color: UIColor.borderColor2(), radian: 5)
+            self.mapType2DBtn.setBorderWithWidth(2, color: UIColor.borderColor1(), radian: 5)
             self.mapTypeCallBack(MKMapType.Standard)
         }
         

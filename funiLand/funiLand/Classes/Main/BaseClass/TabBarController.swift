@@ -37,10 +37,10 @@ class TabBarViewController: UITabBarController {
         //.自定义工具栏
         self.tabBar.backgroundColor = UIColor.clearColor()
         //底部工具栏背景颜色
-        self.tabBar.barTintColor = UIColor.colorFromHexString("#227CFE")
+        self.tabBar.barTintColor = UIColor.navBarBgColor()
         //.设置底部工具栏文字颜色（默认状态和选中状态）
         UITabBarItem.appearance().setTitleTextAttributes(NSDictionary(object:UIColor.whiteColor(), forKey:NSForegroundColorAttributeName) as? [String : AnyObject], forState:UIControlState.Normal);
-        UITabBarItem.appearance().setTitleTextAttributes(NSDictionary(object:UIColor.colorFromHexString("#FFF000"), forKey:NSForegroundColorAttributeName) as? [String : AnyObject], forState:UIControlState.Selected)
+        UITabBarItem.appearance().setTitleTextAttributes(NSDictionary(object:UIColor.didSelectedTabBarTitleColor(), forKey:NSForegroundColorAttributeName) as? [String : AnyObject], forState:UIControlState.Selected)
     }
     
     private func addChildViewController(childController: UIViewController, title: String, imageName: String, selectedImageName: String, navController: UINavigationController) {

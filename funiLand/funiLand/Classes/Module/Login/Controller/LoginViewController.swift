@@ -63,8 +63,8 @@ extension LoginViewController {
         
         let account = Account();
         account.loginName = loginName
-        account.passWord = pwd
-        account.passWord = account.passWord?.md5
+        account.passWord  = pwd
+        account.passWord  = account.passWord?.md5
         self.loginRequest(account)
     }
 }

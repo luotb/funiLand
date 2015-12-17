@@ -14,7 +14,7 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
 
         //设置导航栏背景色
-        self.navigationBar.barTintColor = UIColor.colorFromHexString("#227CFE")
+        self.navigationBar.barTintColor = UIColor.navBarBgColor()
     }
 
     override func didReceiveMemoryWarning() {

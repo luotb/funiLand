@@ -18,12 +18,12 @@ class LandInfoTableViewCell: BaseCell {
     
     var fieldDomain:FieldDomain = FieldDomain(){
         willSet{
-            self.keyLabel.text = newValue.name
-            self.valueLabel.text = newValue.value
+            self.keyLabel.text   = String.excludeEmpty(newValue.name)
+            self.valueLabel.text = String.excludeEmpty(newValue.value)
             if newValue.height > 25 {
-                self.valueLabel.height = newValue.height!
+                self.valueLabel.height        = newValue.height!
                 self.valueLabel.numberOfLines = 0
-                self.isSettingTop = true
+                self.isSettingTop             = true
                 self.valueLabelTopConstraint.constant = 0
             }
         }

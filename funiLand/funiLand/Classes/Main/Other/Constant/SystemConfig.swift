@@ -26,6 +26,7 @@ let String_LoginSuccess                            = "登录成功!"
 let String_LogoutSuccess                            = "登出成功!"
 let Number_Lat        =        0.006471
 let Number_Lng        =        0.005992
-let CD_Lat             = 30.663558
+let CD_Lat            = 30.663558
 let CD_Lng            = 104.072254
+
 

@@ -16,6 +16,8 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
     @IBOutlet var rimBtn: UIButton!
     //需要加高的cell记录
     var customCellVOArray: Array<LandDetailsCellVO>?
+    //是否显示周边按钮 从地图列表数据釞土地详情不续约显示周边按钮
+    var isShowRim: Bool = false
     
     var landDomain: LandDomain!
     
@@ -88,9 +90,11 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
     
     //显示周边按钮
     func showRimBtn() {
-        FuniCommon.asynExecuteCode(0.5, code: { () -> Void in
-            self.rimBtn.alpha = 1.0
-        })
+        if self.isShowRim == true {
+            FuniCommon.asynExecuteCode(0.2, code: { () -> Void in
+                self.rimBtn.alpha = 1.0
+            })
+        }
     }
     
     // 画虚线
@@ -147,7 +151,7 @@ extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate
             view.addSubview(dashedLineView)
             
             let label = UILabel(frame: CGRectMake(20, 13, APPWIDTH-40, 16))
-            label.textColor = UIColor.colorFromHexString("#ED6715")
+            label.textColor = UIColor.textColor3()
             label.text = self.landInfoObj.fieldList![section].group
             view.addSubview(label)
             
@@ -194,16 +198,14 @@ extension LandDetailsViewController {
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
         
-//        self.landInfoObj.lat = 30.6709490000
-//        self.landInfoObj.lng = 104.0984620000
         if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
             let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
             
-            let rimInfoReqDomain = RimInfoReqDomain()
-            rimInfoReqDomain.lat = self.landInfoObj.lat
-            rimInfoReqDomain.lng = self.landInfoObj.lng
+            let rimInfoReqDomain   = RimInfoReqDomain()
+            rimInfoReqDomain.lat   = self.landInfoObj.lat!
+            rimInfoReqDomain.lng   = self.landInfoObj.lng!
             mapVC.rimInfoReqDomain = rimInfoReqDomain
-            mapVC.isShowRim = true
+            mapVC.isShowRim        = true
             self.navigationController?.pushViewController(mapVC, animated: true)
         }
     }

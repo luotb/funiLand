@@ -35,14 +35,13 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
     func initSteup(){
         
         //设置展示表格的数据源和代理
-        self.myTableView.dataSource = self
-        self.myTableView.delegate = self
+        self.myTableView.dataSource     = self
+        self.myTableView.delegate       = self
         self.myTableView.separatorInset = UIEdgeInsetsZero
-        
         
         //空值代理和数据源
         self.myTableView.emptyDataSetDelegate = self
-        self.myTableView.emptyDataSetSource = self
+        self.myTableView.emptyDataSetSource   = self
         
         //集成下拉刷新
         setupDownRefresh()
@@ -76,7 +75,9 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
         -> UITableViewCell{
             
             let cell = tableView.dequeueReusableCellWithIdentifier("RimLandListTableViewCell", forIndexPath: indexPath) as! RimLandListTableViewCell
-            cell.rimLandDomain = self.rimLandInfoArray[indexPath.row]
+            if self.rimLandInfoArray.count > 0 {
+                cell.rimLandDomain = self.rimLandInfoArray[indexPath.row]
+            }
             return cell;
             
     }
@@ -89,6 +90,14 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.rimLandInfoArray.count > 0 {
+            let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
+            let rimLandDomain = self.rimLandInfoArray[indexPath.row]
+            let landDomain    = LandDomain()
+            landDomain.id     = rimLandDomain.id
+            landDetailVC.landDomain = landDomain
+            self.navigationController?.pushViewController(landDetailVC, animated: true)
+        }
     }
     
 }
@@ -102,9 +111,10 @@ extension RimLandListViewController {
             
             self.rimLandInfoArray = rimInfoArray
             self.myTableView.reloadData()
-            
+            self.myTableView.header.endRefreshing()
             }) { (error:String) -> Void in
                 FuniHUD.sharedHud().show(self.view, onlyMsg: error)
+                self.myTableView.header.endRefreshing()
         }
     }
 }

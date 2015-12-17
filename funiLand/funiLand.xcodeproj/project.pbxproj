@@ -140,7 +140,6 @@
 		F458E6011C1142200097AFB0 /* KeychainSwiftAccessOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E5FD1C1142200097AFB0 /* KeychainSwiftAccessOptions.swift */; };
 		F458E6021C1142200097AFB0 /* TegKeychainConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E5FE1C1142200097AFB0 /* TegKeychainConstants.swift */; };
 		F458E6041C1166920097AFB0 /* keychain-access-groups.plist in Resources */ = {isa = PBXBuildFile; fileRef = F458E6031C1166920097AFB0 /* keychain-access-groups.plist */; };
-		F458E6061C117DE40097AFB0 /* FuniMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */; };
 		F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */; };
 		F462BA661C21210200FD810D /* LandListReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = F462BA651C21210200FD810D /* LandListReq.swift */; };
 		F46776FE1AFC80DE002996B6 /* DashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46776FD1AFC80DE002996B6 /* DashedLineView.swift */; };
@@ -395,7 +394,6 @@
 		F458E5FD1C1142200097AFB0 /* KeychainSwiftAccessOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftAccessOptions.swift; sourceTree = "<group>"; };
 		F458E5FE1C1142200097AFB0 /* TegKeychainConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TegKeychainConstants.swift; sourceTree = "<group>"; };
 		F458E6031C1166920097AFB0 /* keychain-access-groups.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "keychain-access-groups.plist"; sourceTree = "<group>"; };
-		F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniMapAnnotationView.swift; sourceTree = "<group>"; };
 		F458E6071C11866D0097AFB0 /* FuniPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniPointAnnotation.swift; sourceTree = "<group>"; };
 		F462BA651C21210200FD810D /* LandListReq.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandListReq.swift; sourceTree = "<group>"; };
 		F46776FD1AFC80DE002996B6 /* DashedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashedLineView.swift; sourceTree = "<group>"; };
@@ -1091,7 +1089,6 @@
 			isa = PBXGroup;
 			children = (
 				F419E9181C0304C7006A5815 /* Map.storyboard */,
-				F458E6051C117DE40097AFB0 /* FuniMapAnnotationView.swift */,
 				F49171D81AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift */,
 			);
 			path = View;
@@ -1513,7 +1510,6 @@
 				24C49EEF1C0734190065D9B6 /* UIView+MJExtension.m in Sources */,
 				F419E8E41C02FB09006A5815 /* AFSecurityPolicy.m in Sources */,
 				F45700A61C02CAB9005FEB26 /* AFAppDotNetAPIClient.m in Sources */,
-				F458E6061C117DE40097AFB0 /* FuniMapAnnotationView.swift in Sources */,
 				F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */,
 				F419E94F1C030B9B006A5815 /* IQUIWindow+Hierarchy.m in Sources */,
 				F43424E41C05806900E78F39 /* BaseDomain.swift in Sources */,

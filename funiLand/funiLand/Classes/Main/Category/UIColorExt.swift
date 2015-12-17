@@ -35,7 +35,7 @@ extension UIColor {
     }
 
     // 根据土地类型返回对应颜色
-    static func getLandTypeColor(type: String?) -> UIColor {
+    static func landTypeColor(type: String?) -> UIColor {
         var str = Color_Def
         if type != nil {
             switch type! {
@@ -47,5 +47,64 @@ extension UIColor {
         }
         
         return UIColor.colorFromHexString(str)
+    }
+    
+    /**
+     导航栏背景颜色
+     
+     - returns: <#return value description#>
+     */
+    static func navBarBgColor() -> UIColor {
+        return UIColor.colorFromHexString("#227CFE")
+    }
+    
+    /**
+     tabbar选中 字体颜色
+     
+     - returns: <#return value description#>
+     */
+    static func didSelectedTabBarTitleColor() -> UIColor {
+        return UIColor.colorFromHexString("#FFF000")
+    }
+    
+    //输入框文本颜色
+    static func inputTextColor() -> UIColor {
+        return UIColor.colorFromHexString("#AAD2FD")
+    }
+    
+    static func textColor1() -> UIColor {
+        return UIColor.colorFromHexString("#546180")
+    }
+    
+    static func textColor2() -> UIColor {
+        return UIColor.colorFromHexString("#28A4FF")
+    }
+    
+    static func textColor3() -> UIColor {
+        return UIColor.colorFromHexString("#ED6715")
+    }
+    
+    static func borderColor1() -> UIColor {
+        return UIColor.colorFromHexString("#00A2FF")
+    }
+    
+    static func borderColor2() -> UIColor {
+        return UIColor.colorFromHexString("#858585")
+    }
+    
+    static func didSelectedSegmentColor() -> UIColor {
+        return UIColor.colorFromHexString("#0C70D6")
+    }
+    
+    static func defSegmentTextColor() -> UIColor {
+        return UIColor.colorFromHexString("#1053A2")
+    }
+    
+    static func calendarDotViewBgColor() -> UIColor {
+        return UIColor.colorFromHexString("#07308F")
+    }
+    
+    static func tableViewHeadBgColor() -> UIColor {
+        return UIColor.colorFromHexString("#ECEFF3")
     }
 }

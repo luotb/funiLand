@@ -18,11 +18,11 @@ class LandTableViewCell: BaseCell {
     
     var landDomain:LandDomain = LandDomain(){
         willSet{
-            self.typeLabel.text  = newValue.type!
-            self.typeLabel.backgroundColor = UIColor.getLandTypeColor(newValue.type!)
-            self.titleLabel.text = newValue.title!
-            self.projectNameLabel.text = newValue.description1!
-            self.descLabel.text = newValue.description2!
+            self.typeLabel.text            = String.excludeEmpty(newValue.type)
+            self.typeLabel.backgroundColor = UIColor.landTypeColor(newValue.type!)
+            self.titleLabel.text           = String.excludeEmpty(newValue.title)
+            self.projectNameLabel.text     = String.excludeEmpty(newValue.description1)
+            self.descLabel.text            = String.excludeEmpty(newValue.description2)
         }
     }
     

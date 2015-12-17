@@ -184,8 +184,10 @@ class MapViewController: BaseViewController {
             let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
             
             let tempRimInfoReqDomain = RimInfoReqDomain()
-            tempRimInfoReqDomain.lat = rimLandInfo.lat
-            tempRimInfoReqDomain.lng = rimLandInfo.lng
+            if rimLandInfo.lat > 0 && rimLandInfo.lng > 0 {
+                tempRimInfoReqDomain.lat = rimLandInfo.lat! + Number_Lat
+                tempRimInfoReqDomain.lng = rimLandInfo.lng! + Number_Lng
+            }
             mapVC.rimInfoReqDomain = tempRimInfoReqDomain
             mapVC.isShowRim = true
             self.navigationController?.pushViewController(mapVC, animated: true)
@@ -208,7 +210,7 @@ class MapViewController: BaseViewController {
         searchField.textColor = UIColor.whiteColor()
         
         // Change the search bar placeholder text color
-        searchField.setValue(UIColor.colorFromHexString("#AAD2FD"), forKeyPath: "_placeholderLabel.textColor")
+        searchField.setValue(UIColor.inputTextColor(), forKeyPath: "_placeholderLabel.textColor")
         
         let searchView = UIView(frame: CGRectMake(50, 0, 250, 44))
         searchView.backgroundColor = UIColor.clearColor()
@@ -235,7 +237,9 @@ class MapViewController: BaseViewController {
             }
             
             FuniCommon.asynExecuteCode(0.5, code: { () -> Void in
-                self.myMapView.setCenterCoordinate(self.mapCenterCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
+                if self.isUserLocationSuccess == false {
+                    self.myMapView.setCenterCoordinate(self.mapCenterCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
+                }
             })
         }
     }
@@ -308,6 +312,13 @@ class MapViewController: BaseViewController {
             annotationImageView.image = UIImage(named: imgName)
         }
     }
+    
+    //定位设置查询条件的经纬度为当前位置
+    func setUserLocationToReqParam() {
+        self.rimInfoReqDomain.lat = self.centerCoordinate.latitude + Number_Lat
+        self.rimInfoReqDomain.lng = self.centerCoordinate.longitude + Number_Lng
+        self.queryData()
+    }
 }
 
 
@@ -367,7 +378,7 @@ extension MapViewController : MKMapViewDelegate {
         mapView.setRegion(region, animated: true)
         
         if self.isUserLocationSuccess == false {
-            self.queryData()
+            self.setUserLocationToReqParam()
             self.locationManager = nil
 //            self.myMapView.showsUserLocation = false
         }
@@ -499,7 +510,7 @@ extension MapViewController {
         } else {
             //用户位置为地图中心点
             self.myMapView.setCenterCoordinate(self.centerCoordinate, zoomLevel: MAPZOOMLEVEL, animated: true)
-            self.queryData()
+            self.setUserLocationToReqParam()
         }
     }
     

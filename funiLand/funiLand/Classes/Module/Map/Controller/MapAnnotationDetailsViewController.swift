@@ -33,9 +33,9 @@ class MapAnnotationDetailsViewController: BaseViewController {
     
     var rimLandInfoDomain:RimLandInfoDomain = RimLandInfoDomain(){
         willSet{
-            self.titleLabel.text = String.excludeEmpty(newValue.title)
-            self.areaLabel.text  = String.excludeEmpty(newValue.netAreaMu)
-            self.ratioLabel.text = String.excludeEmpty(newValue.cubagerateMax)
+            self.titleLabel.text    = String.excludeEmpty(newValue.title)
+            self.areaLabel.text     = String.excludeEmpty(newValue.netAreaMu)
+            self.ratioLabel.text    = String.excludeEmpty(newValue.cubagerateMax)
             self.sellDateLabel.text = String.excludeEmpty(newValue.transferDate)
             self.landTypeLabel.text = String.excludeEmpty(newValue.fieldusageName)
         }

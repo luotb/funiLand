@@ -65,11 +65,11 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
     func initSteup(){
         
         //这个是设置按下按钮时的颜色
-        self.dataTypeSegment.tintColor = UIColor.colorFromHexString("#0C70D6")
+        self.dataTypeSegment.tintColor = UIColor.didSelectedSegmentColor()
         //默认选中的按钮索引
         self.dataTypeSegment.selectedSegmentIndex = 0
         //修改字体的默认颜色与选中颜色
-        let dictNormal = [NSForegroundColorAttributeName: UIColor.colorFromHexString("#1053A2"), NSFontAttributeName: UIFont.systemFontOfSize(14)]
+        let dictNormal = [NSForegroundColorAttributeName: UIColor.defSegmentTextColor(), NSFontAttributeName: UIFont.systemFontOfSize(14)]
         self.dataTypeSegment.setTitleTextAttributes(dictNormal, forState: UIControlState.Normal)
         
         let dictSelected = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont.systemFontOfSize(14)]
@@ -77,10 +77,10 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         
         //设置展示表格的数据源和代理
         self.myTableView.dataSource = self
-        self.myTableView.delegate = self
+        self.myTableView.delegate   = self
         //空值代理和数据源
         self.myTableView.emptyDataSetDelegate = self
-        self.myTableView.emptyDataSetSource = self
+        self.myTableView.emptyDataSetSource   = self
         
         //集成下拉刷新
         setupDownRefresh()
@@ -156,7 +156,7 @@ extension MessageViewController : JTCalendarDelegate {
         // Today
         if self.calendarManager.dateHelper.date(NSDate(), isTheSameDayThan: tempDayView.date) {
             tempDayView.circleView.hidden = false
-            tempDayView.circleView.backgroundColor = UIColor.colorFromHexString("#07308F")
+            tempDayView.circleView.backgroundColor = UIColor.calendarDotViewBgColor()
             tempDayView.dotView.backgroundColor = UIColor.whiteColor()
             tempDayView.textLabel.textColor = UIColor.whiteColor()
         }
@@ -170,14 +170,14 @@ extension MessageViewController : JTCalendarDelegate {
             // Other month
         else if self.calendarManager.dateHelper.date(self.calendarContentView.date, isTheSameMonthThan: tempDayView.date) == false {
             tempDayView.circleView.hidden = true
-            tempDayView.dotView.backgroundColor = UIColor.colorFromHexString("#07308F")
+            tempDayView.dotView.backgroundColor = UIColor.calendarDotViewBgColor()
             tempDayView.textLabel.textColor = UIColor.lightGrayColor()
         }
             // Another day of the current month
         else {
             tempDayView.circleView.hidden = true
-            tempDayView.dotView.backgroundColor = UIColor.colorFromHexString("#07308F")
-            tempDayView.textLabel.textColor = UIColor.colorFromHexString("#07308F")
+            tempDayView.dotView.backgroundColor = UIColor.calendarDotViewBgColor()
+            tempDayView.textLabel.textColor = UIColor.calendarDotViewBgColor()
         }
         
         if self.landResponArray != nil {
@@ -244,23 +244,23 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRectMake(0, 0, APPWIDTH, 40))
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.tableViewHeadBgColor()
         
         let label1 = UILabel(frame: CGRectMake(10, 11, 30, 14))
-        label1.textColor = UIColor.colorFromHexString("#546180")
+        label1.textColor = UIColor.textColor1()
         label1.text = "共计"
         label1.font = UIFont.systemFontOfSize(14)
         view.addSubview(label1)
         
         let label2 = UILabel(frame: CGRectMake(40, 11, 15, 14))
-        label2.textColor = UIColor.colorFromHexString("#28A4FF")
+        label2.textColor = UIColor.textColor2()
         label2.text = "\(self.landArray.count)"
         label2.font = UIFont.systemFontOfSize(14)
         label2.textAlignment = NSTextAlignment.Center
         view.addSubview(label2)
         
         let label3 = UILabel(frame: CGRectMake(55, 11, 45, 14))
-        label3.textColor = UIColor.colorFromHexString("#546180")
+        label3.textColor = UIColor.textColor1()
         label3.text = "宗土地"
         label3.font = UIFont.systemFontOfSize(14)
         view.addSubview(label3)
@@ -268,7 +268,7 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 33
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -299,6 +299,7 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
             
             let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
             landDetailVC.landDomain = self.landInfoDomain
+            landDetailVC.isShowRim  = true
             self.navigationController?.pushViewController(landDetailVC, animated: true)
         }
     }
