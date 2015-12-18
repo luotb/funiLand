@@ -72,6 +72,7 @@ extension AppDelegate {
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+        
         if self.isFirstLoadApp == true {
             self.appBecomeActive()
 //            self.currentViewContrller!.queryData()
@@ -106,7 +107,8 @@ extension AppDelegate {
         
         var token = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
         token = token.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        
+        print(deviceToken)
+        print("-------------------")
        print(token)
         UMessage.registerDeviceToken(deviceToken)
     }
@@ -119,9 +121,12 @@ extension AppDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         
         print("11__\(application.applicationState)   \n 222_\(UIApplication.sharedApplication().applicationState)")
-        if application.applicationState == UIApplicationState.Background {
-            self.showMessageVC()
-        } else {
+        if application.applicationState == UIApplicationState.Inactive {
+            if let param = userInfo["param"] {
+                self.landId = param["objId"] as? String
+                self.showMessageVC()
+            }
+        } else if application.applicationState == UIApplicationState.Active {
             self.handleNotification(userInfo)
         }
     }
@@ -240,18 +245,28 @@ extension AppDelegate : UIAlertViewDelegate  {
     
     func showMessageVC() {
         if HttpService.sharedInstance.loginUserInfo != nil {
+            
             let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
             let landInfoDomain = LandDomain()
             landInfoDomain.id = self.landId
             landDetailVC.landDomain = landInfoDomain
             landDetailVC.isShowRim  = true
             
-            self.landDetailNavController = NavigationController(rootViewController: landDetailVC)
-            self.landDetailNavController.navigationBar.barTintColor = UIColor.navBarBgColor()
+            let tab = self.window!.rootViewController as! TabBarViewController
+            let nav = NavigationController(rootViewController: landDetailVC)
+            nav.navigationBar.barTintColor = UIColor.navBarBgColor()
             landDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
-            self.tabBarViewController?.presentViewController(self.landDetailNavController, animated: true, completion: { () -> Void in
+            
+            tab.presentViewController(nav, animated: true, completion: { () -> Void in
                 
-            })
+                })
+            
+//            self.landDetailNavController = NavigationController(rootViewController: landDetailVC)
+//            self.landDetailNavController.navigationBar.barTintColor = UIColor.navBarBgColor()
+//            landDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
+//            self.currentViewContrller?.navigationController?.presentViewController(self.landDetailNavController, animated: true, completion: { () -> Void in
+//                
+//            })
         } else {
             UIAlertView().alertViewWithTitle("请先登录!")
         }
@@ -266,9 +281,15 @@ extension AppDelegate : UIAlertViewDelegate  {
     }
     
     func back() {
-        self.tabBarViewController?.dismissViewControllerAnimated(true) { () -> Void in
+//        self.currentViewContrller?.navigationController?.dismissViewControllerAnimated(true) { () -> Void in
+//            
+//        }
             
-        }
+            let tab = UIApplication.sharedApplication().keyWindow!.rootViewController as! TabBarViewController
+            let nav = tab.selectedViewController as! NavigationController
+            nav.dismissViewControllerAnimated(true) { () -> Void in
+        
+            }
     }
     
     /**

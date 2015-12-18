@@ -611,6 +611,9 @@ extension MapViewController {
     func requestData() {
         self.rimInfoReqDomain.keyword = self.searchBar.text
         FuniHUD.sharedHud().show(self.view)
+        
+        rimInfoReqDomain.lng = 104.078331
+        rimInfoReqDomain.lat = 30.5464
         HttpService.sharedInstance.getRimInfoList(rimInfoReqDomain, success: { (rimInfoArray: Array<RimLandInfoDomain>) -> Void in
             
             self.rimLandArray = rimInfoArray

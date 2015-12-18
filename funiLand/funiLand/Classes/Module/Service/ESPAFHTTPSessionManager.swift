@@ -46,7 +46,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
     func ESP_GET(URLString: String!, parameters: AnyObject!, taskSuccessed: (responseVO:BaseRespDomain)->Void, taskFailured: (error:String)->Void ){
         
         super.GET(URLString, parameters: parameters, success: { (task:NSURLSessionDataTask!, id:AnyObject!) -> Void in
-            
+            print(id)
             self.packageBaseResp(id, successed: taskSuccessed, failured: taskFailured)
             
             }) { (task:NSURLSessionDataTask?, error:NSError!) -> Void in

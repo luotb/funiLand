@@ -46,6 +46,7 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         if ((UIApplication.sharedApplication().delegate) as! AppDelegate).isIgnoreNotification == true {
             ((UIApplication.sharedApplication().delegate) as! AppDelegate).resetMessageRead()
             self.calendarManager.setDate(NSDate())
+            self.reqMonth = NSDate.getTime(DateFormat.format4, date: nil)
             self.queryData()
         }
     }
@@ -344,6 +345,7 @@ extension MessageViewController {
             self.landResponArray = landArray
             self.getSelectedDataLandArray()
             self.calendarManager.reload()
+            self.myTableView.reloadData()
             self.myTableView.header.endRefreshing()
             }) { (error: String) -> Void in
                 FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)

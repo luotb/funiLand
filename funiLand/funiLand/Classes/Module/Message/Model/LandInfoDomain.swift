@@ -10,12 +10,14 @@ import UIKit
 
 class LandInfoDomain: Mappable {
     
-    var area: String?
-    var date: String?
     var fieldList: Array<FieldGroupDomain>?
     var lat: Double?
     var lng: Double?
     var title: String?
+    //区域
+    var region: String?
+    //宗号
+    var fieldNo:String?
     
     init(){
         self.fieldList = Array<FieldGroupDomain>()
@@ -26,8 +28,8 @@ class LandInfoDomain: Mappable {
     }
     
     func mapping(map: Map) {
-        area <- map["area"]
-        date <- map["date"]
+        region <- map["region"]
+        fieldNo <- map["fieldNo"]
         fieldList <- map["fieldList"]
         lat <- map["lat"]
         lng <- map["lng"]

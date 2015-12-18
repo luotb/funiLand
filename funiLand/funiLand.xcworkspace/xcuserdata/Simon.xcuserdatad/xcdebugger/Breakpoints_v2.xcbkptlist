@@ -26,29 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
-            timestampString = "471922029.87788"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "ESP_POST(_:parameters:taskSuccessed:taskFailured:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/Module/Service/ESPAFHTTPSessionManager.swift"
             timestampString = "472028442.310986"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "packageBaseResp(_:successed:failured:)"
-            landmarkType = "5">
+            endingLineNumber = "94">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,28 +40,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "funiLand/Classes/AppDelegate/AppDelegate.swift"
-            timestampString = "472035283.287547"
+            timestampString = "472122771.603823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "alertView(_:clickedButtonAtIndex:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/AppDelegate/AppDelegate.swift"
-            timestampString = "472035648.567689"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "handleNotification(_:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "back()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

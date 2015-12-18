@@ -11,31 +11,16 @@ import UIKit
 class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     @IBOutlet var myTableView: UITableView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var subTitleLabel: UILabel!
+    @IBOutlet var tabelViewHeadView: UIView!
+    
     @IBOutlet var rimBtn: UIButton!
     //需要加高的cell记录
     var customCellVOArray: Array<LandDetailsCellVO>?
     //是否显示周边按钮 从地图列表数据釞土地详情不续约显示周边按钮
     var isShowRim: Bool = false
-    
     var landDomain: LandDomain!
-    
-    var landInfoObj: LandInfoDomain = LandInfoDomain() {
-        willSet{
-            self.titleLabel.text = newValue.title
-            var str = ""
-            if let area = newValue.area {
-                str += area
-            }
-            
-            if let date = newValue.date {
-                str += date
-            }
-            
-            self.subTitleLabel.text = str
-        }
-    }
+    var landInfoObj: LandInfoDomain!
+  
     
     //重写父类加载数据
     override func queryData() {
@@ -97,6 +82,20 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
         }
     }
     
+    //基数title需要的高度
+    func calLandInfoTitleHeight() -> CGFloat {
+        var height: CGFloat = 71
+        if self.landInfoObj != nil {
+            let emojilabel = MLEmojiLabel(frame: CGRectZero)
+            let labelWidth = CGRectGetWidth(self.view.frame) - 40
+            let size: CGSize = emojilabel.boundingRectWithSize(self.landInfoObj.title!, w: labelWidth, font: 18)
+            if size.height > 18 {
+                height += size.height - 18
+            }
+        }
+        return height
+    }
+    
     // 画虚线
     func drawDottedLine(imageView: UIImageView) {
         UIGraphicsBeginImageContext(imageView.size)
@@ -128,21 +127,37 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
 // MARK: - Table view data source and delegate
 extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        return self.getTableViewCellHeight(indexPath)
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if let obj = self.landInfoObj {
+            return (obj.fieldList?.count)! + 1
+        }
+        return 1
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return (self.landInfoObj.fieldList?.count)!
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section > 0 {
+            return self.landInfoObj.fieldList![section-1].groupFields!.count
+        }
+        return 1;
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
         return 40
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return self.calLandInfoTitleHeight()
+        } else {
+            return self.getTableViewCellHeight(indexPath)
+        }
+    }
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if self.landInfoObj.fieldList?.count > 0 {
+        if self.landInfoObj.fieldList?.count > 0 && section > 0 {
             
             let view = UIView(frame: CGRectMake(0, 0, APPWIDTH, 30))
             view.backgroundColor = UIColor.whiteColor()
@@ -152,7 +167,7 @@ extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate
             
             let label = UILabel(frame: CGRectMake(20, 13, APPWIDTH-40, 16))
             label.textColor = UIColor.textColor3()
-            label.text = self.landInfoObj.fieldList![section].group
+            label.text = self.landInfoObj.fieldList![section-1].group
             view.addSubview(label)
             
             return view
@@ -160,24 +175,24 @@ extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate
         return nil
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.landInfoObj.fieldList?.count > 0 {
-            return self.landInfoObj.fieldList![section].groupFields!.count
-        }
-        return 0;
-    }
     
     func tableView(tableView:UITableView,cellForRowAtIndexPath indexPath: NSIndexPath)
         -> UITableViewCell{
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("LandInfoTableViewCell", forIndexPath: indexPath) as! LandInfoTableViewCell
-            let groupDomain: FieldGroupDomain = self.landInfoObj.fieldList![indexPath.section]
-            let fieldDomain: FieldDomain = groupDomain.groupFields![indexPath.row]
-            fieldDomain.height = self.getTableViewCellHeight(indexPath)
-            cell.fieldDomain = fieldDomain
-            
-            return cell;
-            
+            if indexPath.section > 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("LandInfoTableViewCell", forIndexPath: indexPath) as! LandInfoTableViewCell
+                let groupDomain: FieldGroupDomain = self.landInfoObj.fieldList![indexPath.section-1]
+                let fieldDomain: FieldDomain = groupDomain.groupFields![indexPath.row]
+                fieldDomain.height = self.getTableViewCellHeight(indexPath)
+                cell.fieldDomain = fieldDomain
+                
+                return cell;
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("LandDetailsTitleTableViewCell", forIndexPath: indexPath) as! LandDetailsTitleTableViewCell
+                if self.landInfoObj != nil {
+                    cell.landInfoObj = self.landInfoObj
+                }
+                return cell;
+            }
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?{
@@ -197,18 +212,26 @@ extension LandDetailsViewController {
     
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
+        var params: Dictionary<NSObject, AnyObject> = Dictionary<NSObject, AnyObject>()
+        var params2: Dictionary<String, String> = Dictionary<String, String>()
+        params2["objId"] = "4040"
+        params2["title"] = "测试推送的通知标题"
         
-        if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
-            let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
-            
-            let rimInfoReqDomain   = RimInfoReqDomain()
-            rimInfoReqDomain.lat   = self.landInfoObj.lat!
-            rimInfoReqDomain.lng   = self.landInfoObj.lng!
-            mapVC.showRimLandType  = 1
-            mapVC.rimInfoReqDomain = rimInfoReqDomain
-            mapVC.isShowRim        = true
-            self.navigationController?.pushViewController(mapVC, animated: true)
-        }
+        params["param"] = params2
+        
+        ((UIApplication.sharedApplication().delegate) as! AppDelegate).handleNotification(params)
+        
+//        if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
+//            let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
+//            
+//            let rimInfoReqDomain   = RimInfoReqDomain()
+//            rimInfoReqDomain.lat   = self.landInfoObj.lat!
+//            rimInfoReqDomain.lng   = self.landInfoObj.lng!
+//            mapVC.showRimLandType  = 1
+//            mapVC.rimInfoReqDomain = rimInfoReqDomain
+//            mapVC.isShowRim        = true
+//            self.navigationController?.pushViewController(mapVC, animated: true)
+//        }
     }
 }
 

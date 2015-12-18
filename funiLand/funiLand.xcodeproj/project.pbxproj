@@ -150,6 +150,7 @@
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
 		F4A8A9DD1B00855900618FDE /* MLEmojiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */; };
 		F4A8A9DE1B00855900618FDE /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */; };
+		F4C8BD4B1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C8BD4A1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift */; };
 		F4E903711B00888000EF74DF /* LandDetailsCellVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */; };
 /* End PBXBuildFile section */
 
@@ -408,6 +409,7 @@
 		F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEmojiLabel.m; sourceTree = "<group>"; };
 		F4A8A9DB1B00855900618FDE /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		F4C8BD4A1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsTitleTableViewCell.swift; sourceTree = "<group>"; };
 		F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsCellVO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1133,6 +1135,7 @@
 				F419E9141C0301B3006A5815 /* Message.storyboard */,
 				24C49EF01C0736690065D9B6 /* LandTableViewCell.swift */,
 				F42FBC9A1C0EB0F20029A3FE /* LandInfoTableViewCell.swift */,
+				F4C8BD4A1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1535,6 +1538,7 @@
 				F419E8B91C02F20D006A5815 /* Helper.swift in Sources */,
 				F49171D91AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift in Sources */,
 				F43424E11C055B9000E78F39 /* JTHorizontalCalendarView.m in Sources */,
+				F4C8BD4B1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift in Sources */,
 				F462BA661C21210200FD810D /* LandListReq.swift in Sources */,
 				F42CF1451C0D9CE1008F0CCE /* FieldDomain.swift in Sources */,
 				F419E95C1C030C6F006A5815 /* MBProgressHUD.m in Sources */,
