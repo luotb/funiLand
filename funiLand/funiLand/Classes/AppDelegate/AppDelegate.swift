@@ -253,20 +253,16 @@ extension AppDelegate : UIAlertViewDelegate  {
             landDetailVC.isShowRim  = true
             
             let tab = self.window!.rootViewController as! TabBarViewController
-            let nav = NavigationController(rootViewController: landDetailVC)
-            nav.navigationBar.barTintColor = UIColor.navBarBgColor()
+            
+            let nav = tab.viewControllers![tab.selectedIndex] as! NavigationController
+            
+            if nav.topViewController is ProfileViewController {
+                nav.navigationBarHidden = false
+            }
+            
+            nav.pushViewController(landDetailVC, animated: true)
             landDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
-            
-            tab.presentViewController(nav, animated: true, completion: { () -> Void in
-                
-                })
-            
-//            self.landDetailNavController = NavigationController(rootViewController: landDetailVC)
-//            self.landDetailNavController.navigationBar.barTintColor = UIColor.navBarBgColor()
-//            landDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
-//            self.currentViewContrller?.navigationController?.presentViewController(self.landDetailNavController, animated: true, completion: { () -> Void in
-//                
-//            })
+
         } else {
             UIAlertView().alertViewWithTitle("请先登录!")
         }
@@ -281,15 +277,13 @@ extension AppDelegate : UIAlertViewDelegate  {
     }
     
     func back() {
-//        self.currentViewContrller?.navigationController?.dismissViewControllerAnimated(true) { () -> Void in
-//            
-//        }
-            
-            let tab = UIApplication.sharedApplication().keyWindow!.rootViewController as! TabBarViewController
-            let nav = tab.selectedViewController as! NavigationController
-            nav.dismissViewControllerAnimated(true) { () -> Void in
+        let tab = self.window!.rootViewController as! TabBarViewController
         
-            }
+        let nav = tab.viewControllers![tab.selectedIndex] as! NavigationController
+        
+        if nav.topViewController is ProfileViewController {
+            nav.navigationBarHidden = true
+        }
     }
     
     /**
