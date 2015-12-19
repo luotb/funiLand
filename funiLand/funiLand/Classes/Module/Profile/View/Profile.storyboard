@@ -58,13 +58,6 @@
                                     <action selector="logoutBtnClicked:" destination="b5t-Xp-SFg" eventType="touchUpInside" id="fGf-N7-NNR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LcV-ke-akb">
-                                <rect key="frame" x="38" y="233" width="131" height="30"/>
-                                <state key="normal" title="测试推送消息"/>
-                                <connections>
-                                    <action selector="testBtnClicked:" destination="b5t-Xp-SFg" eventType="touchUpInside" id="pPH-4v-i9W"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

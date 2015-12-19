@@ -395,6 +395,7 @@ extension MapViewController : MKMapViewDelegate {
         let span = MKCoordinateSpanMake(0.1, 0.1);
         let region = MKCoordinateRegionMake(userLocation.location!.coordinate, span);
         mapView.setRegion(region, animated: true)
+        userLocation.title = ""
         
         if self.isUserLocationSuccess == false {
             self.setUserLocationToReqParam()
@@ -493,7 +494,6 @@ extension MapViewController : MKMapViewDelegate {
         let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)
         
         if landInfoViewY >= 49 {
-//        if self.landInfoRunning {
             self.showLandInfo()
         }
     }
@@ -577,7 +577,6 @@ extension MapViewController {
     
     // 列表显示数据
     @IBAction func showListBtnClicked(sender: AnyObject) {
-        
         let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("RimLandListViewController") as! RimLandListViewController
         rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
         rimLandListVC.rimLandInfoArray = self.filterRimLandArray

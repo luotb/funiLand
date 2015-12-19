@@ -120,7 +120,6 @@ extension AppDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         
-        print("11__\(application.applicationState)   \n 222_\(UIApplication.sharedApplication().applicationState)")
         if application.applicationState == UIApplicationState.Inactive {
             if let param = userInfo["param"] {
                 self.landId = param["objId"] as? String
@@ -202,7 +201,6 @@ extension AppDelegate {
         //        UMessage.didReceiveRemoteNotification(userInfo)
         UMessage.sendClickReportForRemoteNotification(notification)
         
-        print(notification)
         if notification != nil {
             if let param = notification!["param"] {
                 self.landId = param["objId"] as? String
@@ -213,6 +211,15 @@ extension AppDelegate {
             }
             
         }
+    }
+    
+    func testPushMessage() {
+        var params: Dictionary<NSObject, AnyObject> = Dictionary<NSObject, AnyObject>()
+        var params2: Dictionary<String, String> = Dictionary<String, String>()
+        params2["objId"] = "4040"
+        params2["title"] = "测试推送的通知标题"
+        params["param"] = params2
+        self.handleNotification(params)
     }
 }
 
@@ -243,6 +250,9 @@ extension AppDelegate {
 // MARK UIAlertViewDelegate
 extension AppDelegate : UIAlertViewDelegate  {
     
+    /**
+     显示土地详情页
+     */
     func showMessageVC() {
         if HttpService.sharedInstance.loginUserInfo != nil {
             
@@ -253,15 +263,12 @@ extension AppDelegate : UIAlertViewDelegate  {
             landDetailVC.isShowRim  = true
             
             let tab = self.window!.rootViewController as! TabBarViewController
-            
             let nav = tab.viewControllers![tab.selectedIndex] as! NavigationController
             
             if nav.topViewController is ProfileViewController {
                 nav.navigationBarHidden = false
             }
-            
             nav.pushViewController(landDetailVC, animated: true)
-            landDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem.itemWithTarget(self, action: "back", image: "Back_icon", highImage: "Back_icon")
 
         } else {
             UIAlertView().alertViewWithTitle("请先登录!")
@@ -276,24 +283,18 @@ extension AppDelegate : UIAlertViewDelegate  {
         }
     }
     
-    func back() {
-        let tab = self.window!.rootViewController as! TabBarViewController
-        
-        let nav = tab.viewControllers![tab.selectedIndex] as! NavigationController
-        
-        if nav.topViewController is ProfileViewController {
-            nav.navigationBarHidden = true
-        }
-    }
-    
     /**
      忽略通知处理
      */
     func ignoreNotificationHandler() {
         if HttpService.sharedInstance.loginUserInfo != nil {
             //已经登录
-            if self.currentViewContrller is MessageViewController {
+            let tab = self.window!.rootViewController as! TabBarViewController
+            let nav = tab.viewControllers![tab.selectedIndex] as! NavigationController
+            
+            if let messageVC: MessageViewController = nav.topViewController as? MessageViewController {
                 //当前页为消息 自动加载 当天数据
+                messageVC.loadCurrentDateData()
             } else {
                 //当前页非消息 tabbar消息item加载红点 并记录有消息
                 let vc: UIViewController = (self.tabBarViewController?.childViewControllers[0])!

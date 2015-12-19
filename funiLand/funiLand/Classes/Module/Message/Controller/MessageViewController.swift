@@ -45,9 +45,7 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         super.viewWillAppear(animated)
         if ((UIApplication.sharedApplication().delegate) as! AppDelegate).isIgnoreNotification == true {
             ((UIApplication.sharedApplication().delegate) as! AppDelegate).resetMessageRead()
-            self.calendarManager.setDate(NSDate())
-            self.reqMonth = NSDate.getTime(DateFormat.format4, date: nil)
-            self.queryData()
+            self.loadCurrentDateData()
         }
     }
     
@@ -145,6 +143,12 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         }
     }
     
+    //加载当天数据
+    func loadCurrentDateData() {
+        self.calendarManager.setDate(NSDate())
+        self.reqMonth = NSDate.getTime(DateFormat.format4, date: nil)
+        self.queryData()
+    }
 }
 
 // MARK: - CalendarManager delegate

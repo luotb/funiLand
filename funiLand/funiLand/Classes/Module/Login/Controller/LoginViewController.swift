@@ -68,16 +68,6 @@ extension LoginViewController {
         self.loginRequest(account)
     }
     
-    @IBAction func testBtnClicked(sender: AnyObject) {
-        var params: Dictionary<NSObject, AnyObject> = Dictionary<NSObject, AnyObject>()
-        var params2: Dictionary<String, String> = Dictionary<String, String>()
-        params2["objId"] = "4040"
-        params2["title"] = "login测试推送的通知标题"
-        
-        params["param"] = params2
-        
-        ((UIApplication.sharedApplication().delegate) as! AppDelegate).handleNotification(params)
-    }
 }
 
 // MARK: Service Request And Data Package

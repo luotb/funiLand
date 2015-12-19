@@ -103,13 +103,6 @@
                                     <constraint firstAttribute="width" constant="320" id="mCW-Ms-rdz"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lpd-L2-6Dd">
-                                <rect key="frame" x="20" y="68" width="72" height="30"/>
-                                <state key="normal" title="测试推送"/>
-                                <connections>
-                                    <action selector="testBtnClicked:" destination="adq-da-ZtN" eventType="touchUpInside" id="7qx-Qg-GBz"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

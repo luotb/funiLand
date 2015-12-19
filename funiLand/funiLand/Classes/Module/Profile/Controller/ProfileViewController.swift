@@ -10,7 +10,10 @@ import UIKit
 
 class ProfileViewController: BaseViewController {
 
-    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBarHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,18 +50,6 @@ extension ProfileViewController {
     @IBAction func logoutBtnClicked(sender: UIButton) {
         let alertView = UIAlertView(title: "提示", message: "确认退出!", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确认")
         alertView.show()
-    }
-    
-    
-    @IBAction func testBtnClicked(sender: AnyObject) {
-        var params: Dictionary<NSObject, AnyObject> = Dictionary<NSObject, AnyObject>()
-        var params2: Dictionary<String, String> = Dictionary<String, String>()
-        params2["objId"] = "4040"
-        params2["title"] = "测试推送的通知标题"
-        
-        params["param"] = params2
-        
-        ((UIApplication.sharedApplication().delegate) as! AppDelegate).handleNotification(params)
     }
     
 }

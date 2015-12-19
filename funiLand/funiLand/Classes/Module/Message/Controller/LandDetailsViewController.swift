@@ -212,26 +212,17 @@ extension LandDetailsViewController {
     
     // 周边按钮点击
     @IBAction func rimBtnClicked(sender: UIButton) {
-        var params: Dictionary<NSObject, AnyObject> = Dictionary<NSObject, AnyObject>()
-        var params2: Dictionary<String, String> = Dictionary<String, String>()
-        params2["objId"] = "4040"
-        params2["title"] = "测试推送的通知标题"
-        
-        params["param"] = params2
-        
-        ((UIApplication.sharedApplication().delegate) as! AppDelegate).handleNotification(params)
-        
-//        if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
-//            let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
-//            
-//            let rimInfoReqDomain   = RimInfoReqDomain()
-//            rimInfoReqDomain.lat   = self.landInfoObj.lat!
-//            rimInfoReqDomain.lng   = self.landInfoObj.lng!
-//            mapVC.showRimLandType  = 1
-//            mapVC.rimInfoReqDomain = rimInfoReqDomain
-//            mapVC.isShowRim        = true
-//            self.navigationController?.pushViewController(mapVC, animated: true)
-//        }
+        if self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
+            let mapVC = Helper.getViewControllerFromStoryboard("Map", storyboardID: "MapViewController") as! MapViewController
+            
+            let rimInfoReqDomain   = RimInfoReqDomain()
+            rimInfoReqDomain.lat   = self.landInfoObj.lat!
+            rimInfoReqDomain.lng   = self.landInfoObj.lng!
+            mapVC.showRimLandType  = 1
+            mapVC.rimInfoReqDomain = rimInfoReqDomain
+            mapVC.isShowRim        = true
+            self.navigationController?.pushViewController(mapVC, animated: true)
+        }
     }
 }
 
