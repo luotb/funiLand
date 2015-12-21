@@ -112,9 +112,12 @@ extension RimLandListViewController {
             self.rimLandInfoArray = rimInfoArray
             self.myTableView.reloadData()
             self.myTableView.header.endRefreshing()
+            super.noDataHandler(self.rimLandInfoArray)
+            
             }) { (error:String) -> Void in
                 FuniHUD.sharedHud().show(self.view, onlyMsg: error)
                 self.myTableView.header.endRefreshing()
+                super.noDataHandler(self.rimLandInfoArray)
         }
     }
 }

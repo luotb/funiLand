@@ -255,7 +255,7 @@ extension AppDelegate : UIAlertViewDelegate  {
      */
     func showMessageVC() {
         if HttpService.sharedInstance.loginUserInfo != nil {
-            
+            print("landID__" + self.landId!)
             let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
             let landInfoDomain = LandDomain()
             landInfoDomain.id = self.landId

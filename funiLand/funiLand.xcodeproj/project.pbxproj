@@ -150,6 +150,7 @@
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
 		F4A8A9DD1B00855900618FDE /* MLEmojiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */; };
 		F4A8A9DE1B00855900618FDE /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */; };
+		F4BBF32D1C27C0DA00324ABF /* FuniNoDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BBF32C1C27C0DA00324ABF /* FuniNoDataViewController.swift */; };
 		F4C8BD4B1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C8BD4A1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift */; };
 		F4E903711B00888000EF74DF /* LandDetailsCellVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */; };
 /* End PBXBuildFile section */
@@ -409,6 +410,7 @@
 		F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEmojiLabel.m; sourceTree = "<group>"; };
 		F4A8A9DB1B00855900618FDE /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		F4BBF32C1C27C0DA00324ABF /* FuniNoDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuniNoDataViewController.swift; sourceTree = "<group>"; };
 		F4C8BD4A1C23E3DA008243F9 /* LandDetailsTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsTitleTableViewCell.swift; sourceTree = "<group>"; };
 		F4E903701B00888000EF74DF /* LandDetailsCellVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandDetailsCellVO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1035,6 +1037,7 @@
 			isa = PBXGroup;
 			children = (
 				F419E8E91C02FC32006A5815 /* LoginViewController.swift */,
+				F4BBF32C1C27C0DA00324ABF /* FuniNoDataViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1462,6 +1465,7 @@
 				F436B33D1C157D41007B1F6F /* MapAnnotationDetailsViewController.swift in Sources */,
 				F42FBC991C0EA0DB0029A3FE /* BaseCell.swift in Sources */,
 				F45700A81C02CAB9005FEB26 /* FuniBaseView.m in Sources */,
+				F4BBF32D1C27C0DA00324ABF /* FuniNoDataViewController.swift in Sources */,
 				F43424D81C055B9000E78F39 /* JTCalendarSettings.m in Sources */,
 				F419E94B1C030B9B006A5815 /* IQNSArray+Sort.m in Sources */,
 				24C49EE61C0734190065D9B6 /* MJRefreshConst.m in Sources */,

@@ -8,10 +8,6 @@
 
 import UIKit
 
-let Code_Success  = "FAPP00010"
-let Code_Success2 = "FAPP00000"
-let Code_Success3 = "FAPP00001"
-let Code_SessionTimeOut = "SEC20000"
 
 class ESPAFHTTPSessionManager: AFHTTPSessionManager {
     
@@ -23,12 +19,10 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
             self.packageBaseResp(id, successed: taskSuccessed, failured: taskFailured)
             
             }) { (task:NSURLSessionDataTask?, error:NSError!) -> Void in
-                taskFailured(error: String_RequestError_Msg_1001)
+                self.requestErrorCode(error, faild: taskFailured)
         }
         
     }
-
-    
     
     func ESP_POST(URLString: String!, parameters: AnyObject!, taskSuccessed: (responseVO:BaseRespDomain)->Void, taskFailured: (error:String)->Void ){
         
@@ -37,7 +31,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
             self.packageBaseResp(id, successed: taskSuccessed, failured: taskFailured)
             
             }) { (task:NSURLSessionDataTask?, error:NSError!) -> Void in
-                taskFailured(error: String_RequestError_Msg_1001)
+                self.requestErrorCode(error, faild: taskFailured)
         }
         
     }
@@ -50,7 +44,7 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
             self.packageBaseResp(id, successed: taskSuccessed, failured: taskFailured)
             
             }) { (task:NSURLSessionDataTask?, error:NSError!) -> Void in
-                taskFailured(error: String_RequestError_Msg_1001)
+                self.requestErrorCode(error, faild: taskFailured)
         }
     }
     
@@ -66,16 +60,16 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
                 result = Mapper<BaseRespDomain>().map(id as! NSDictionary)!;
             } else {
                 result = BaseRespDomain()
-                result!.remark = String_RequestError_Msg_1001
+                result!.remark = String_Message_RequestError
             }
         } else {
             result = BaseRespDomain()
-            result!.remark = String_RequestError_Msg_1001
+            result!.remark = String_Message_RequestError
         }
         
-        if(result!.code == Code_Success ||
+        if  result!.code == Code_Success  ||
             result!.code == Code_Success2 ||
-            result!.code == Code_Success3){
+            result!.code == Code_Success3  {
             //成功
             successed(responseVO: result!);
             
@@ -86,8 +80,26 @@ class ESPAFHTTPSessionManager: AFHTTPSessionManager {
             if let message = result!.remark{
                 failured(error: message);
             } else {
-                failured(error: String_RequestError_Msg_1001)
+                failured(error: String_Message_RequestError)
             }
+        }
+    }
+    
+    // 1001  1009
+    func requestErrorCode(error:NSError, faild:(error:String)->Void ) {
+        switch (error.code) {
+        case String_RequestError_1001:
+            faild(error:String_RequestError_Msg_1001);
+            break;
+        case String_RequestError_1004:
+            faild(error:String_RequestError_Msg_1009);
+            break;
+        case String_RequestError_1009:
+            faild(error:String_RequestError_Msg_1009);
+            break;
+        default:
+            faild(error:String_Message_RequestError);
+            break;
         }
     }
 }

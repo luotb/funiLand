@@ -9,36 +9,6 @@
 #import "FuniLand-Swift.h"
 
 
-// TabBar Item begin
-#define String_TabBarItem_NewHouse               @"新房"
-#define String_TabBarItem_OldHouse               @"二手房"
-#define String_TabBarItem_Gov                    @"政务服务"
-#define String_TabBarItem_Information            @"资讯"
-#define String_TabBarItem_Me                     @"我的"
-// TabBar Item end
-
-//request code begin
-#define String_RequestSuccess_1000               1000
-#define String_RequestError_400                  400
-#define String_RequestError_1001                 -1001
-#define String_RequestError_1004                 -1004
-#define String_RequestError_Msg_1001             @"请求超时 请待会再试!"
-#define String_RequestError_1009                 -1009
-#define String_RequestError_Msg_1009             @"网络不给力哦 请检查您是否在冲浪!"
-#define String_RequestError_VersionCheckTitle    @"版本检测"
-//request code end
-
-//response code begin
-#define String_Success                          @"success"
-#define String_LoginFail                        @"登录失败"
-//response code end
-
-// version update begin
-#define String_VersionUpdateFlag_None            @"01" //无操作
-#define String_VersionUpdateFlag_Sel             @"02" //选择更新
-#define String_VersionUpdateFlag_Coerce          @"03" //强制更新
-#define String_VersionUpdateFlag_Wait            @"04" //等待更新
-// version update end
 
 //ErrorMessage begin
 #define String_Message_LocationAPPError     @"请在系统设置中打开'定位服务'来允许'透明房产网'确定您的位置"

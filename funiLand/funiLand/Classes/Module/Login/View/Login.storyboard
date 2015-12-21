@@ -129,6 +129,39 @@
             </objects>
             <point key="canvasLocation" x="237" y="281"/>
         </scene>
+        <!--Funi No Data View Controller-->
+        <scene sceneID="Zye-XG-7pZ">
+            <objects>
+                <viewController storyboardIdentifier="FuniNoDataViewController" id="jGS-h4-dD3" customClass="FuniNoDataViewController" customModule="funiLand" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bkh-Ag-4xJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yys-fa-EJT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0A2-S0-ZCv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noData" translatesAutoresizingMaskIntoConstraints="NO" id="7CO-0c-Tiq">
+                                <rect key="frame" x="71" y="121" width="175" height="176"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82g-PJ-ehK">
+                                <rect key="frame" x="71" y="357" width="175" height="30"/>
+                                <state key="normal" title="暂无数据,点击重新加载">
+                                    <color key="titleColor" red="0.15686274509803921" green="0.5725490196078431" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="noDataBtnClicked:" destination="jGS-h4-dD3" eventType="touchUpInside" id="0f5-WR-XT1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FDm-lY-kHh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="597" y="281"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Sign-in_btn_click" width="257" height="62"/>
@@ -136,6 +169,7 @@
         <image name="account number" width="301" height="47"/>
         <image name="background" width="375" height="667"/>
         <image name="logo_circle" width="120" height="120"/>
+        <image name="noData" width="177" height="186"/>
         <image name="password" width="301" height="47"/>
     </resources>
 </document>

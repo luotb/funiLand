@@ -17,4 +17,10 @@ class FuniCommon: NSObject {
             code()
         }
     }
+    
+    static func animationExecute(time: NSTimeInterval, code:() -> Void) {
+        UIView.animateWithDuration(time) { () -> Void in
+            code()
+        }
+    }
 }

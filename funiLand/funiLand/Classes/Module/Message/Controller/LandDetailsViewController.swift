@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     @IBOutlet var myTableView: UITableView!
     @IBOutlet var tabelViewHeadView: UIView!
@@ -40,12 +40,12 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
     func initSteup(){
         
         //设置展示表格的数据源和代理
-        myTableView.dataSource = self
-        myTableView.delegate = self
-        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
+        self.myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         //空值代理和数据源
-        myTableView.emptyDataSetDelegate = self
-        myTableView.emptyDataSetSource = self
+        self.myTableView.emptyDataSetDelegate = self
+        self.myTableView.emptyDataSetSource = self
         
         //集成下拉刷新
         setupDownRefresh()
@@ -76,7 +76,7 @@ class LandDetailsViewController: BaseViewController, DZNEmptyDataSetDelegate, DZ
     //显示周边按钮
     func showRimBtn() {
         if self.isShowRim == true {
-            FuniCommon.asynExecuteCode(0.2, code: { () -> Void in
+            FuniCommon.animationExecute(0.5, code: { () -> Void in
                 self.rimBtn.alpha = 1.0
             })
         }
@@ -245,8 +245,10 @@ extension LandDetailsViewController {
             self.myTableView.header.endRefreshing()
             
             }) { (error: String) -> Void in
-                FuniHUD.sharedHud().show(self.myTableView, onlyMsg: error)
+                FuniHUD.sharedHud().show(self.view, onlyMsg: error)
                 self.myTableView.header.endRefreshing()
+//                super.showNoDataHandler()
+//                super.noDataHandler(self.)
         }
     }
     
@@ -286,5 +288,34 @@ extension LandDetailsViewController {
             }
             
         }
+    }
+}
+
+extension LandDetailsViewController {
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named:"noData");
+    }
+    
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0)]
+        return NSAttributedString(string: "暂无数据", attributes: attributes)
+    }
+    
+    
+    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0),NSForegroundColorAttributeName:UIColor.lightGrayColor()]
+        return NSAttributedString(string: "点击重新刷新", attributes: attributes)
+    }
+    
+    
+    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
+        self.myTableView.header.beginRefreshing()
+    }
+    
+    func emptyDataSetDidTapView(scrollView: UIScrollView!) {
+        self.myTableView.header.beginRefreshing()
     }
 }

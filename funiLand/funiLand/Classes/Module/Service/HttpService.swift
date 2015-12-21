@@ -138,6 +138,7 @@ class HttpService {
         
         sessionManager.ESP_GET(self.buildUrl(getRimInfoURL), parameters: params, taskSuccessed: { (responseVO: BaseRespDomain) -> Void in
             if responseVO.data != nil {
+//                let respArray = self.packageRimLandInfo(responseVO.data!)
                 let respArray = Mapper<RimLandInfoDomain>().mapArray(responseVO.data)
                 success(rimInfoArray: respArray!)
             } else {
@@ -161,6 +162,27 @@ class HttpService {
         }
         
         return str
+    }
+    
+    //解析地图周边JSON数据
+    func packageRimLandInfo(data: AnyObject) ->Array<RimLandInfoDomain> {
+        let landInfoArray = data as! Array<NSDictionary>
+        var array = Array<RimLandInfoDomain>()
+        var count = 0
+        for landInfoDict: NSDictionary in landInfoArray {
+            let landInfo = RimLandInfoDomain()
+            landInfo.id = landInfoDict["id"] as? String
+            landInfo.lat = landInfoDict["lat"] as? Double
+            landInfo.lng = landInfoDict["lng"] as? Double
+            landInfo.lat2 = landInfoDict["lat"] as? String
+            landInfo.lng2 = landInfoDict["lng"] as? String
+            if count > 22 {
+                print(landInfoDict)
+            }
+            array.append(landInfo)
+            count++
+        }
+        return array
     }
 }
 

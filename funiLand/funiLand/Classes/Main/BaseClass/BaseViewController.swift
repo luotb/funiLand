@@ -10,6 +10,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
+    var noDataView:FuniNoDataViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,4 +34,37 @@ class BaseViewController: UIViewController {
     func queryData() {
     }
    
+}
+
+// MARK NoData
+extension BaseViewController {
+    
+    //加载无数据视图
+    func loadNoDataView() {
+        self.noDataView = Helper.getViewControllerFromStoryboard("Login", storyboardID: "FuniNoDataViewController") as? FuniNoDataViewController
+        self.noDataView?.view.alpha = 0
+        self.view.addSubview((self.noDataView?.view)!)
+        
+        self.noDataView?.noDtaBtnClickedClosure = {
+            () ->Void in
+            self.queryData()
+        }
+    }
+    
+    func showNoDataHandler() {
+        if self.noDataView == nil {
+            self.loadNoDataView()
+        }
+        FuniCommon.animationExecute(0.5) { () -> Void in
+            self.noDataView?.view.alpha = 1.0
+        }
+    }
+    
+    func noDataHandler(dataSource:Array<AnyObject>) {
+        if dataSource.isEmpty == true || dataSource.count == 0 {
+            self.showNoDataHandler()
+        } else {
+            self.noDataView?.view.alpha = 0
+        }
+    }
 }

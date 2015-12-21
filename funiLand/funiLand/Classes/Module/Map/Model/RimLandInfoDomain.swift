@@ -24,15 +24,19 @@ class RimLandInfoDomain: Mappable {
     var fieldusageName: String?
     var lat: Double?
     var lng: Double?
+    var lat2: String?
+    var lng2: String?
     //土地位置
     var address: String?
     var title: String?
     // 挂牌时间
     var transferDate: String?
+    // 出让日期
+    var dealDate: String?
     // 0=招，1=挂，2=拍
     var type: String?
     // 最大容积率
-    var cubagerateMax:Int?
+    var cubagerateMax:CGFloat?
 
     init(){}
     
@@ -52,6 +56,8 @@ class RimLandInfoDomain: Mappable {
         address <- map["address"]
         title <- map["title"]
         transferDate <- map["transferDate"]
+        dealDate <- map["dealDate"]
         type <- map["type"]
+        cubagerateMax <- map["cubagerateMax"]
     }
 }
