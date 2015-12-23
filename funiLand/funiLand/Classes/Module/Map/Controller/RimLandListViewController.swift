@@ -16,6 +16,8 @@ class RimLandListViewController: BaseViewController,  DZNEmptyDataSetDelegate, D
     var rimInfoReqDomain: RimInfoReqDomain!
     // 数据源
     var rimLandInfoArray:Array<RimLandInfoDomain>!
+    // 是否显示周边按钮
+    var isShowRim:Bool = false
     
     //加载数据
     override func queryData(){
@@ -96,6 +98,7 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
             let landDomain    = LandDomain()
             landDomain.id     = rimLandDomain.id
             landDetailVC.landDomain = landDomain
+            landDetailVC.isShowRim  = self.isShowRim
             self.navigationController?.pushViewController(landDetailVC, animated: true)
         }
     }

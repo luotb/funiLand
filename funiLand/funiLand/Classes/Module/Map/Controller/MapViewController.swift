@@ -183,6 +183,16 @@ class MapViewController: BaseViewController {
             mapVC.isShowRim = true
             self.navigationController?.pushViewController(mapVC, animated: true)
         }
+        
+        self.annoatationDetailsView.sendRimLandInfoBtnClickedClosure = {
+            (rimLandInfo: RimLandInfoDomain) -> Void in
+            let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
+            let landDomain = LandDomain()
+            landDomain.id = rimLandInfo.id
+            landDetailVC.landDomain = landDomain
+            landDetailVC.isShowRim  = !self.isShowRim
+            self.navigationController?.pushViewController(landDetailVC, animated: true)
+        }
     }
     
     // 加载搜索输入框
@@ -580,6 +590,7 @@ extension MapViewController {
         let rimLandListVC = self.storyboard?.instantiateViewControllerWithIdentifier("RimLandListViewController") as! RimLandListViewController
         rimLandListVC.rimInfoReqDomain = self.rimInfoReqDomain
         rimLandListVC.rimLandInfoArray = self.filterRimLandArray
+        rimLandListVC.isShowRim        = !self.isShowRim
         self.navigationController?.pushViewController(rimLandListVC, animated: true)
     }
     

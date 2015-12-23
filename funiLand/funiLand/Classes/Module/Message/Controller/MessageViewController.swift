@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, UIActionSheetDelegate {
+class MessageViewController: BaseViewController, UIActionSheetDelegate {
 
     @IBOutlet var dataTypeSegment: UISegmentedControl!
     @IBOutlet var myTableView: UITableView!
@@ -77,9 +77,6 @@ class MessageViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmpt
         //设置展示表格的数据源和代理
         self.myTableView.dataSource = self
         self.myTableView.delegate   = self
-        //空值代理和数据源
-        self.myTableView.emptyDataSetDelegate = self
-        self.myTableView.emptyDataSetSource   = self
         
         //集成下拉刷新
         setupDownRefresh()

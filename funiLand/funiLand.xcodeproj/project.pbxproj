@@ -148,6 +148,9 @@
 		F49171DE1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F49171DC1C17F422000DC7F0 /* libUMessage_Sdk_1.2.1.a */; };
 		F4977DA31C07FDA500244201 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA21C07FDA500244201 /* NSDateExtension.swift */; };
 		F4977DA51C0827D100244201 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4977DA41C0827D100244201 /* StringExtension.swift */; };
+		F4A565DF1C291F7F003FCE48 /* EmptyViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A565DA1C291F7F003FCE48 /* EmptyViewFactory.m */; };
+		F4A565E01C291F7F003FCE48 /* FOREmptyAssistantConfiger.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A565DC1C291F7F003FCE48 /* FOREmptyAssistantConfiger.m */; };
+		F4A565E11C291F7F003FCE48 /* FORScrollViewEmptyAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A565DE1C291F7F003FCE48 /* FORScrollViewEmptyAssistant.m */; };
 		F4A8A9DD1B00855900618FDE /* MLEmojiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */; };
 		F4A8A9DE1B00855900618FDE /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A9DC1B00855900618FDE /* TTTAttributedLabel.m */; };
 		F4BBF32D1C27C0DA00324ABF /* FuniNoDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BBF32C1C27C0DA00324ABF /* FuniNoDataViewController.swift */; };
@@ -406,6 +409,12 @@
 		F49171DD1C17F422000DC7F0 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		F4977DA21C07FDA500244201 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		F4977DA41C0827D100244201 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		F4A565D91C291F7F003FCE48 /* EmptyViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyViewFactory.h; sourceTree = "<group>"; };
+		F4A565DA1C291F7F003FCE48 /* EmptyViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyViewFactory.m; sourceTree = "<group>"; };
+		F4A565DB1C291F7F003FCE48 /* FOREmptyAssistantConfiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FOREmptyAssistantConfiger.h; sourceTree = "<group>"; };
+		F4A565DC1C291F7F003FCE48 /* FOREmptyAssistantConfiger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FOREmptyAssistantConfiger.m; sourceTree = "<group>"; };
+		F4A565DD1C291F7F003FCE48 /* FORScrollViewEmptyAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FORScrollViewEmptyAssistant.h; sourceTree = "<group>"; };
+		F4A565DE1C291F7F003FCE48 /* FORScrollViewEmptyAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FORScrollViewEmptyAssistant.m; sourceTree = "<group>"; };
 		F4A8A9D91B00855900618FDE /* MLEmojiLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLEmojiLabel.h; sourceTree = "<group>"; };
 		F4A8A9DA1B00855900618FDE /* MLEmojiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEmojiLabel.m; sourceTree = "<group>"; };
 		F4A8A9DB1B00855900618FDE /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
@@ -887,6 +896,7 @@
 		F45700361C02CAB9005FEB26 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F4A565D81C291F7F003FCE48 /* EmptyAssistant */,
 				24DD1A951C1D43C400B63DAB /* Tencent */,
 				F4A8A9D81B00855900618FDE /* MLEmojiLabel */,
 				F49171DA1C17F422000DC7F0 /* UMeng */,
@@ -1235,6 +1245,19 @@
 			path = UMessage_Sdk_1.2.1;
 			sourceTree = "<group>";
 		};
+		F4A565D81C291F7F003FCE48 /* EmptyAssistant */ = {
+			isa = PBXGroup;
+			children = (
+				F4A565D91C291F7F003FCE48 /* EmptyViewFactory.h */,
+				F4A565DA1C291F7F003FCE48 /* EmptyViewFactory.m */,
+				F4A565DB1C291F7F003FCE48 /* FOREmptyAssistantConfiger.h */,
+				F4A565DC1C291F7F003FCE48 /* FOREmptyAssistantConfiger.m */,
+				F4A565DD1C291F7F003FCE48 /* FORScrollViewEmptyAssistant.h */,
+				F4A565DE1C291F7F003FCE48 /* FORScrollViewEmptyAssistant.m */,
+			);
+			path = EmptyAssistant;
+			sourceTree = "<group>";
+		};
 		F4A8A9D81B00855900618FDE /* MLEmojiLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1513,6 +1536,7 @@
 				F45474D31C0BEC9D00ED344B /* DateTransform.swift in Sources */,
 				F457009D1C02CAB9005FEB26 /* FuniHUD.m in Sources */,
 				F45700971C02CAB9005FEB26 /* UIColor+Extension.m in Sources */,
+				F4A565E11C291F7F003FCE48 /* FORScrollViewEmptyAssistant.m in Sources */,
 				F419E8B81C02F20D006A5815 /* AccountTool.swift in Sources */,
 				24C49EEF1C0734190065D9B6 /* UIView+MJExtension.m in Sources */,
 				F419E8E41C02FB09006A5815 /* AFSecurityPolicy.m in Sources */,
@@ -1538,6 +1562,7 @@
 				F458E6081C11866D0097AFB0 /* FuniPointAnnotation.swift in Sources */,
 				24E6A3681C072D09002AD03B /* SystemConfig.swift in Sources */,
 				F42CF1431C0D9C69008F0CCE /* LandInfoDomain.swift in Sources */,
+				F4A565E01C291F7F003FCE48 /* FOREmptyAssistantConfiger.m in Sources */,
 				F45474CC1C0BEC9D00ED344B /* Map.swift in Sources */,
 				F419E8B91C02F20D006A5815 /* Helper.swift in Sources */,
 				F49171D91AFDA7B5000DC7F0 /* RimLandListTableViewCell.swift in Sources */,
@@ -1576,6 +1601,7 @@
 				F4A8A9DE1B00855900618FDE /* TTTAttributedLabel.m in Sources */,
 				F419E94C1C030B9B006A5815 /* IQUITextFieldView+Additions.m in Sources */,
 				F419E8E71C02FB09006A5815 /* AFURLResponseSerialization.m in Sources */,
+				F4A565DF1C291F7F003FCE48 /* EmptyViewFactory.m in Sources */,
 				F45474D61C0BEC9D00ED344B /* TransformOf.swift in Sources */,
 				24C49EEA1C0734190065D9B6 /* MJRefreshHeader.m in Sources */,
 				F45474D21C0BEC9D00ED344B /* DateFormatterTransform.swift in Sources */,

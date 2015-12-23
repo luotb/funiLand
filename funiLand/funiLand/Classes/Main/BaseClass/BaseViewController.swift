@@ -11,6 +11,8 @@ import UIKit
 class BaseViewController: UIViewController {
     
     var noDataView:FuniNoDataViewController?
+    var isFirstReq:Bool = true
+    var reqResultData:AnyObject?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +62,29 @@ extension BaseViewController {
         }
     }
     
-    func noDataHandler(dataSource:Array<AnyObject>) {
+    func noDataHandler(dataSource:AnyObject) {
+        if self.isFirstReq == true {
+            self.firstReqHandler(dataSource)
+        } else {
+            self.noFirstReqHandler(dataSource)
+        }
+    }
+    
+    func firstReqHandler(dataSource:AnyObject) {
         if dataSource.isEmpty == true || dataSource.count == 0 {
             self.showNoDataHandler()
+        } else {
+            self.noDataView?.view.alpha = 0
+        }
+        self.reqResultData = dataSource
+        self.isFirstReq = false
+    }
+    
+    func noFirstReqHandler(dataSource:AnyObject) {
+        if self.reqResultData == nil {
+            if dataSource.isEmpty == false {
+                self.noDataView?.view.alpha = 0
+            }
         } else {
             self.noDataView?.view.alpha = 0
         }

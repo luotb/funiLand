@@ -44,12 +44,18 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
         self.myTableView.delegate = self
         self.myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         //空值代理和数据源
-        self.myTableView.emptyDataSetDelegate = self
-        self.myTableView.emptyDataSetSource = self
+//        self.myTableView.emptyDataSetDelegate = self
+//        self.myTableView.emptyDataSetSource = self
         
         //集成下拉刷新
         setupDownRefresh()
-        self.myTableView.header.beginRefreshing()
+        
+        // 初始化的引导空白页
+        EmptyViewFactory.emptyMainView(self.myTableView) { () -> Void in
+            self.queryData()
+        }
+        
+        self.queryData()
     }
     
     //下拉刷新
@@ -75,7 +81,7 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
     
     //显示周边按钮
     func showRimBtn() {
-        if self.isShowRim == true {
+        if self.isShowRim == true && self.landInfoObj.lat > 0 && self.landInfoObj.lng > 0 {
             FuniCommon.animationExecute(0.5, code: { () -> Void in
                 self.rimBtn.alpha = 1.0
             })
