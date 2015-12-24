@@ -187,9 +187,10 @@ class MapViewController: BaseViewController {
         self.annoatationDetailsView.sendRimLandInfoBtnClickedClosure = {
             (rimLandInfo: RimLandInfoDomain) -> Void in
             let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
-            let landDomain = LandDomain()
-            landDomain.id = rimLandInfo.id
-            landDetailVC.landDomain = landDomain
+            
+            let landInfoObj = LandInfoDomain()
+            landInfoObj.id  = rimLandInfo.id
+            landDetailVC.landInfoObj = landInfoObj
             landDetailVC.isShowRim  = !self.isShowRim
             self.navigationController?.pushViewController(landDetailVC, animated: true)
         }
@@ -476,7 +477,7 @@ extension MapViewController : MKMapViewDelegate {
         if let annotation = view.annotation {
             if annotation is FuniPointAnnotation {
                 let pointAnnatotion = annotation as! FuniPointAnnotation
-                if pointAnnatotion.isUserLocation == false {
+                if pointAnnatotion.isUserLocation == false && pointAnnatotion.rimLandInfoDomain != nil {
                     self.annoatationDetailsView.rimLandInfoDomain = pointAnnatotion.rimLandInfoDomain!
                     
                     let landInfoViewY: CGFloat = CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.landInfoView.frame)

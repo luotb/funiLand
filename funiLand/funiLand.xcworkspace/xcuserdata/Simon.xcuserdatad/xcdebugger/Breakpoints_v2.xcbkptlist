@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "funiLand/Classes/Main/Libs/DZNEmptyDataSet/UIScrollView+EmptyDataSet.m"
-            timestampString = "472448345.893708"
+            filePath = "funiLand/Classes/Main/Libs/EmptyAssistant/FORScrollViewEmptyAssistant.m"
+            timestampString = "472638897.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "-dzn_image"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "-emptyDataSetDidTapButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

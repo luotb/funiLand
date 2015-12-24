@@ -18,9 +18,9 @@
 {
     [FORScrollViewEmptyAssistant emptyWithContentView:scrollView
                                         configerBlock:^(FOREmptyAssistantConfiger *configer) {
-                                            configer.emptyImage = [UIImage imageNamed:@"empty_err_net"];
-                                            configer.emptyTitle = @"网络请求失败";
-                                            configer.emptySubtitle = @"请点击重新加载\n模拟数据也是需要人品的,现在成功概率更高了\n赶快试一试吧";
+                                            configer.emptyImage = [UIImage imageNamed:@"noData"];
+//                                            configer.emptyTitle = @"网络请求失败";
+                                            configer.emptySubtitle = @"点击重新加载";
                                             configer.emptyCenterOffset = CGPointMake(0, -50);
                                         }
                                         emptyBtnTitle:@"重新加载"

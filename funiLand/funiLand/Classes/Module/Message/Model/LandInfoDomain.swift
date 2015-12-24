@@ -10,6 +10,7 @@ import UIKit
 
 class LandInfoDomain: Mappable {
     
+    var id:String?
     var fieldList: Array<FieldGroupDomain>?
     var lat: Double?
     var lng: Double?
@@ -28,6 +29,7 @@ class LandInfoDomain: Mappable {
     }
     
     func mapping(map: Map) {
+        id <- map["id"]
         region <- map["region"]
         fieldNo <- map["fieldNo"]
         fieldList <- map["fieldList"]

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class LandDetailsViewController: BaseViewController{
     
     @IBOutlet var myTableView: UITableView!
     @IBOutlet var tabelViewHeadView: UIView!
@@ -18,9 +18,8 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
     var customCellVOArray: Array<LandDetailsCellVO>?
     //是否显示周边按钮 从地图列表数据釞土地详情不续约显示周边按钮
     var isShowRim: Bool = false
-    var landDomain: LandDomain!
     var landInfoObj: LandInfoDomain!
-  
+    var landId:String!
     
     //重写父类加载数据
     override func queryData() {
@@ -30,6 +29,7 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initSteup()
+        self.landId = self.landInfoObj.id
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,16 +44,16 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
         self.myTableView.delegate = self
         self.myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         //空值代理和数据源
-//        self.myTableView.emptyDataSetDelegate = self
-//        self.myTableView.emptyDataSetSource = self
+        self.myTableView.emptyDataSetDelegate = self
+        self.myTableView.emptyDataSetSource = self
         
         //集成下拉刷新
         setupDownRefresh()
         
         // 初始化的引导空白页
-        EmptyViewFactory.emptyMainView(self.myTableView) { () -> Void in
-            self.queryData()
-        }
+//        EmptyViewFactory.emptyMainView(self.myTableView) { () -> Void in
+//            self.queryData()
+//        }
         
         self.queryData()
     }
@@ -101,32 +101,6 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
         }
         return height
     }
-    
-    // 画虚线
-    func drawDottedLine(imageView: UIImageView) {
-        UIGraphicsBeginImageContext(imageView.size)
-        imageView.image?.drawInRect(CGRectMake(0, 0, imageView.width, imageView.height))
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), CGLineCap.Round)
-        let lengths:[CGFloat] = [10,5]
-        let line = UIGraphicsGetCurrentContext();
-        CGContextSetStrokeColorWithColor(line, UIColor.redColor().CGColor);
-        
-        CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
-        CGContextMoveToPoint(line, 0.0, 20.0);    //开始画线
-        CGContextAddLineToPoint(line, 310.0, 20.0);
-        CGContextStrokePath(line);
-        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
-    }
-    
-    func drawInContext(view: UIView) {
-        let context: CGContextRef = UIGraphicsGetCurrentContext()!
-        
-        let lengths: [CGFloat] = [CGFloat(APPWIDTH-20)]
-        CGContextSetLineDash(context, 0, lengths, 2)
-        
-        CGContextMoveToPoint(context, view.x, view.y)
-        CGContextAddLineToPoint(context, CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame))
-    }
 
 }
 
@@ -134,10 +108,11 @@ class LandDetailsViewController: BaseViewController,DZNEmptyDataSetDelegate, DZN
 extension LandDetailsViewController : UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if let obj = self.landInfoObj {
-            return (obj.fieldList?.count)! + 1
+        let count = self.landInfoObj.fieldList?.count
+        if count > 0 {
+            return count! + 1
         }
-        return 1
+        return 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -238,14 +213,10 @@ extension LandDetailsViewController {
     //加载数据
     func requestData(){
         
-        HttpService.sharedInstance.getLandInfo(landDomain.id!, success: { (landInfo: LandInfoDomain?) -> Void in
-            if landInfo != nil {
-                self.landInfoObj = landInfo!
-                self.showRimBtn()
-            } else {
-                self.landInfoObj = LandInfoDomain()
-            }
+        HttpService.sharedInstance.getLandInfo(landId, success: { (landInfo: LandInfoDomain?) -> Void in
             
+            self.landInfoObj = landInfo!
+            self.showRimBtn()
             self.packageDataSource()
             self.myTableView.reloadData()
             self.myTableView.header.endRefreshing()
@@ -253,8 +224,6 @@ extension LandDetailsViewController {
             }) { (error: String) -> Void in
                 FuniHUD.sharedHud().show(self.view, onlyMsg: error)
                 self.myTableView.header.endRefreshing()
-//                super.showNoDataHandler()
-//                super.noDataHandler(self.)
         }
     }
     
@@ -297,25 +266,16 @@ extension LandDetailsViewController {
     }
 }
 
-extension LandDetailsViewController {
+extension LandDetailsViewController : DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
         return UIImage(named:"noData");
     }
     
-    
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        
-        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0)]
-        return NSAttributedString(string: "暂无数据", attributes: attributes)
-    }
-    
-    
     func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
         let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0),NSForegroundColorAttributeName:UIColor.lightGrayColor()]
         return NSAttributedString(string: "点击重新刷新", attributes: attributes)
     }
-    
     
     func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
         self.myTableView.header.beginRefreshing()

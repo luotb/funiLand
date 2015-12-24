@@ -95,9 +95,10 @@ extension RimLandListViewController : UITableViewDataSource, UITableViewDelegate
         if self.rimLandInfoArray.count > 0 {
             let landDetailVC = Helper.getViewControllerFromStoryboard("Message", storyboardID: "LandDetailsViewController") as! LandDetailsViewController
             let rimLandDomain = self.rimLandInfoArray[indexPath.row]
-            let landDomain    = LandDomain()
-            landDomain.id     = rimLandDomain.id
-            landDetailVC.landDomain = landDomain
+            
+            let landInfoObj = LandInfoDomain()
+            landInfoObj.id  = rimLandDomain.id
+            landDetailVC.landInfoObj = landInfoObj
             landDetailVC.isShowRim  = self.isShowRim
             self.navigationController?.pushViewController(landDetailVC, animated: true)
         }
@@ -115,12 +116,10 @@ extension RimLandListViewController {
             self.rimLandInfoArray = rimInfoArray
             self.myTableView.reloadData()
             self.myTableView.header.endRefreshing()
-            super.noDataHandler(self.rimLandInfoArray)
             
             }) { (error:String) -> Void in
                 FuniHUD.sharedHud().show(self.view, onlyMsg: error)
                 self.myTableView.header.endRefreshing()
-                super.noDataHandler(self.rimLandInfoArray)
         }
     }
 }

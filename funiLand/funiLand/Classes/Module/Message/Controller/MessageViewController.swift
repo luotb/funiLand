@@ -300,7 +300,9 @@ extension MessageViewController : UITableViewDataSource, UITableViewDelegate {
             self.landInfoDomain = self.landArray[indexPath.row]
             
             let landDetailVC = self.storyboard?.instantiateViewControllerWithIdentifier("LandDetailsViewController") as! LandDetailsViewController
-            landDetailVC.landDomain = self.landInfoDomain
+            let landInfoObj = LandInfoDomain()
+            landInfoObj.id  = self.landInfoDomain.id
+            landDetailVC.landInfoObj = landInfoObj
             landDetailVC.isShowRim  = true
             self.navigationController?.pushViewController(landDetailVC, animated: true)
         }
