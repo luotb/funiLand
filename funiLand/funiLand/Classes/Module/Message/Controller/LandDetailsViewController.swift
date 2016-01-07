@@ -248,7 +248,7 @@ extension LandDetailsViewController {
                         
                         if size.height > 25 {
                             let cellVO = LandDetailsCellVO()
-                            cellVO.section = i
+                            cellVO.section = i + 1
                             cellVO.row = j
                             cellVO.height = size.height
                             
